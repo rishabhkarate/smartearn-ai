@@ -185,7 +185,7 @@
     
     <!-- Yahan aap apni behen ka naam add kar sakte hain -->
     <div style="color: var(--secondary); font-weight: 600; font-size: 14px;">
-      ❤️ Dedicated to [Behen Ka Naam]
+      ❤️ Dedicated to [Swastii]
     </div>
 
     <nav><a href="#tools">Tools</a><a href="#guides">Guides</a></nav>
