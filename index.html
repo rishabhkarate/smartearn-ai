@@ -879,11 +879,9 @@ select:focus-visible {
   </footer>
 
   <script>
-    /* ==========================================
-   SMARTEARN AI — PART 4 OF 4
-   JAVASCRIPT FOR ALL 9 TOOLS
-========================================== */
-
+/* =======================================================
+   SMARTEARN AI - JAVASCRIPT FOR ALL 9 TOOLS
+   ======================================================= */
 "use strict";
 
 /* ---------- HELPER FUNCTIONS ---------- */
@@ -899,7 +897,6 @@ function showOutput(boxId, resultId, content) {
 
   if (!box || !result) return;
 
-  // Render generated content as plain text for safety.
   result.textContent = content;
   box.classList.add("show");
 
@@ -912,18 +909,15 @@ function showOutput(boxId, resultId, content) {
 function pick(items, count = 5) {
   const copy = [...items];
   const result = [];
-
   while (copy.length && result.length < count) {
     const index = Math.floor(Math.random() * copy.length);
     result.push(copy.splice(index, 1)[0]);
   }
-
   return result;
 }
 
 function copyOutput(id) {
   const el = document.getElementById(id);
-
   if (!el) return;
 
   const textToCopy = el.innerText || el.textContent || "";
@@ -939,21 +933,17 @@ function copyOutput(id) {
 
 function fallbackCopy(textToCopy) {
   const textarea = document.createElement("textarea");
-
   textarea.value = textToCopy;
   textarea.style.position = "fixed";
   textarea.style.opacity = "0";
-
   document.body.appendChild(textarea);
   textarea.select();
-
   try {
-    const success = document.execCommand("copy");
-    alert(success ? "Copied successfully!" : "Please select and copy the text.");
+    document.execCommand("copy");
+    alert("Copied successfully! (Fallback)");
   } catch (error) {
     alert("Copy failed. Please copy the text manually.");
   }
-
   textarea.remove();
 }
 
@@ -962,7 +952,6 @@ function formatList(items) {
 }
 
 /* ---------- 1. BIO GENERATOR ---------- */
-
 document.getElementById("bioForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -972,21 +961,19 @@ document.getElementById("bioForm").addEventListener("submit", function (event) {
 
   const bios = {
     aesthetic: [
-      `✦ ${name} | collecting little moments 🌙`,
-      `☁️ ${name} • lost in my own universe`,
-      `𓆩♡𓆪 ${name} | soft heart, strong mind`,
+      `✨ ${name} | collecting little moments 🌙`,
+      `☁️ ${name} | lost in my own universe`,
+      `🤍 ${name} | soft heart, strong mind`,
       `${name} ✨ less perfection, more authenticity`,
       `🌿 ${name} | growing at my own pace`
     ],
-
     attitude: [
       `${name} | Built different. Focused always. 🔥`,
-      `No competition, just my own journey. ⚡`,
+      `No competition, just my own journey. 🚀`,
       `${name} 👑 Confidence over validation.`,
       `Silent moves. Clear goals. 💯`,
       `My vibe, my rules, my story. 🖤`
     ],
-
     gaming: [
       `🎮 ${name} | Gaming mode: ON`,
       `Headshots, highlights & good vibes ⚡`,
@@ -994,27 +981,24 @@ document.getElementById("bioForm").addEventListener("submit", function (event) {
       `One match at a time. One level higher. 🕹️`,
       `🎮 Creator | Gamer | Challenger`
     ],
-
     creator: [
       `${name} | Creating one idea at a time ✨`,
-      `🎬 Ideas into content. Dreams into action.`,
-      `${name} • Creator in progress 🚀`,
-      `Making videos worth your time 🎥`,
+      `📹 Ideas into content. Dreams into action.`,
+      `${name} 🚀 Creator in progress 🎯`,
+      `Making videos worth your time 🎬`,
       `Create. Learn. Improve. Repeat.`
     ],
-
     minimal: [
-      `${name} | Simply becoming.`,
-      `Less noise. More meaning. ☁️`,
-      `Here for the little things.`,
-      `${name} • one day at a time`,
-      `Quietly building my world.`
+      `${name} | Simply becoming. 🤍`,
+      `Less noise. More meaning. 🍂`,
+      `Here for the little things. ✨`,
+      `${name} - one day at a time`,
+      `Quietly building my world. 🕊️`
     ],
-
     motivational: [
       `${name} | Progress over perfection 💪`,
       `Dream big. Work consistently. 🚀`,
-      `Small steps. Bigger possibilities.`,
+      `Small steps. Bigger possibilities. ✨`,
       `${name} | Discipline creates freedom.`,
       `Learning today. Growing every day. 🔥`
     ]
@@ -1023,15 +1007,15 @@ document.getElementById("bioForm").addEventListener("submit", function (event) {
   const hindiBios = [
     `${name} | अपनी राह, अपने सपने ✨`,
     `हर दिन कुछ नया सीखना 🚀`,
-    `${name} • मेहनत जारी है 💪`,
+    `${name} ✨ मेहनत जारी है 💪`,
     `सादगी में ही असली पहचान 🌿`,
-    `सपने बड़े, कदम छोटे, सफर जारी 🔥`
+    `सपने बड़े, कदम छोटे, सफर जारी 🔥`
   ];
 
   const hinglishBios = [
     `${name} | Apni vibe, apni story ✨`,
     `Sapne bade, steps daily 🚀`,
-    `${name} • Khud ka best version`,
+    `${name} 👑 Khud ka best version`,
     `Less drama, more progress 🔥`,
     `Apna time, apni journey 🌙`
   ];
@@ -1051,9 +1035,7 @@ document.getElementById("bioForm").addEventListener("submit", function (event) {
   );
 });
 
-
 /* ---------- 2. CAPTION GENERATOR ---------- */
-
 document.getElementById("captionForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1068,53 +1050,46 @@ document.getElementById("captionForm").addEventListener("submit", function (even
       `Living the moment, enjoying the journey. 🌍`,
       `Simple frame. Unforgettable feeling. 📸`
     ],
-
     aesthetic: [
       `${topic}, but make it a memory. 🌙`,
       `A little peace in a noisy world. ☁️`,
       `Some moments speak without words. ✨`,
       `Collecting moments, not expectations. 🌿`,
-      `A frame full of feelings and light. 📷`
+      `A frame full of feelings and light. 🕊️`
     ],
-
     funny: [
       `${topic}: 10/10. My planning: 2/10. 😂`,
-      `Professional at looking busy. 😎`,
+      `Professional at looking busy. 🤓`,
       `Proof that I actually went outside. 🌍`,
-      `Mood: loading... please wait. 🤖`,
-      `Main character, budget edition. 😂`
+      `Mood: loading... please wait. ⏳`,
+      `Main character, budget edition. 😅`
     ],
-
     motivational: [
       `${topic} is part of the journey. Keep going. 💪`,
       `Small steps today, stronger tomorrow. 🚀`,
-      `Progress takes patience. Trust the process.`,
+      `Progress takes patience. Trust the process. ✨`,
       `One day, this effort will make sense. 🔥`,
-      `Keep showing up for your dreams. ✨`
+      `Keep showing up for your dreams. 🌟`
     ],
-
     attitude: [
       `${topic}. My journey, my standards. 🖤`,
-      `Focused on growth, not approval. ⚡`,
+      `Focused on growth, not approval. 🎯`,
       `Confidence speaks louder than words. 🔥`,
-      `No race. Just my own pace. 👑`,
+      `No race, just my own pace. 👑`,
       `Different mindset, different direction. 💯`
     ]
   };
 
-  const results = (templates[mood] || templates.cool)
-    .map(text => text.replace(/\$\{topic\}/g, topic));
+  const results = templates[mood] || templates.cool;
 
   showOutput(
     "captionOutput",
     "captionResult",
-    formatList(results)
+    formatList(pick(results, 5))
   );
 });
 
-
 /* ---------- 3. HASHTAG GENERATOR ---------- */
-
 document.getElementById("hashtagForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1123,7 +1098,7 @@ document.getElementById("hashtagForm").addEventListener("submit", function (even
 
   const cleanTopic = topic
     .normalize("NFKD")
-    .replace(/[^\p{L}\p{N}\s]/gu, "")
+    .replace(/[^\w\s]/g, "")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
@@ -1149,7 +1124,6 @@ document.getElementById("hashtagForm").addEventListener("submit", function (even
       "ReelsIndia",
       "InstaCreator"
     ],
-
     youtube: [
       "YouTube",
       "YouTubeCreator",
@@ -1157,7 +1131,6 @@ document.getElementById("hashtagForm").addEventListener("submit", function (even
       "YouTubeCommunity",
       "VideoCreator"
     ],
-
     shorts: [
       "Shorts",
       "YouTubeShorts",
@@ -1192,586 +1165,7 @@ document.getElementById("hashtagForm").addEventListener("submit", function (even
   );
 });
 
-
 /* ---------- 4. REEL IDEAS GENERATOR ---------- */
-
-document.getElementById("reelForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const niche = getValue("reelNiche");
-  const platform = getValue("reelPlatform");
-
-    const ideas = [
-    `5 things beginners should know about ${niche}`,
-    `A common ${niche} mistake and how to improve`,
-    `Myth vs fact: ${niche}`,
-    `A beginner's guide to ${niche}`,
-    `Things I wish I knew earlier about ${niche}`,
-    `Before vs after: learning ${niche}`,
-    `3 tips to get better at ${niche}`,
-    `Answering the most common ${niche} question`,
-    `A day in my ${niche} journey`,
-    `Reacting to popular ${niche} trends`,
-    `Things people misunderstand about ${niche}`,
-    `Can I improve at ${niche} in 7 days?`,
-    `A quick tutorial for ${niche} beginners`,
-    `My favourite tools for ${niche}`,
-    `One useful ${niche} tip in 30 seconds`
-  ];
-  
-  const heading = platform === "youtube"
-    ? "YouTube Shorts Ideas"
-    : "Instagram Reel Ideas";
-
-  showOutput(
-    "reelOutput",
-    "reelResult",
-    heading + "\n\n" + formatList(pick(ideas, 10))
-  );
-});
-
-
-/* ---------- 5. YOUTUBE TITLE GENERATOR ---------- */
-
-document.getElementById("titleForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const topic = getValue("titleTopic");
-  const style = getValue("titleStyle");
-
-  const templates = {
-    curiosity: [
-      `The Truth About ${topic}`,
-      `Nobody Talks About This ${topic Secret}`,
-      `I Tried ${topic} — Here's What Happened`,
-      `What You Should Know About ${topic}`,
-      `This Changed How I See ${topic}`
-    ],
-
-    challenge: [
-      `I Tried the ${topic} Challenge!`,
-      `Can I Master ${topic}?`,
-      `${topic}: The Ultimate Challenge`,
-      `7 Days of ${topic — Let's See What Happens}`,
-      `I Put My ${topic} Skills to the Test`
-    ],
-
-    educational: [
-      `${topic}: A Beginner's Guide`,
-      `5 Things to Know About ${topic}`,
-      `How to Get Started With ${topic}`,
-      `${topic} Explained Simply`,
-      `Common ${topic} Mistakes to Avoid`
-    ],
-
-    story: [
-      `My ${topic} Journey: The Beginning`,
-      `What Happened When I Tried ${topic}`,
-      `The Story Behind My ${topic} Experience`,
-      `My Biggest Lesson From ${topic}`,
-      `From Beginner to Better: My ${topic} Story`
-    ]
-  };
-
-  // Correct the topic placeholders in all templates.
-  const selected = (templates[style] || templates.curiosity)
-    .map(title => title.replace(/\$\{topic\}/g, topic));
-
-  showOutput(
-    "titleOutput",
-    "titleResult",
-    formatList(selected)
-  );
-});
-
-
-/* ---------- 6. YOUTUBE DESCRIPTION WRITER ---------- */
-
-document.getElementById("descriptionForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const topic = getValue("descriptionTopic");
-  const channel = getValue("descriptionChannel");
-  const keywords = getValue("descriptionKeywords");
-
-    const description = [
-    `Welcome to this video about ${topic}!`,
-    "",
-    `In this video, we explore ${topic} and share useful ideas, insights and tips.`,
-    "",
-    "If you find this video helpful:",
-    "👍 Like the video",
-    "💬 Share your thoughts in the comments",
-    "🔔 Subscribe for more content",
-    "",
-    channel ? `Channel: ${channel}` : "",
-    keywords ? `\nRelated keywords: ${keywords}` : "",
-    "",
-    "Thanks for watching!"
-  ].filter(Boolean).join("\n");
-
-  showOutput(
-    "descriptionOutput",
-    "descriptionResult",
-    description
-  );
-});
-
-
-/* ---------- 7. CONTENT IDEA GENERATOR ---------- */
-
-document.getElementById("contentForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const niche = getValue("contentNiche");
-  const platform = getValue("contentPlatform");
-
-    const formats = [
-    `Beginner's guide to ${niche}`,
-    `5 useful facts about ${niche}`,
-    `Common mistakes in ${niche}`,
-    `Myth-busting: ${niche}`,
-    `A checklist for ${niche} beginners`,
-    `Tools that can help with ${niche}`,
-    `A weekly challenge related to ${niche}`,
-    `Answering audience questions about ${niche}`,
-    `A step-by-step ${niche} tutorial`,
-    `Lessons learned from ${niche}`,
-    `Reacting to a popular ${niche} trend`,
-    `A comparison of different ${niche} approaches`,
-    `Behind the scenes of ${niche}`,
-    `Top 5 tips for improving at ${niche}`,
-    `A progress update about ${niche}`
-  ];
-
-  const platformName = {
-    instagram: "Instagram Content Ideas",
-    youtube: "YouTube Content Ideas",
-    both: "Instagram + YouTube Content Ideas"
-  };
-
-  showOutput(
-    "contentOutput",
-    "contentResult",
-    (platformName[platform] || platformName.both) +
-    "\n\n" + formatList(pick(formats, 10))
-  );
-});
-
-
-/* ---------- 8. VIDEO HOOK GENERATOR ---------- */
-
-document.getElementById("hookForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const topic = getValue("hookTopic");
-  const style = getValue("hookStyle");
-
-    const hooks = {
-    question: [
-      `Have you ever wondered about ${topic}?`,
-      `Are you making these ${topic} mistakes?`,
-      `Want to improve your ${topic} skills?`,
-      `What if I told you something surprising about ${topic}?`,
-      `Could this one tip change your ${topic} journey?`
-    ],
-    curiosity: [
-      `Here's something about ${topic} you might not know.`,
-      `Most beginners overlook this about ${topic}.`,
-      `Wait until you see this ${topic} tip.`,
-      `This simple idea changed my approach to ${topic}.`,
-      `There's more to ${topic} than you think.`
-    ],
-    story: [
-      `Let me tell you what happened during my ${topic} journey.`,
-      `I learned an unexpected lesson from ${topic}.`,
-      `This is how my ${topic} journey started.`,
-      `One experience changed how I approach ${topic}.`,
-      `Here's what I wish I knew before trying ${topic}.`
-    ],
-    bold: [
-      `Stop overlooking the basics of ${topic}.`,
-      `You can approach ${topic} more effectively.`,
-      `Let's rethink how we approach ${topic}.`,
-      `These ${topic} basics deserve more attention.`,
-      `Your next step with ${topic} starts here.`
-    ]
-  };
-  
-  showOutput(
-    "hookOutput",
-    "hookResult",
-    formatList(pick(hooks[style] || hooks.question, 5))
-  );
-});
-
-
-/* ---------- 9. RESUME BUILDER ---------- */
-
-document.getElementById("resumeForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const name = getValue("resumeName");
-  const email = getValue("resumeEmail");
-  const role = getValue("resumeRole");
-  const skills = getValue("resumeSkills");
-  const education = getValue("resumeEducation");
-  const experience = getValue("resumeExperience");
-
-    const resume = [
-    name.toUpperCase(),
-    email ? `Email: ${email}` : "",
-    "",
-    "TARGET ROLE",
-    role,
-    "",
-    "PROFESSIONAL SUMMARY",
-    `Motivated candidate seeking opportunities as a ${role}.`,
-    "",
-    "SKILLS",
-    skills,
-    "",
-    "EDUCATION",
-    education,
-    "",
-    "EXPERIENCE / ACHIEVEMENTS",
-    experience || "Add relevant experience, projects or achievements here.",
-    "",
-    "Note: Review and personalise this draft before applying."
-  ].filter(value => value !== undefined).join("\n");
-
-  showOutput(
-    "resumeOutput",
-    "resumeResult",
-    resume
-  );
-});
-
-
-/* ---------- FOOTER YEAR ---------- */
-
-const yearElement = document.getElementById("currentYear");
-
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
-
-console.log("SmartEarn AI tools loaded successfully.");/* ==========================================
-   SMARTEARN AI — PART 4 OF 4
-   JAVASCRIPT FOR ALL 9 TOOLS
-========================================== */
-
-"use strict";
-
-/* ---------- HELPER FUNCTIONS ---------- */
-
-function getValue(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : "";
-}
-
-function showOutput(boxId, resultId, content) {
-  const box = document.getElementById(boxId);
-  const result = document.getElementById(resultId);
-
-  if (!box || !result) return;
-
-  // Render generated content as plain text for safety.
-  result.textContent = content;
-  box.classList.add("show");
-
-  box.scrollIntoView({
-    behavior: "smooth",
-    block: "nearest"
-  });
-}
-
-function pick(items, count = 5) {
-  const copy = [...items];
-  const result = [];
-
-  while (copy.length && result.length < count) {
-    const index = Math.floor(Math.random() * copy.length);
-    result.push(copy.splice(index, 1)[0]);
-  }
-
-  return result;
-}
-
-function copyOutput(id) {
-  const el = document.getElementById(id);
-
-  if (!el) return;
-
-  const textToCopy = el.innerText || el.textContent || "";
-
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => alert("Copied successfully!"))
-      .catch(() => fallbackCopy(textToCopy));
-  } else {
-    fallbackCopy(textToCopy);
-  }
-}
-
-function fallbackCopy(textToCopy) {
-  const textarea = document.createElement("textarea");
-
-  textarea.value = textToCopy;
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-
-  document.body.appendChild(textarea);
-  textarea.select();
-
-  try {
-    const success = document.execCommand("copy");
-    alert(success ? "Copied successfully!" : "Please select and copy the text.");
-  } catch (error) {
-    alert("Copy failed. Please copy the text manually.");
-  }
-
-  textarea.remove();
-}
-
-function formatList(items) {
-  return items.map((item, index) => `${index + 1}. ${item}`).join("\n\n");
-}
-
-/* ---------- 1. BIO GENERATOR ---------- */
-
-document.getElementById("bioForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const name = getValue("bioName") || "Your Name";
-  const style = getValue("bioStyle");
-  const language = getValue("bioLanguage");
-
-  const bios = {
-    aesthetic: [
-      `✦ ${name} | collecting little moments 🌙`,
-      `☁️ ${name} • lost in my own universe`,
-      `𓆩♡𓆪 ${name} | soft heart, strong mind`,
-      `${name} ✨ less perfection, more authenticity`,
-      `🌿 ${name} | growing at my own pace`
-    ],
-
-    attitude: [
-      `${name} | Built different. Focused always. 🔥`,
-      `No competition, just my own journey. ⚡`,
-      `${name} 👑 Confidence over validation.`,
-      `Silent moves. Clear goals. 💯`,
-      `My vibe, my rules, my story. 🖤`
-    ],
-
-    gaming: [
-      `🎮 ${name} | Gaming mode: ON`,
-      `Headshots, highlights & good vibes ⚡`,
-      `${name} 🎯 Play smart. Stay humble.`,
-      `One match at a time. One level higher. 🕹️`,
-      `🎮 Creator | Gamer | Challenger`
-    ],
-
-    creator: [
-      `${name} | Creating one idea at a time ✨`,
-      `🎬 Ideas into content. Dreams into action.`,
-      `${name} • Creator in progress 🚀`,
-      `Making videos worth your time 🎥`,
-      `Create. Learn. Improve. Repeat.`
-    ],
-
-    minimal: [
-      `${name} | Simply becoming.`,
-      `Less noise. More meaning. ☁️`,
-      `Here for the little things.`,
-      `${name} • one day at a time`,
-      `Quietly building my world.`
-    ],
-
-    motivational: [
-      `${name} | Progress over perfection 💪`,
-      `Dream big. Work consistently. 🚀`,
-      `Small steps. Bigger possibilities.`,
-      `${name} | Discipline creates freedom.`,
-      `Learning today. Growing every day. 🔥`
-    ]
-  };
-
-  const hindiBios = [
-    `${name} | अपनी राह, अपने सपने ✨`,
-    `हर दिन कुछ नया सीखना 🚀`,
-    `${name} • मेहनत जारी है 💪`,
-    `सादगी में ही असली पहचान 🌿`,
-    `सपने बड़े, कदम छोटे, सफर जारी 🔥`
-  ];
-
-  const hinglishBios = [
-    `${name} | Apni vibe, apni story ✨`,
-    `Sapne bade, steps daily 🚀`,
-    `${name} • Khud ka best version`,
-    `Less drama, more progress 🔥`,
-    `Apna time, apni journey 🌙`
-  ];
-
-  let results = bios[style] || bios.aesthetic;
-
-  if (language === "hindi") {
-    results = hindiBios;
-  } else if (language === "hinglish") {
-    results = hinglishBios;
-  }
-
-  showOutput(
-    "bioOutput",
-    "bioResult",
-    formatList(pick(results, 5))
-  );
-});
-
-
-/* ---------- 2. CAPTION GENERATOR ---------- */
-
-document.getElementById("captionForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const topic = getValue("captionTopic");
-  const mood = getValue("captionMood");
-
-  const templates = {
-    cool: [
-      `${topic} vibes. No explanation needed. 😎`,
-      `Just another moment worth keeping. ✨`,
-      `${topic} mode: activated. ⚡`,
-      `Living the moment, enjoying the journey. 🌍`,
-      `Simple frame. Unforgettable feeling. 📸`
-    ],
-
-    aesthetic: [
-      `${topic}, but make it a memory. 🌙`,
-      `A little peace in a noisy world. ☁️`,
-      `Some moments speak without words. ✨`,
-      `Collecting moments, not expectations. 🌿`,
-      `A frame full of feelings and light. 📷`
-    ],
-
-    funny: [
-      `${topic}: 10/10. My planning: 2/10. 😂`,
-      `Professional at looking busy. 😎`,
-      `Proof that I actually went outside. 🌍`,
-      `Mood: loading... please wait. 🤖`,
-      `Main character, budget edition. 😂`
-    ],
-
-    motivational: [
-      `${topic} is part of the journey. Keep going. 💪`,
-      `Small steps today, stronger tomorrow. 🚀`,
-      `Progress takes patience. Trust the process.`,
-      `One day, this effort will make sense. 🔥`,
-      `Keep showing up for your dreams. ✨`
-    ],
-
-    attitude: [
-      `${topic}. My journey, my standards. 🖤`,
-      `Focused on growth, not approval. ⚡`,
-      `Confidence speaks louder than words. 🔥`,
-      `No race. Just my own pace. 👑`,
-      `Different mindset, different direction. 💯`
-    ]
-  };
-
-  const results = (templates[mood] || templates.cool)
-    .map(text => text.replace(/\$\{topic\}/g, topic));
-
-  showOutput(
-    "captionOutput",
-    "captionResult",
-    formatList(results)
-  );
-});
-
-
-/* ---------- 3. HASHTAG GENERATOR ---------- */
-
-document.getElementById("hashtagForm").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const topic = getValue("hashtagTopic");
-  const platform = getValue("hashtagPlatform");
-
-  const cleanTopic = topic
-    .normalize("NFKD")
-    .replace(/[^\p{L}\p{N}\s]/gu, "")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
-
-  const general = [
-    "ContentCreator",
-    "CreatorCommunity",
-    "NewPost",
-    "DailyContent",
-    "ExploreMore",
-    "CreativeJourney",
-    "TrendingContent",
-    "DigitalCreator"
-  ];
-
-  const platformTags = {
-    instagram: [
-      "Instagram",
-      "InstaDaily",
-      "InstagramReels",
-      "ReelsIndia",
-      "InstaCreator"
-    ],
-
-    youtube: [
-      "YouTube",
-      "YouTubeCreator",
-      "NewVideo",
-      "YouTubeCommunity",
-      "VideoCreator"
-    ],
-
-    shorts: [
-      "Shorts",
-      "YouTubeShorts",
-      "ShortVideo",
-      "ShortsFeed",
-      "YTShorts"
-    ]
-  };
-
-  const topicTags = cleanTopic
-    ? [
-        cleanTopic,
-        cleanTopic + "Community",
-        cleanTopic + "Daily",
-        cleanTopic + "Tips",
-        cleanTopic + "India"
-      ]
-    : [];
-
-  const results = [
-    ...new Set([
-      ...topicTags,
-      ...(platformTags[platform] || platformTags.instagram),
-      ...general
-    ])
-  ].map(tag => "#" + tag);
-
-  showOutput(
-    "hashtagOutput",
-    "hashtagResult",
-    results.join(" ")
-  );
-});
-
-
-/* ---------- 4. REEL IDEAS GENERATOR ---------- */
-
 document.getElementById("reelForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1807,9 +1201,7 @@ document.getElementById("reelForm").addEventListener("submit", function (event) 
   );
 });
 
-
 /* ---------- 5. YOUTUBE TITLE GENERATOR ---------- */
-
 document.getElementById("titleForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1819,20 +1211,18 @@ document.getElementById("titleForm").addEventListener("submit", function (event)
   const templates = {
     curiosity: [
       `The Truth About ${topic}`,
-      `Nobody Talks About This ${topic Secret}`,
-      `I Tried ${topic} — Here's What Happened`,
+      `Nobody Talks About This ${topic} Secret`,
+      `I Tried ${topic} - Here's What Happened`,
       `What You Should Know About ${topic}`,
       `This Changed How I See ${topic}`
     ],
-
     challenge: [
       `I Tried the ${topic} Challenge!`,
       `Can I Master ${topic}?`,
       `${topic}: The Ultimate Challenge`,
-      `7 Days of ${topic — Let's See What Happens}`,
+      `7 Days of ${topic} - Let's See What Happens`,
       `I Put My ${topic} Skills to the Test`
     ],
-
     educational: [
       `${topic}: A Beginner's Guide`,
       `5 Things to Know About ${topic}`,
@@ -1840,7 +1230,6 @@ document.getElementById("titleForm").addEventListener("submit", function (event)
       `${topic} Explained Simply`,
       `Common ${topic} Mistakes to Avoid`
     ],
-
     story: [
       `My ${topic} Journey: The Beginning`,
       `What Happened When I Tried ${topic}`,
@@ -1850,20 +1239,16 @@ document.getElementById("titleForm").addEventListener("submit", function (event)
     ]
   };
 
-  // Correct the topic placeholders in all templates.
-  const selected = (templates[style] || templates.curiosity)
-    .map(title => title.replace(/\$\{topic\}/g, topic));
+  const results = templates[style] || templates.curiosity;
 
   showOutput(
     "titleOutput",
     "titleResult",
-    formatList(selected)
+    formatList(pick(results, 5))
   );
 });
 
-
 /* ---------- 6. YOUTUBE DESCRIPTION WRITER ---------- */
-
 document.getElementById("descriptionForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1894,9 +1279,7 @@ document.getElementById("descriptionForm").addEventListener("submit", function (
   );
 });
 
-
 /* ---------- 7. CONTENT IDEA GENERATOR ---------- */
-
 document.getElementById("contentForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1935,16 +1318,14 @@ document.getElementById("contentForm").addEventListener("submit", function (even
   );
 });
 
-
 /* ---------- 8. VIDEO HOOK GENERATOR ---------- */
-
 document.getElementById("hookForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
   const topic = getValue("hookTopic");
   const style = getValue("hookStyle");
 
-    const hooks = {
+  const hooks = {
     question: [
       `Have you ever wondered about ${topic}?`,
       `Are you making these ${topic} mistakes?`,
@@ -1975,16 +1356,16 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
     ]
   };
 
+  const results = hooks[style] || hooks.question;
+
   showOutput(
     "hookOutput",
     "hookResult",
-    formatList(pick(hooks[style] || hooks.question, 5))
+    formatList(pick(results, 5))
   );
 });
 
-
 /* ---------- 9. RESUME BUILDER ---------- */
-
 document.getElementById("resumeForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -1995,7 +1376,7 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
   const education = getValue("resumeEducation");
   const experience = getValue("resumeExperience");
 
-    const resume = [
+  const resume = [
     name.toUpperCase(),
     email ? `Email: ${email}` : "",
     "",
@@ -2015,7 +1396,7 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
     experience || "Add relevant experience, projects or achievements here.",
     "",
     "Note: Review and personalise this draft before applying."
-  ].filter(value => value !== undefined).join("\n");
+  ].filter(value => value !== "").join("\n");
 
   showOutput(
     "resumeOutput",
@@ -2024,11 +1405,8 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
   );
 });
 
-
 /* ---------- FOOTER YEAR ---------- */
-
 const yearElement = document.getElementById("currentYear");
-
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
@@ -2036,5 +1414,6 @@ if (yearElement) {
 console.log("SmartEarn AI tools loaded successfully.");
   </script>
 
+  
 </body>
 </html>
