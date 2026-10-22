@@ -1944,7 +1944,7 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
   const topic = getValue("hookTopic");
   const style = getValue("hookStyle");
 
-  const hooks = {
+    const hooks = {
     question: [
       `Have you ever wondered about ${topic}?`,
       `Are you making these ${topic} mistakes?`,
@@ -1952,7 +1952,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `What if I told you something surprising about ${topic}?`,
       `Could this one tip change your ${topic} journey?`
     ],
-
     curiosity: [
       `Here's something about ${topic} you might not know.`,
       `Most beginners overlook this about ${topic}.`,
@@ -1960,7 +1959,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `This simple idea changed my approach to ${topic}.`,
       `There's more to ${topic} than you think.`
     ],
-
     story: [
       `Let me tell you what happened during my ${topic} journey.`,
       `I learned an unexpected lesson from ${topic}.`,
@@ -1968,7 +1966,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `One experience changed how I approach ${topic}.`,
       `Here's what I wish I knew before trying ${topic}.`
     ],
-
     bold: [
       `Stop overlooking the basics of ${topic}.`,
       `You can approach ${topic} more effectively.`,
@@ -1998,7 +1995,7 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
   const education = getValue("resumeEducation");
   const experience = getValue("resumeExperience");
 
-  const resume = [
+    const resume = [
     name.toUpperCase(),
     email ? `Email: ${email}` : "",
     "",
