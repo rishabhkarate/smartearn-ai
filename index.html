@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartEarn AI - Premium Creator Toolkit</title>
-  <meta name="description" content="Ultimate creator tools: AI Video, Sponsorship Pitches, Bios, Captions & More.">
+  
+  <meta name="description" content="Free creator tools for Instagram bios, captions, hashtags, YouTube titles, reel ideas and resume writing.">
+  <meta name="robots" content="index, follow">
+
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0" />
 
@@ -16,10 +19,8 @@
     gtag('js', new Date());
     gtag('config', 'G-TS3F36C9QF');
   </script>
+
   <style>
-    /* =======================================================
-       SMARTEARN AI - BENTO GRID & GLASSMORPHISM UI 
-       ======================================================= */
     :root { 
       --bg: #09090b; 
       --surface: #121217; 
@@ -53,7 +54,6 @@
     button, input, textarea, select { font: inherit; outline: none; }
     button { cursor: pointer; }
 
-    /* HEADER - FLOATING GLASS */
     .header { 
       width: 90%; max-width: 1200px; margin: 24px auto; padding: 16px 32px; 
       display: flex; justify-content: space-between; align-items: center; 
@@ -72,7 +72,6 @@
     .header nav a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
     .header nav a:hover { color: var(--text); }
 
-    /* MODERN HERO */
     .hero { text-align: center; max-width: 800px; margin: 80px auto 100px; padding: 0 20px; }
     .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; color: var(--text); background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
     .badge span { color: var(--secondary); }
@@ -80,7 +79,6 @@
     .hero h1 span { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; color: transparent; }
     .hero p { color: var(--muted); font-size: 18px; max-width: 500px; margin: 0 auto 40px; }
     
-    /* BUTTONS */
     .primary-btn, .generate-btn, .copy-btn { 
       display: inline-flex; justify-content: center; align-items: center; gap: 8px; 
       border: none; border-radius: var(--radius-md); 
@@ -94,8 +92,7 @@
     
     .primary-btn:hover, .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5); }
     .copy-btn:hover { background: rgba(255,255,255,0.05); }
-        /* BENTO GRID LAYOUT */
-    .tools-section { padding: 0 5%; max-width: 1400px; margin: 0 auto 100px; }
+        .tools-section { padding: 0 5%; max-width: 1400px; margin: 0 auto 100px; }
     .section-title { text-align: center; margin-bottom: 60px; }
     .section-title h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; }
     .section-title p { color: var(--muted); font-size: 16px; }
@@ -107,7 +104,6 @@
       gap: 24px; 
     }
     
-    /* BENTO CARD DESIGN */
     .tool-card { 
       background: var(--surface); 
       border: 1px solid var(--border); 
@@ -119,7 +115,6 @@
       display: flex; flex-direction: column;
     }
     
-    /* Hover Glow Effect */
     .tool-card::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, transparent, var(--primary), transparent);
@@ -128,8 +123,6 @@
     .tool-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
     .tool-card:hover::before { opacity: 1; }
 
-    /* SIZING FOR BENTO GRID */
-    /* Make some cards take more space for the bento look */
     .span-4 { grid-column: span 4; }
     .span-6 { grid-column: span 6; }
     .span-8 { grid-column: span 8; }
@@ -143,7 +136,6 @@
     .tool-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
     .tool-card > p { color: var(--muted); font-size: 14px; margin-bottom: 24px; flex-grow: 1; }
 
-    /* FORMS & INPUTS */
     .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
     .input-group { display: flex; flex-direction: column; gap: 6px; }
     .tool-form label { color: var(--muted); font-size: 13px; font-weight: 500; }
@@ -160,7 +152,6 @@
     }
     .tool-form select option { background: var(--surface); color: white; }
 
-    /* OUTPUT AREA */
     .output-box { 
       display: none; margin-top: 24px; padding: 20px; 
       background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
@@ -176,15 +167,14 @@
     footer a { margin: 0 10px; color: var(--text); }
     footer a:hover { color: var(--primary); }
 
-    /* RESPONSIVE BENTO GRID */
     @media (max-width: 1024px) {
       .span-4, .span-6, .span-8 { grid-column: span 6; }
     }
     @media (max-width: 768px) {
-      .header { width: 95%; padding: 12px 20px; }
-      .header nav { display: none; } /* Clean up mobile header */
+      .header { width: 95%; padding: 12px 20px; flex-direction: column; gap: 10px; border-radius: 24px; }
+      .header nav { display: flex; gap: 15px; }
       .hero { margin-top: 40px; }
-      .span-4, .span-6, .span-8 { grid-column: span 12; } /* Full width on mobile */
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
       .tool-card { padding: 24px; }
     }
   </style>
@@ -192,6 +182,11 @@
 <body>
   <header class="header">
     <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
+    
+    <div style="color: var(--secondary); font-weight: 600; font-size: 13px; background: rgba(6, 182, 212, 0.1); padding: 4px 12px; border-radius: 50px; border: 1px solid rgba(6, 182, 212, 0.2);">
+      ❤️ Dedicated to Swastii
+    </div>
+
     <nav><a href="#tools">Tools</a><a href="#guides">Guides</a></nav>
   </header>
 
@@ -211,7 +206,7 @@
 
       <div class="bento-grid">
         
-        <!-- 11. AI AUTO VIDEO GENERATOR (Bento Highlight) -->
+        <!-- 11. AI AUTO VIDEO GENERATOR -->
         <article class="tool-card span-8" id="video-tool" style="background: linear-gradient(to bottom right, #121217, #1e1133); border-color: rgba(139, 92, 246, 0.3);">
           <div class="tool-icon" style="background: var(--primary); border: none;">🪄</div>
           <h3>AI Auto Video Generator</h3>
@@ -230,7 +225,7 @@
           </div>
         </article>
 
-        <!-- 12. BRAND SPONSORSHIP (Bento Important) -->
+        <!-- 12. BRAND SPONSORSHIP -->
         <article class="tool-card span-4" id="pitch-tool">
           <div class="tool-icon">🤝</div>
           <h3>Sponsorship Pitch</h3>
@@ -262,7 +257,7 @@
           <div class="output-box" id="reelOutput"><h4>Ideas</h4><div class="output-content" id="reelResult"></div><button class="copy-btn" type="button" onclick="copyOutput('reelResult')">Copy</button></div>
         </article>
 
-        <!-- 10. REEL SCRIPT GENERATOR -->
+        <!-- 10. REEL SCRIPTS -->
         <article class="tool-card span-4" id="script-tool">
           <div class="tool-icon">🎬</div>
           <h3>Reel Scripts</h3>
@@ -276,8 +271,7 @@
           </form>
           <div class="output-box" id="scriptOutput"><h4>Script</h4><div class="output-content" id="scriptResult"></div><button class="copy-btn" type="button" onclick="copyOutput('scriptResult')">Copy</button></div>
         </article>
-
-        <!-- 8. VIDEO HOOK GENERATOR -->
+                <!-- 8. VIDEO HOOKS -->
         <article class="tool-card span-4" id="hook-tool">
           <div class="tool-icon">🎣</div>
           <h3>Video Hooks</h3>
@@ -308,7 +302,7 @@
           <div class="output-box" id="bioOutput"><h4>Bios</h4><div class="output-content" id="bioResult"></div><button class="copy-btn" type="button" onclick="copyOutput('bioResult')">Copy</button></div>
         </article>
 
-                <!-- 2. CAPTION GENERATOR -->
+        <!-- 2. CAPTIONS -->
         <article class="tool-card span-4" id="caption-tool">
           <div class="tool-icon">✍️</div>
           <h3>Captions</h3>
@@ -321,7 +315,7 @@
           <div class="output-box" id="captionOutput"><h4>Captions</h4><div class="output-content" id="captionResult"></div><button class="copy-btn" type="button" onclick="copyOutput('captionResult')">Copy</button></div>
         </article>
 
-        <!-- 3. HASHTAG GENERATOR -->
+        <!-- 3. HASHTAGS -->
         <article class="tool-card span-4" id="hashtag-tool">
           <div class="tool-icon">#️⃣</div>
           <h3>Hashtags</h3>
@@ -334,7 +328,7 @@
           <div class="output-box" id="hashtagOutput"><h4>Hashtags</h4><div class="output-content" id="hashtagResult"></div><button class="copy-btn" type="button" onclick="copyOutput('hashtagResult')">Copy</button></div>
         </article>
         
-        <!-- 5. YOUTUBE TITLE -->
+        <!-- 5. YOUTUBE TITLES -->
         <article class="tool-card span-6" id="title-tool">
           <div class="tool-icon">💡</div>
           <h3>YouTube Titles</h3>
@@ -347,7 +341,7 @@
           <div class="output-box" id="titleOutput"><h4>Titles</h4><div class="output-content" id="titleResult"></div><button class="copy-btn" type="button" onclick="copyOutput('titleResult')">Copy</button></div>
         </article>
 
-        <!-- 6. YOUTUBE DESCRIPTION -->
+        <!-- 6. YOUTUBE DESCRIPTIONS -->
         <article class="tool-card span-6" id="description-tool">
           <div class="tool-icon">📝</div>
           <h3>YouTube Descriptions</h3>
@@ -397,7 +391,7 @@
   </main>
 
   <footer>
-    <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
+    <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. Dedicated to Swastii ❤️</p>
   </footer>
     <script>
     "use strict";
