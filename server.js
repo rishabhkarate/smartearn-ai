@@ -180,10 +180,17 @@
   </style>
 </head>
 <body>
-  <header class="header">
+    <header class="header">
     <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
+    
+    <!-- Yahan aap apni behen ka naam add kar sakte hain -->
+    <div style="color: var(--secondary); font-weight: 600; font-size: 14px;">
+      ❤️ Dedicated to [Behen Ka Naam]
+    </div>
+
     <nav><a href="#tools">Tools</a><a href="#guides">Guides</a></nav>
   </header>
+    
 
   <main>
     <section class="hero">
