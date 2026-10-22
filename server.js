@@ -1,68 +1,416 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const axios = require('axios');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartEarn AI - Premium Creator Toolkit</title>
+  
+  <meta name="description" content="Free creator tools for Instagram bios, captions, hashtags, YouTube titles, reel ideas and resume writing.">
+  <meta name="robots" content="index, follow">
 
-// Setup environment variables
-dotenv.config();
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0" />
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS3F36C9QF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TS3F36C9QF');
+  </script>
 
-// Test Route
-app.get('/', (req, res) => {
-    res.send('SmartEarn Backend is Running Successfully! 🚀');
-});
-
-// Asli AI Video Generation Route (Using Hugging Face Free API)
-app.post('/api/generate-video', async (req, res) => {
-    try {
-        const { prompt } = req.body;
-        console.log("User ka prompt aaya:", prompt);
-
-        const HF_API_KEY = process.env.HF_API_KEY;
-        if (!HF_API_KEY) {
-            return res.status(500).json({ success: false, message: "API Key is missing in Render settings." });
-        }
-
-        // Calling Hugging Face's Free Text-to-Video Model
-        const response = await axios.post(
-            "https://api-inference.huggingface.co/models/ali-vilab/text-to-video-ms-1.0m",
-            { inputs: prompt },
-            {
-                headers: { Authorization: `Bearer ${HF_API_KEY}` },
-                responseType: 'arraybuffer' // Video file receive karne ke liye
-            }
-        );
-
-        // Raw video data ko base64 link mein convert karna
-        const base64Video = Buffer.from(response.data, 'binary').toString('base64');
-        const videoUrl = `data:video/mp4;base64,${base64Video}`;
-
-        res.json({ 
-            success: true, 
-            message: "Video generated successfully!",
-            videoUrl: videoUrl 
-        });
-
-    } catch (error) {
-        console.error("Video Error:", error.message);
-        
-        // Hugging face par kabhi kabhi model "load" hone me time lagta hai (Error 503)
-        if (error.response && error.response.status === 503) {
-            return res.status(503).json({ 
-                success: false, 
-                message: "AI model is warming up. Please wait 1-2 minutes and click Generate again!" 
-            });
-        }
-        
-        res.status(500).json({ success: false, message: "Failed to generate video. Server is busy." });
+  <style>
+    :root { 
+      --bg: #09090b; 
+      --surface: #121217; 
+      --surface-hover: #1a1a24;
+      --text: #f8fafc; 
+      --muted: #94a3b8; 
+      --primary: #8b5cf6; 
+      --secondary: #06b6d4; 
+      --border: rgba(255, 255, 255, 0.08); 
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --glow: rgba(139, 92, 246, 0.15);
     }
-});
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body { 
+      background-color: var(--bg); 
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+      color: var(--text); 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      line-height: 1.6; 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; outline: none; }
+    button { cursor: pointer; }
 
-// Start Server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+    .header { 
+      width: 90%; max-width: 1200px; margin: 24px auto; padding: 16px 32px; 
+      display: flex; justify-content: space-between; align-items: center; 
+      background: rgba(18, 18, 23, 0.6); 
+      border: 1px solid var(--border); 
+      border-radius: 100px;
+      position: sticky; top: 24px; z-index: 100; 
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;}
+    .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; color: transparent; }
+    .logo-icon { font-size: 24px; }
+    
+    .header nav { display: flex; gap: 32px; }
+    .header nav a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .header nav a:hover { color: var(--text); }
+
+    .hero { text-align: center; max-width: 800px; margin: 80px auto 100px; padding: 0 20px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; color: var(--text); background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
+    .badge span { color: var(--secondary); }
+    .hero h1 { font-size: clamp(48px, 6vw, 80px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 24px; font-weight: 800; }
+    .hero h1 span { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; color: transparent; }
+    .hero p { color: var(--muted); font-size: 18px; max-width: 500px; margin: 0 auto 40px; }
+    
+    .primary-btn, .generate-btn, .copy-btn { 
+      display: inline-flex; justify-content: center; align-items: center; gap: 8px; 
+      border: none; border-radius: var(--radius-md); 
+      background: linear-gradient(135deg, var(--primary), #6d5dfc); 
+      color: white; font-weight: 600; 
+      transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+    .primary-btn { padding: 16px 32px; font-size: 16px; border-radius: 100px; }
+    .generate-btn { padding: 14px 20px; width: 100%; margin-top: 10px; font-size: 15px; }
+    .copy-btn { padding: 10px 16px; font-size: 13px; margin-top: 16px; background: var(--surface); border: 1px solid var(--border); color: var(--text); box-shadow: none; }
+    
+    .primary-btn:hover, .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5); }
+    .copy-btn:hover { background: rgba(255,255,255,0.05); }
+    .tools-section { padding: 0 5%; max-width: 1400px; margin: 0 auto 100px; }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 32px; font-weight: 700; margin-bottom: 12px; }
+    .section-title p { color: var(--muted); font-size: 16px; }
+
+    .bento-grid { 
+      display: grid; 
+      grid-template-columns: repeat(12, 1fr); 
+      grid-auto-rows: minmax(min-content, max-content);
+      gap: 24px; 
+    }
+    
+    .tool-card { 
+      background: var(--surface); 
+      border: 1px solid var(--border); 
+      border-radius: var(--radius-lg); 
+      padding: 32px; 
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    
+    .tool-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .tool-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
+    .tool-card:hover::before { opacity: 1; }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    
+    .tool-icon { 
+      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; 
+      font-size: 24px; background: rgba(255,255,255,0.03); 
+      border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; 
+    }
+    
+    .tool-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .tool-card > p { color: var(--muted); font-size: 14px; margin-bottom: 24px; flex-grow: 1; }
+
+    .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .tool-form label { color: var(--muted); font-size: 13px; font-weight: 500; }
+    
+    .tool-form input, .tool-form textarea, .tool-form select { 
+      width: 100%; padding: 14px 16px; 
+      background: rgba(0,0,0,0.2); color: var(--text); 
+      border: 1px solid var(--border); border-radius: var(--radius-md); 
+      transition: all 0.2s; 
+    }
+    .tool-form textarea { resize: vertical; min-height: 100px; }
+    .tool-form input:focus, .tool-form textarea:focus, .tool-form select:focus { 
+      border-color: var(--primary); background: rgba(139, 92, 246, 0.05);
+    }
+    .tool-form select option { background: var(--surface); color: white; }
+
+    .output-box { 
+      display: none; margin-top: 24px; padding: 20px; 
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
+      border-radius: var(--radius-md); 
+    }
+    .output-box.show { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .output-box h4 { color: var(--secondary); font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .output-content { white-space: pre-wrap; font-size: 14px; color: #e2e8f0; }
+
+    footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; margin-top: 50px; }
+    footer a { margin: 0 10px; color: var(--text); }
+    footer a:hover { color: var(--primary); }
+
+    @media (max-width: 1024px) {
+      .span-4, .span-6, .span-8 { grid-column: span 6; }
+    }
+    @media (max-width: 768px) {
+      .header { width: 95%; padding: 12px 20px; }
+      .header nav { display: none; }
+      .hero { margin-top: 40px; }
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+      .tool-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
+    <nav><a href="#tools">Tools</a><a href="#guides">Guides</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge"><span>✦</span> Ultimate Creator Toolkit</div>
+      <h1>Create More. <br><span>Grow Faster.</span></h1>
+      <p>AI-powered tools designed beautifully to automate your content, write sponsorships, and boost your earnings.</p>
+      <a href="#tools" class="primary-btn">Start Creating Now</a>
+    </section>
+
+    <section id="tools" class="tools-section">
+      <div class="section-title">
+        <h2>Power Tools</h2>
+        <p>Everything you need in one powerful grid.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- 11. AI AUTO VIDEO GENERATOR -->
+        <article class="tool-card span-8" id="video-tool" style="background: linear-gradient(to bottom right, #121217, #1e1133); border-color: rgba(139, 92, 246, 0.3);">
+          <div class="tool-icon" style="background: var(--primary); border: none;">🪄</div>
+          <h3>AI Auto Video Generator</h3>
+          <p>Instantly generate AI videos from a simple text prompt. Connects to the cloud.</p>
+          <form class="tool-form" id="videoForm">
+            <div class="input-group">
+              <textarea id="videoPrompt" placeholder="e.g., A futuristic cyberpunk city, neon lights..." required></textarea>
+            </div>
+            <button class="generate-btn" type="submit" id="videoBtn" style="background: white; color: black;">Generate Video</button>
+          </form>
+          <div class="output-box" id="videoOutput">
+            <h4 id="videoStatus">Your AI Video</h4>
+            <div class="output-content" id="videoResult" style="text-align: center;">
+              <video id="aiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video>
+            </div>
+          </div>
+        </article>
+
+        <!-- 12. BRAND SPONSORSHIP -->
+        <article class="tool-card span-4" id="pitch-tool">
+          <div class="tool-icon">🤝</div>
+          <h3>Sponsorship Pitch</h3>
+          <p>Generate highly-converting emails to pitch brands.</p>
+          <form class="tool-form" id="pitchForm">
+            <div class="input-group"><input id="pitchName" placeholder="Your/Channel Name" required></div>
+            <div class="input-group"><input id="pitchNiche" placeholder="Niche (e.g. Tech)" required></div>
+            <div style="display: flex; gap: 10px;">
+              <div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" required></div>
+              <div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" required></div>
+            </div>
+            <button class="generate-btn" type="submit">Draft Pitch</button>
+          </form>
+          <div class="output-box" id="pitchOutput"><h4>Your Pitch</h4><div class="output-content" id="pitchResult"></div><button class="copy-btn" type="button" onclick="copyOutput('pitchResult')">Copy</button></div>
+        </article>
+
+        <!-- 4. REEL IDEAS -->
+        <article class="tool-card span-4" id="reel-tool">
+          <div class="tool-icon">📱</div>
+          <h3>Reel Ideas</h3>
+          <p>Viral short-video concepts.</p>
+          <form class="tool-form" id="reelForm">
+            <div class="input-group"><input id="reelNiche" placeholder="Your Niche" required></div>
+            <div class="input-group">
+              <select id="reelPlatform"><option value="instagram">Instagram Reels</option><option value="youtube">YouTube Shorts</option></select>
+            </div>
+            <button class="generate-btn" type="submit">Get Ideas</button>
+          </form>
+          <div class="output-box" id="reelOutput"><h4>Ideas</h4><div class="output-content" id="reelResult"></div><button class="copy-btn" type="button" onclick="copyOutput('reelResult')">Copy</button></div>
+        </article>
+
+        <!-- 10. REEL SCRIPTS -->
+        <article class="tool-card span-4" id="script-tool">
+          <div class="tool-icon">🎬</div>
+          <h3>Reel Scripts</h3>
+          <p>Scene-by-scene script generator.</p>
+          <form class="tool-form" id="scriptForm">
+            <div class="input-group"><input id="scriptTopic" placeholder="Video Topic" required></div>
+            <div class="input-group">
+              <select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option><option value="motivational">Motivational</option><option value="story">Storytelling</option></select>
+            </div>
+            <button class="generate-btn" type="submit">Write Script</button>
+          </form>
+          <div class="output-box" id="scriptOutput"><h4>Script</h4><div class="output-content" id="scriptResult"></div><button class="copy-btn" type="button" onclick="copyOutput('scriptResult')">Copy</button></div>
+        </article>
+        <!-- 8. VIDEO HOOKS -->
+        <article class="tool-card span-4" id="hook-tool">
+          <div class="tool-icon">🎣</div>
+          <h3>Video Hooks</h3>
+          <p>Opening lines that stop the scroll.</p>
+          <form class="tool-form" id="hookForm">
+            <div class="input-group"><input id="hookTopic" placeholder="Video topic" required></div>
+            <div class="input-group">
+              <select id="hookStyle"><option value="question">Question</option><option value="curiosity">Curiosity</option><option value="story">Story</option><option value="bold">Bold statement</option></select>
+            </div>
+            <button class="generate-btn" type="submit">Get Hooks</button>
+          </form>
+          <div class="output-box" id="hookOutput"><h4>Hooks</h4><div class="output-content" id="hookResult"></div><button class="copy-btn" type="button" onclick="copyOutput('hookResult')">Copy</button></div>
+        </article>
+
+        <!-- 1. BIO GENERATOR -->
+        <article class="tool-card span-4" id="bio-tool">
+          <div class="tool-icon">✨</div>
+          <h3>Insta Bios</h3>
+          <p>Aesthetic profile bios.</p>
+          <form class="tool-form" id="bioForm">
+            <div class="input-group"><input id="bioName" placeholder="Your Name"></div>
+            <div style="display:flex; gap:10px;">
+              <select id="bioStyle" style="flex:1;"><option value="aesthetic">Aesthetic</option><option value="attitude">Attitude</option><option value="gaming">Gaming</option><option value="creator">Creator</option></select>
+              <select id="bioLanguage" style="flex:1;"><option value="english">English</option><option value="hindi">Hindi</option><option value="hinglish">Hinglish</option></select>
+            </div>
+            <button class="generate-btn" type="submit">Generate</button>
+          </form>
+          <div class="output-box" id="bioOutput"><h4>Bios</h4><div class="output-content" id="bioResult"></div><button class="copy-btn" type="button" onclick="copyOutput('bioResult')">Copy</button></div>
+        </article>
+
+        <!-- 2. CAPTIONS -->
+        <article class="tool-card span-4" id="caption-tool">
+          <div class="tool-icon">✍️</div>
+          <h3>Captions</h3>
+          <p>Captions for posts and photos.</p>
+          <form class="tool-form" id="captionForm">
+            <div class="input-group"><input id="captionTopic" placeholder="Photo Topic" required></div>
+            <div class="input-group"><select id="captionMood"><option value="cool">Cool</option><option value="aesthetic">Aesthetic</option><option value="funny">Funny</option><option value="motivational">Motivational</option></select></div>
+            <button class="generate-btn" type="submit">Generate</button>
+          </form>
+          <div class="output-box" id="captionOutput"><h4>Captions</h4><div class="output-content" id="captionResult"></div><button class="copy-btn" type="button" onclick="copyOutput('captionResult')">Copy</button></div>
+        </article>
+
+        <!-- 3. HASHTAGS -->
+        <article class="tool-card span-4" id="hashtag-tool">
+          <div class="tool-icon">#️⃣</div>
+          <h3>Hashtags</h3>
+          <p>Boost your organic reach.</p>
+          <form class="tool-form" id="hashtagForm">
+            <div class="input-group"><input id="hashtagTopic" placeholder="Content Topic" required></div>
+            <div class="input-group"><select id="hashtagPlatform"><option value="instagram">Instagram</option><option value="youtube">YouTube</option><option value="shorts">Shorts</option></select></div>
+            <button class="generate-btn" type="submit">Generate</button>
+          </form>
+          <div class="output-box" id="hashtagOutput"><h4>Hashtags</h4><div class="output-content" id="hashtagResult"></div><button class="copy-btn" type="button" onclick="copyOutput('hashtagResult')">Copy</button></div>
+        </article>
+        
+        <!-- 5. YOUTUBE TITLES -->
+        <article class="tool-card span-6" id="title-tool">
+          <div class="tool-icon">💡</div>
+          <h3>YouTube Titles</h3>
+          <p>Clickable title ideas for long-form and Shorts.</p>
+          <form class="tool-form" id="titleForm">
+            <div class="input-group"><input id="titleTopic" placeholder="Video Topic" required></div>
+            <div class="input-group"><select id="titleStyle"><option value="curiosity">Curiosity</option><option value="challenge">Challenge</option><option value="educational">Educational</option><option value="story">Storytelling</option></select></div>
+            <button class="generate-btn" type="submit">Get Titles</button>
+          </form>
+          <div class="output-box" id="titleOutput"><h4>Titles</h4><div class="output-content" id="titleResult"></div><button class="copy-btn" type="button" onclick="copyOutput('titleResult')">Copy</button></div>
+        </article>
+
+        <!-- 6. YOUTUBE DESCRIPTIONS -->
+        <article class="tool-card span-6" id="description-tool">
+          <div class="tool-icon">📝</div>
+          <h3>YouTube Descriptions</h3>
+          <p>Draft SEO friendly descriptions.</p>
+          <form class="tool-form" id="descriptionForm">
+            <div class="input-group"><input id="descriptionTopic" placeholder="Video Topic" required></div>
+            <div style="display:flex; gap:10px;">
+              <input id="descriptionChannel" style="flex:1;" placeholder="Channel">
+              <input id="descriptionKeywords" style="flex:1;" placeholder="Keywords">
+            </div>
+            <button class="generate-btn" type="submit">Write</button>
+          </form>
+          <div class="output-box" id="descriptionOutput"><h4>Description</h4><div class="output-content" id="descriptionResult"></div><button class="copy-btn" type="button" onclick="copyOutput('descriptionResult')">Copy</button></div>
+        </article>
+
+        <!-- 7. CONTENT IDEAS -->
+        <article class="tool-card span-6" id="content-tool">
+          <div class="tool-icon">🧠</div>
+          <h3>Content Ideas</h3>
+          <p>Never run out of video formats.</p>
+          <form class="tool-form" id="contentForm">
+            <div class="input-group"><input id="contentNiche" placeholder="Niche" required></div>
+            <div class="input-group"><select id="contentPlatform"><option value="instagram">Instagram</option><option value="youtube">YouTube</option><option value="both">Both</option></select></div>
+            <button class="generate-btn" type="submit">Brainstorm</button>
+          </form>
+          <div class="output-box" id="contentOutput"><h4>Ideas</h4><div class="output-content" id="contentResult"></div><button class="copy-btn" type="button" onclick="copyOutput('copyOutput')">Copy</button></div>
+        </article>
+
+        <!-- 9. RESUME BUILDER -->
+        <article class="tool-card span-6" id="resume-tool">
+          <div class="tool-icon">📄</div>
+          <h3>Resume Builder</h3>
+          <p>Basic resume outline generator.</p>
+          <form class="tool-form" id="resumeForm">
+            <div style="display:flex; gap:10px;">
+              <input id="resumeName" placeholder="Name" required>
+              <input id="resumeRole" placeholder="Role" required>
+            </div>
+            <div class="input-group"><textarea id="resumeSkills" placeholder="Skills" style="min-height:50px" required></textarea></div>
+            <button class="generate-btn" type="submit">Build</button>
+          </form>
+          <div class="output-box" id="resumeOutput"><h4>Resume</h4><div class="output-content" id="resumeResult"></div><button class="copy-btn" type="button" onclick="copyOutput('resumeResult')">Copy</button></div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
+  </footer>
+        <script>
+    "use strict";
+    function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const result = document.getElementById(resultId); if (!box || !result) return; result.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+    function pick(items, count = 5) { const copy = [...items]; const result = []; while (copy.length && result.length < count) { const index = Math.floor(Math.random() * copy.length); result.push(copy.splice(index, 1)[0]); } return result; }
+    function copyOutput(id) { const el = document.getElementById(id); if (!el) return; const textToCopy = el.innerText || el.textContent || ""; if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(textToCopy).then(() => alert("Copied successfully!")).catch(() => fallbackCopy(textToCopy)); } else { fallbackCopy(textToCopy); } }
+    function fallbackCopy(textToCopy) { const textarea = document.createElement("textarea"); textarea.value = textToCopy; textarea.style.position = "fixed"; textarea.style.opacity = "0"; document.body.appendChild(textarea); textarea.select(); try { document.execCommand("copy"); alert("Copied successfully!"); } catch (error) { alert("Copy failed."); } textarea.remove(); }
+    function formatList(items) { return items.map((item, index) => `${index + 1}. ${item}`).join("\n\n"); }
+
+    document.getElementById("bioForm").addEventListener("submit", function(e) { e.preventDefault(); const name = getValue("bioName") || "Your Name"; const style = getValue("bioStyle"); const language = getValue("bioLanguage"); const bios = { aesthetic: [`✨ ${name} | collecting little moments 🌙`, `☁️ ${name} | lost in my own universe`, `🤍 ${name} | soft heart, strong mind`, `${name} ✨ less perfection, more authenticity`, `🌿 ${name} | growing at my own pace`], attitude: [`${name} | Built different. Focused always. 🔥`, `No competition, just my own journey. 🚀`, `${name} 👑 Confidence over validation.`, `Silent moves. Clear goals. 💯`, `My vibe, my rules, my story. 🖤`], gaming: [`🎮 ${name} | Gaming mode: ON`, `Headshots, highlights & good vibes ⚡`, `${name} 🎯 Play smart. Stay humble.`, `One match at a time. One level higher. 🕹️`, `🎮 Creator | Gamer | Challenger`], creator: [`${name} | Creating one idea at a time ✨`, `📹 Ideas into content. Dreams into action.`, `${name} 🚀 Creator in progress 🎯`, `Making videos worth your time 🎬`, `Create. Learn. Improve. Repeat.`], minimal: [`${name} | Simply becoming. 🤍`, `Less noise. More meaning. 🍂`, `Here for the little things. ✨`, `${name} - one day at a time`, `Quietly building my world. 🕊️`], motivational: [`${name} | Progress over perfection 💪`, `Dream big. Work consistently. 🚀`, `Small steps. Bigger possibilities. ✨`, `${name} | Discipline creates freedom.`, `Learning today. Growing every day. 🔥`] }; const hindiBios = [`${name} | अपनी राह, अपने सपने ✨`, `हर दिन कुछ नया सीखना 🚀`, `${name} ✨ मेहनत जारी है 💪`, `सादगी में ही असली पहचान 🌿`, `सपने बड़े, कदम छोटे, सफर जारी 🔥`]; const hinglishBios = [`${name} | Apni vibe, apni story ✨`, `Sapne bade, steps daily 🚀`, `${name} 👑 Khud ka best version`, `Less drama, more progress 🔥`, `Apna time, apni journey 🌙`]; let results = bios[style] || bios.aesthetic; if (language === "hindi") results = hindiBios; else if (language === "hinglish") results = hinglishBios; showOutput("bioOutput", "bioResult", formatList(pick(results, 5))); });
+    document.getElementById("captionForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("captionTopic"); const mood = getValue("captionMood"); const templates = { cool: [`${topic} vibes. No explanation needed. 😎`, `Just another moment worth keeping. ✨`, `${topic} mode: activated. ⚡`, `Living the moment, enjoying the journey. 🌍`, `Simple frame. Unforgettable feeling. 📸`], aesthetic: [`${topic}, but make it a memory. 🌙`, `A little peace in a noisy world. ☁️`, `Some moments speak without words. ✨`, `Collecting moments, not expectations. 🌿`, `A frame full of feelings and light. 🕊️`], funny: [`${topic}: 10/10. My planning: 2/10. 😂`, `Professional at looking busy. 🤓`, `Proof that I actually went outside. 🌍`, `Mood: loading... please wait. ⏳`, `Main character, budget edition. 😅`], motivational: [`${topic} is part of the journey. Keep going. 💪`, `Small steps today, stronger tomorrow. 🚀`, `Progress takes patience. Trust the process. ✨`, `One day, this effort will make sense. 🔥`, `Keep showing up for your dreams. 🌟`], attitude: [`${topic}. My journey, my standards. 🖤`, `Focused on growth, not approval. 🎯`, `Confidence speaks louder than words. 🔥`, `No race, just my own pace. 👑`, `Different mindset, different direction. 💯`] }; showOutput("captionOutput", "captionResult", formatList(pick(templates[mood] || templates.cool, 5))); });
+    document.getElementById("hashtagForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("hashtagTopic"); const platform = getValue("hashtagPlatform"); const cleanTopic = topic.normalize("NFKD").replace(/[^\w\s]/g, "").trim().split(/\s+/).filter(Boolean).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(""); const general = ["ContentCreator", "CreatorCommunity", "NewPost", "DailyContent", "ExploreMore", "CreativeJourney", "TrendingContent", "DigitalCreator"]; const platformTags = { instagram: ["Instagram", "InstaDaily", "InstagramReels", "ReelsIndia", "InstaCreator"], youtube: ["YouTube", "YouTubeCreator", "NewVideo", "YouTubeCommunity", "VideoCreator"], shorts: ["Shorts", "YouTubeShorts", "ShortVideo", "ShortsFeed", "YTShorts"] }; const topicTags = cleanTopic ? [cleanTopic, cleanTopic + "Community", cleanTopic + "Daily", cleanTopic + "Tips", cleanTopic + "India"] : []; const results = [...new Set([...topicTags, ...(platformTags[platform] || platformTags.instagram), ...general])].map(tag => "#" + tag); showOutput("hashtagOutput", "hashtagResult", results.join(" ")); });
+    document.getElementById("reelForm").addEventListener("submit", function(e) { e.preventDefault(); const niche = getValue("reelNiche"); const platform = getValue("reelPlatform"); const ideas = [`5 things beginners should know about ${niche}`, `A common ${niche} mistake and how to improve`, `Myth vs fact: ${niche}`, `A beginner's guide to ${niche}`, `Things I wish I knew earlier about ${niche}`, `Before vs after: learning ${niche}`, `3 tips to get better at ${niche}`, `Answering the most common ${niche} question`, `A day in my ${niche} journey`, `Reacting to popular ${niche} trends`, `Things people misunderstand about ${niche}`, `Can I improve at ${niche} in 7 days?`, `A quick tutorial for ${niche} beginners`, `My favourite tools for ${niche}`, `One useful ${niche} tip in 30 seconds`]; const heading = platform === "youtube" ? "YouTube Shorts Ideas" : "Instagram Reel Ideas"; showOutput("reelOutput", "reelResult", heading + "\n\n" + formatList(pick(ideas, 10))); });
+    document.getElementById("titleForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("titleTopic"); const style = getValue("titleStyle"); const templates = { curiosity: [`The Truth About ${topic}`, `Nobody Talks About This ${topic} Secret`, `I Tried ${topic} - Here's What Happened`, `What You Should Know About ${topic}`, `This Changed How I See ${topic}`], challenge: [`I Tried the ${topic} Challenge!`, `Can I Master ${topic}?`, `${topic}: The Ultimate Challenge`, `7 Days of ${topic} - Let's See What Happens`, `I Put My ${topic} Skills to the Test`], educational: [`${topic}: A Beginner's Guide`, `5 Things to Know About ${topic}`, `How to Get Started With ${topic}`, `${topic} Explained Simply`, `Common ${topic} Mistakes to Avoid`], story: [`My ${topic} Journey: The Beginning`, `What Happened When I Tried ${topic}`, `The Story Behind My ${topic} Experience`, `My Biggest Lesson From ${topic}`, `From Beginner to Better: My ${topic} Story`] }; showOutput("titleOutput", "titleResult", formatList(pick(templates[style] || templates.curiosity, 5))); });
+    document.getElementById("descriptionForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("descriptionTopic"); const channel = getValue("descriptionChannel"); const keywords = getValue("descriptionKeywords"); const description = [`Welcome to this video about ${topic}!`, "", `In this video, we explore ${topic} and share useful ideas, insights and tips.`, "", "If you find this video helpful:", "👍 Like the video", "💬 Share your thoughts in the comments", "🔔 Subscribe for more content", "", channel ? `Channel: ${channel}` : "", keywords ? `\nRelated keywords: ${keywords}` : "", "", "Thanks for watching!"].filter(Boolean).join("\n"); showOutput("descriptionOutput", "descriptionResult", description); });
+    document.getElementById("contentForm").addEventListener("submit", function(e) { e.preventDefault(); const niche = getValue("contentNiche"); const platform = getValue("contentPlatform"); const formats = [`Beginner's guide to ${niche}`, `5 useful facts about ${niche}`, `Common mistakes in ${niche}`, `Myth-busting: ${niche}`, `A checklist for ${niche} beginners`, `Tools that can help with ${niche}`, `A weekly challenge related to ${niche}`, `Answering audience questions about ${niche}`, `A step-by-step ${niche} tutorial`, `Lessons learned from ${niche}`, `Reacting to a popular ${niche} trend`, `A comparison of different ${niche} approaches`, `Behind the scenes of ${niche}`, `Top 5 tips for improving at ${niche}`, `A progress update about ${niche}`]; const platformName = { instagram: "Instagram Content Ideas", youtube: "YouTube Content Ideas", both: "Instagram + YouTube Content Ideas" }; showOutput("contentOutput", "contentResult", (platformName[platform] || platformName.both) + "\n\n" + formatList(pick(formats, 10))); });
+    document.getElementById("hookForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("hookTopic"); const style = getValue("hookStyle"); const hooks = { question: [`Have you ever wondered about ${topic}?`, `Are you making these ${topic} mistakes?`, `Want to improve your ${topic} skills?`, `What if I told you something surprising about ${topic}?`, `Could this one tip change your ${topic} journey?`], curiosity: [`Here's something about ${topic} you might not know.`, `Most beginners overlook this about ${topic}.`, `Wait until you see this ${topic} tip.`, `This simple idea changed my approach to ${topic}.`, `There's more to ${topic} than you think.`], story: [`Let me tell you what happened during my ${topic} journey.`, `I learned an unexpected lesson from ${topic}.`, `This is how my ${topic} journey started.`, `One experience changed how I approach ${topic}.`, `Here's what I wish I knew before trying ${topic}.`], bold: [`Stop overlooking the basics of ${topic}.`, `You can approach ${topic} more effectively.`, `Let's rethink how we approach ${topic}.`, `These ${topic} basics deserve more attention.`, `Your next step with ${topic} starts here.`] }; showOutput("hookOutput", "hookResult", formatList(pick(hooks[style] || hooks.question, 5))); });
+    document.getElementById("resumeForm").addEventListener("submit", function(e) { e.preventDefault(); const name = getValue("resumeName"); const role = getValue("resumeRole"); const skills = getValue("resumeSkills"); const resume = [name.toUpperCase(), "", "TARGET ROLE", role, "", "PROFESSIONAL SUMMARY", `Motivated candidate seeking opportunities as a ${role}.`, "", "SKILLS", skills].filter(value => value !== "").join("\n"); showOutput("resumeOutput", "resumeResult", resume); });
+    document.getElementById("scriptForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("scriptTopic"); const vibe = getValue("scriptVibe"); const scripts = { educational: [`Hook (0-3s): [Visual: Pointing at screen with surprised face]`, `Text on screen: "Stop doing ${topic} like this!"`, ``, `Scene 1 (3-7s): [Visual: Show the common mistake]`, `Voiceover: "90% of people get ${topic} completely wrong. Here is why..."`, ``, `Scene 2 (7-12s): [Visual: Show the correct way]`, `Voiceover: "Instead, try this exact method... (explain steps quickly)"`, ``, `CTA (12-15s): [Visual: Pointing to follow button]`, `Voiceover: "Save this for later and follow for more tips!"`].join("\n"), funny: [`Hook (0-3s): [Visual: Exaggerated frustrated reaction]`, `Text: "Me trying to understand ${topic}..."`, ``, `Scene 1 (3-8s): [Visual: You acting out the struggle]`, `Voiceover: "When you think you finally got it, but then..."`, ``, `Scene 2 (8-12s): [Visual: Funny fail or plot twist]`, `Voiceover: "...yeah, that didn't work out as planned."`, ``, `CTA (12-15s): [Visual: Laughing/Shaking head]`, `Text: "Tag a friend who relates to this!"`].join("\n"), motivational: [`Hook (0-3s): [Visual: Walking confidently, cinematic B-roll]`, `Text: "Read this if you are struggling with ${topic}."`, ``, `Scene 1 (3-8s): [Visual: Working hard / montage]`, `Voiceover: "It's not about being perfect from day one. It's about showing up."`, ``, `Scene 2 (8-13s): [Visual: Looking directly at camera]`, `Voiceover: "Mastering ${topic} takes time. Don't quit now."`, ``, `CTA (13-15s): [Visual: Powerful text on screen]`, `Voiceover: "Share this with someone who needs to hear it today."`].join("\n"), story: [`Hook (0-3s): [Visual: Holding a prop related to topic]`, `Voiceover: "Here is how ${topic} completely changed my life."`, ``, `Scene 1 (3-7s): [Visual: Old photo or struggling expression]`, `Voiceover: "A year ago, I had no idea what I was doing..."`, ``, `Scene 2 (7-12s): [Visual: Fast-paced progress montage]`, `Voiceover: "Then I discovered this one secret..."`, ``, `CTA (12-15s): [Visual: Smiling at camera]`, `Voiceover: "Read the caption for the full breakdown!"`].join("\n") }; showOutput("scriptOutput", "scriptResult", scripts[vibe] || scripts.educational); });
+    document.getElementById("videoForm").addEventListener("submit", async function(e) { e.preventDefault(); const prompt = getValue("videoPrompt"); const btn = document.getElementById("videoBtn"); const statusText = document.getElementById("videoStatus"); const videoPlayer = document.getElementById("aiVideoPlayer"); btn.innerText = "Generating... (Wait ⏳)"; btn.disabled = true; showOutput("videoOutput", "videoResult", ""); statusText.innerText = "Connecting to server... please wait."; videoPlayer.style.display = "none"; videoPlayer.src = ""; try { const response = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt }) }); const data = await response.json(); if (data.success) { statusText.innerText = "Video Generated Successfully! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; } } catch (error) { statusText.innerText = "Error connecting to server. Server might be sleeping."; console.error(error); } btn.innerText = "Generate Video 🪄"; btn.disabled = false; });
+    document.getElementById("pitchForm").addEventListener("submit", function(e) { e.preventDefault(); const name = getValue("pitchName"); const niche = getValue("pitchNiche"); const followers = getValue("pitchFollowers"); const brand = getValue("pitchBrand"); const pitches = [`Subject: Collaboration Opportunity: ${name} x ${brand}\n\nHi ${brand} Team,\n\nMy name is ${name} and I run a ${niche} channel with a highly engaged community of ${followers} followers. I've been a big fan of ${brand} for a while and genuinely love your products.\n\nSince my audience frequently asks me for recommendations in the ${niche} space, I believe a collaboration between us would be a perfect fit to drive awareness and sales for your upcoming campaigns.\n\nI would love to discuss how we can work together. Are you open to a brief chat next week?\n\nBest regards,\n${name}`, `Subject: ${brand} + ${name} | Partnership Inquiry\n\nHi Team at ${brand},\n\nI'm ${name}, a content creator specializing in ${niche} content. I currently reach over ${followers} dedicated followers who trust my reviews and recommendations.\n\nI am reaching out because I align perfectly with ${brand}'s mission, and I have a few creative integration ideas that would seamlessly feature your products to my audience.\n\nCould I send over my media kit and a couple of concept ideas for your review?\n\nLooking forward to hearing from you!\n\nCheers,\n${name}`]; showOutput("pitchOutput", "pitchResult", pitches.join("\n\n------------------------\n\n")); });
+    const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+      
