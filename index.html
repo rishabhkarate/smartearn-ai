@@ -1201,7 +1201,7 @@ document.getElementById("reelForm").addEventListener("submit", function (event) 
   const niche = getValue("reelNiche");
   const platform = getValue("reelPlatform");
 
-  const ideas = [
+    const ideas = [
     `5 things beginners should know about ${niche}`,
     `A common ${niche} mistake and how to improve`,
     `Myth vs fact: ${niche}`,
@@ -1218,7 +1218,7 @@ document.getElementById("reelForm").addEventListener("submit", function (event) 
     `My favourite tools for ${niche}`,
     `One useful ${niche} tip in 30 seconds`
   ];
-
+  
   const heading = platform === "youtube"
     ? "YouTube Shorts Ideas"
     : "Instagram Reel Ideas";
@@ -1294,7 +1294,7 @@ document.getElementById("descriptionForm").addEventListener("submit", function (
   const channel = getValue("descriptionChannel");
   const keywords = getValue("descriptionKeywords");
 
-  const description = [
+    const description = [
     `Welcome to this video about ${topic}!`,
     "",
     `In this video, we explore ${topic} and share useful ideas, insights and tips.`,
@@ -1326,7 +1326,7 @@ document.getElementById("contentForm").addEventListener("submit", function (even
   const niche = getValue("contentNiche");
   const platform = getValue("contentPlatform");
 
-  const formats = [
+    const formats = [
     `Beginner's guide to ${niche}`,
     `5 useful facts about ${niche}`,
     `Common mistakes in ${niche}`,
@@ -1367,7 +1367,7 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
   const topic = getValue("hookTopic");
   const style = getValue("hookStyle");
 
-  const hooks = {
+    const hooks = {
     question: [
       `Have you ever wondered about ${topic}?`,
       `Are you making these ${topic} mistakes?`,
@@ -1375,7 +1375,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `What if I told you something surprising about ${topic}?`,
       `Could this one tip change your ${topic} journey?`
     ],
-
     curiosity: [
       `Here's something about ${topic} you might not know.`,
       `Most beginners overlook this about ${topic}.`,
@@ -1383,7 +1382,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `This simple idea changed my approach to ${topic}.`,
       `There's more to ${topic} than you think.`
     ],
-
     story: [
       `Let me tell you what happened during my ${topic} journey.`,
       `I learned an unexpected lesson from ${topic}.`,
@@ -1391,7 +1389,6 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `One experience changed how I approach ${topic}.`,
       `Here's what I wish I knew before trying ${topic}.`
     ],
-
     bold: [
       `Stop overlooking the basics of ${topic}.`,
       `You can approach ${topic} more effectively.`,
@@ -1400,7 +1397,7 @@ document.getElementById("hookForm").addEventListener("submit", function (event) 
       `Your next step with ${topic} starts here.`
     ]
   };
-
+  
   showOutput(
     "hookOutput",
     "hookResult",
@@ -1421,7 +1418,7 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
   const education = getValue("resumeEducation");
   const experience = getValue("resumeExperience");
 
-  const resume = [
+    const resume = [
     name.toUpperCase(),
     email ? `Email: ${email}` : "",
     "",
