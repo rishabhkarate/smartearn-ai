@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const axios = require('axios');
 
 // Setup environment variables
 dotenv.config();
@@ -9,29 +10,54 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. Test Route - Check karne ke liye ki server chal raha hai ya nahi
+// Test Route
 app.get('/', (req, res) => {
     res.send('SmartEarn Backend is Running Successfully! 🚀');
 });
 
-// 2. Video Generation API Route (Abhi ye dummy hai, next step mein isme Asli AI jogenge)
+// Asli AI Video Generation Route (Using Hugging Face Free API)
 app.post('/api/generate-video', async (req, res) => {
     try {
         const { prompt } = req.body;
         console.log("User ka prompt aaya:", prompt);
 
-        // Yahan par hum aage chal kar Fal.ai, Runway ya Replicate ka API code daalenge.
-        // Abhi test karne ke liye ek dummy video bhej rahe hain.
-        
+        const HF_API_KEY = process.env.HF_API_KEY;
+        if (!HF_API_KEY) {
+            return res.status(500).json({ success: false, message: "API Key is missing in Render settings." });
+        }
+
+        // Calling Hugging Face's Free Text-to-Video Model
+        const response = await axios.post(
+            "https://api-inference.huggingface.co/models/ali-vilab/text-to-video-ms-1.0m",
+            { inputs: prompt },
+            {
+                headers: { Authorization: `Bearer ${HF_API_KEY}` },
+                responseType: 'arraybuffer' // Video file receive karne ke liye
+            }
+        );
+
+        // Raw video data ko base64 link mein convert karna
+        const base64Video = Buffer.from(response.data, 'binary').toString('base64');
+        const videoUrl = `data:video/mp4;base64,${base64Video}`;
+
         res.json({ 
             success: true, 
             message: "Video generated successfully!",
-            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" 
+            videoUrl: videoUrl 
         });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Video generate hone mein error aayi." });
+        console.error("Video Error:", error.message);
+        
+        // Hugging face par kabhi kabhi model "load" hone me time lagta hai (Error 503)
+        if (error.response && error.response.status === 503) {
+            return res.status(503).json({ 
+                success: false, 
+                message: "AI model is warming up. Please wait 1-2 minutes and click Generate again!" 
+            });
+        }
+        
+        res.status(500).json({ success: false, message: "Failed to generate video. Server is busy." });
     }
 });
 
