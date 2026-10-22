@@ -51,7 +51,17 @@
     footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
     footer a { display: inline-block; margin: 10px 8px 0; color: var(--secondary); }
     @media (max-width: 900px) { .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .header { padding: 15px 5%; } .tools-section, .guides-section { padding: 55px 5%; } }
-    @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; padding: 14px 16px; } .hero h1 { font-size: 40px; } .tools-grid { grid-template-columns: 1fr; } .tools-section { padding: 45px 10px; } }
+    @media (max-width: 600px) { 
+      .header { flex-direction: column; gap: 12px; padding: 14px 16px; } 
+      .hero h1 { font-size: 35px; } 
+      .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
+      .tools-section { padding: 30px 10px; } 
+      .tool-card { padding: 15px; } 
+      .tool-icon { width: 42px; height: 42px; font-size: 22px; margin-bottom: 12px; } 
+      .tool-card h3 { font-size: 15px; margin-bottom: 5px; } 
+      .tool-card p { font-size: 12px; margin-bottom: 15px; } 
+      .primary-btn, .generate-btn, .copy-btn { padding: 10px 15px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>
