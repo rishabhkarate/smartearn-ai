@@ -80,7 +80,7 @@
     .hero h1 { font-size: clamp(40px, 6vw, 70px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; font-weight: 800; }
     .hero h1 span { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; color: transparent; }
     .hero p { color: var(--muted); font-size: 17px; max-width: 500px; margin: 0 auto 30px; }
-       .primary-btn, .generate-btn, .copy-btn { 
+        .primary-btn, .generate-btn, .copy-btn { 
       display: inline-flex; justify-content: center; align-items: center; gap: 8px; 
       border: none; border-radius: var(--radius-md); 
       background: linear-gradient(135deg, var(--primary), #6d5dfc); 
@@ -162,6 +162,13 @@
     .buy-btn { background: var(--success); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
     .buy-btn:hover { opacity: 0.9; }
 
+    /* CHECKOUT MODAL POPUP */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+    .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 16px; }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
+    .qr-box { background: white; padding: 15px; border-radius: 12px; text-align: center; width: 180px; margin: 0 auto; }
+    .qr-box img { width: 150px; height: 150px; }
+
     .output-box { 
       display: none; margin-top: 24px; padding: 20px; 
       background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
@@ -189,7 +196,7 @@
     }
   </style>
 </head>
- <body>
+<body>
   <header class="header">
     <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
 
@@ -204,7 +211,7 @@
     <section class="hero">
       <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
       <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
-      <p>Verified gaming & social media accounts with instant automated delivery post-payment verification.</p>
+      <p>Verified gaming & social media accounts with secure password delivery after payment verification.</p>
       <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
     </section>
 
@@ -212,7 +219,7 @@
     <section id="marketplace" class="tools-section">
       <div class="section-title">
         <h2>Verified ID Marketplace</h2>
-        <p>Select an account to buy securely via UPI.</p>
+        <p>Select an account to buy securely via UPI QR Code.</p>
       </div>
 
       <div class="bento-grid">
@@ -220,7 +227,7 @@
         <article class="tool-card span-12" id="catalog-card">
           <div class="tool-icon">🛒</div>
           <h3>Available Verified Accounts</h3>
-          <p>Instant password delivery after manual payment confirmation or UPI scan.</p>
+          <p>Scan QR code, pay via UPI, and get credentials instantly.</p>
           <div class="market-grid" id="marketList"></div>
         </article>
 
@@ -228,7 +235,7 @@
         <article class="tool-card span-6" id="sell-section">
           <div class="tool-icon">🏷️</div>
           <h3>List Your ID for Sale</h3>
-          <p>Submit your account details. It will go live after admin verification.</p>
+          <p>Submit your account details. It will go live after admin approval.</p>
           <form class="tool-form" id="sellForm">
             <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70 Max)" required></div>
             <div style="display:flex; gap:10px;">
@@ -237,22 +244,47 @@
             </div>
             <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" required></div>
             <div class="input-group"><input id="sellPassword" placeholder="Account Password" required></div>
-            <button class="generate-btn" type="submit">Submit for Verification 🛡️</button>
+            <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
           </form>
           <div class="output-box" id="sellOutput"><h4>Status</h4><div class="output-content" id="sellResult"></div></div>
         </article>
 
-        <!-- Admin / Escrow Panel Simulator -->
+        <!-- Admin / Escrow Protected Panel -->
         <article class="tool-card span-6" id="admin-section">
-          <div class="tool-icon">⚡</div>
-          <h3>Admin Review & Pending IDs</h3>
-          <p>Approve submitted accounts to list them on the marketplace instantly.</p>
+          <div class="tool-icon">🔐</div>
+          <h3>Admin Protected Panel</h3>
+          <p>Only you (Admin) can review and approve pending IDs using your password.</p>
           <div id="pendingList" style="margin-top:10px; display:flex; flex-direction:column; gap:10px;">
             <p style="color:var(--muted); font-size:14px;">No pending submissions right now.</p>
           </div>
         </article>
       </div>
     </section>
+
+    <!-- CHECKOUT MODAL POPUP -->
+    <div class="modal-overlay" id="checkoutModal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeCheckout()">✕</button>
+        <h3 id="modalTitle" style="font-size: 20px;">Complete Payment</h3>
+        <p style="color: var(--muted); font-size: 14px;" id="modalPriceText">Scan QR code below to pay securely.</p>
+        
+        <div class="qr-box">
+          <!-- Sample UPI QR Code Placeholder -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartearn@upi&pn=SmartEarnAI&am=1499" id="upiQrImg" alt="UPI QR">
+        </div>
+        
+        <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
+          UPI ID: <strong style="color: var(--secondary);">smartearn@upi</strong>
+        </div>
+
+        <div class="input-group">
+          <label style="font-size: 12px; color: var(--muted);">Enter UTR / Transaction ID after payment:</label>
+          <input type="text" id="utrInput" placeholder="e.g., 432156789012">
+        </div>
+
+        <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Verify & Get Password ⚡</button>
+      </div>
+    </div>
         <section id="tools" class="tools-section">
       <div class="section-title">
         <h2>AI Creator Power Tools</h2>
@@ -334,7 +366,7 @@
   <footer>
     <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
   </footer>
-    <script>
+   <script>
     "use strict";
     function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
     function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const result = document.getElementById(resultId); if (!box || !result) return; result.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
@@ -343,7 +375,9 @@
     function fallbackCopy(textToCopy) { const textarea = document.createElement("textarea"); textarea.value = textToCopy; textarea.style.position = "fixed"; textarea.style.opacity = "0"; document.body.appendChild(textarea); textarea.select(); try { document.execCommand("copy"); alert("Copied successfully!"); } catch (error) { alert("Copy failed."); } textarea.remove(); }
     function formatList(items) { return items.map((item, index) => `${index + 1}. ${item}`).join("\n\n"); }
 
-    // MARKETPLACE & ESCROW LOGIC
+    const ADMIN_PASSWORD = "admin123";
+    let selectedAccountId = null;
+
     let marketItems = [
       { id: 1, title: "Free Fire Max Level 72 (Rare Bundles)", category: "Gaming", price: 1499, username: "user_ff_72", password: "SecretPassword123" },
       { id: 2, title: "Instagram Organic Page (15k Followers)", category: "Instagram", price: 2499, username: "insta_growth_hub", password: "SecureInstaPass99" }
@@ -362,7 +396,7 @@
           <span style="font-size:11px; color:var(--secondary); font-weight:700; text-transform:uppercase;">${item.category}</span>
           <h4>${item.title}</h4>
           <div class="market-price">₹${item.price}</div>
-          <button class="buy-btn" onclick="buyAccount(${item.id})">Buy & Get Password ⚡</button>
+          <button class="buy-btn" onclick="openCheckout(${item.id})">Buy & Pay via UPI ⚡</button>
         </div>
       `).join("");
     }
@@ -380,10 +414,40 @@
             <strong>${item.title}</strong><br>
             <small style="color:var(--muted);">₹${item.price} | User: ${item.username}</small>
           </div>
-          <button onclick="approveItem(${index})" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer;">Approve & List</button>
+          <button onclick="approveItem(${index})" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer;">Approve & List 🔐</button>
         </div>
       `).join("");
     }
+
+    // CHECKOUT MODAL FUNCTIONS
+    window.openCheckout = function(id) {
+      const account = marketItems.find(item => item.id === id);
+      if (!account) return;
+      selectedAccountId = id;
+      document.getElementById("modalTitle").innerText = `Buy: ${account.title}`;
+      document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${account.price}`;
+      document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartearn@upi&pn=SmartEarnAI&am=${account.price}`;
+      document.getElementById("utrInput").value = "";
+      document.getElementById("checkoutModal").style.display = "flex";
+    };
+
+    window.closeCheckout = function() {
+      document.getElementById("checkoutModal").style.display = "none";
+      selectedAccountId = null;
+    };
+
+    window.verifyPayment = function() {
+      const utr = document.getElementById("utrInput").value.trim();
+      if (!utr) {
+        alert("Please enter UPI Transaction ID (UTR) after payment!");
+        return;
+      }
+      const account = marketItems.find(item => item.id === selectedAccountId);
+      if (!account) return;
+
+      closeCheckout();
+      alert(`Payment Verified Successfully! 🎉\n\nAccount: ${account.title}\nUsername: ${account.username}\nPassword: ${account.password}\n\nPlease copy and save these details securely!`);
+    };
 
     document.getElementById("sellForm").addEventListener("submit", function(e) {
       e.preventDefault();
@@ -397,25 +461,22 @@
       };
       pendingItems.push(newItem);
       renderPending();
-      showOutput("sellOutput", "sellResult", "Account submitted successfully! Pending admin approval 🛡️");
+      showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
       this.reset();
     });
 
     window.approveItem = function(index) {
+      const enteredPass = prompt("Enter Admin Password to approve this ID:");
+      if (enteredPass === null) return;
+      if (enteredPass !== ADMIN_PASSWORD) {
+        alert("Incorrect Admin Password! Access Denied ❌");
+        return;
+      }
       const approved = pendingItems.splice(index, 1)[0];
       marketItems.push(approved);
       renderMarketplace();
       renderPending();
-      alert("Account approved and published to marketplace successfully!");
-    };
-
-    window.buyAccount = function(id) {
-      const account = marketItems.find(item => item.id === id);
-      if (!account) return;
-      const confirmPay = confirm(`To buy "${account.title}" for ₹${account.price}:\n\nPlease pay via UPI ID: smartearn@upi\nClick OK after payment to receive your credentials instantly.`);
-      if (confirmPay) {
-        alert(`Payment Verified! 🎉\n\nLogin Username: ${account.username}\nLogin Password: ${account.password}\n\nSave these credentials securely!`);
-      }
+      alert("Success! Account approved and published to marketplace 🎉");
     };
 
     renderMarketplace();
