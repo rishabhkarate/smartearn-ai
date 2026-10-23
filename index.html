@@ -322,7 +322,7 @@
       `).join("");
     }
 
-    // SELL FORM SUBMISSION
+    // SELL FORM SUBMISSION WITH EMAIL NOTIFICATION
     document.getElementById("sellForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const files = document.getElementById("sellImageFile").files;
@@ -333,12 +333,31 @@
       let base64Images = [];
       for(let i=0; i<files.length; i++) { base64Images.push(await compressImage(files[i])); }
 
+      const sellTitle = getValue("sellTitle");
+      const sellGame = getValue("sellGameName");
+      const sellPrice = getValue("sellPrice");
+      const sellUser = getValue("sellUsername");
+      const sellPass = getValue("sellPassword");
+
       pendingItems.push({
-        id: Date.now(), title: getValue("sellTitle"), gameName: getValue("sellGameName"), price: getValue("sellPrice"),
-        images: base64Images, username: getValue("sellUsername"), password: getValue("sellPassword")
+        id: Date.now(), title: sellTitle, gameName: sellGame, price: sellPrice,
+        images: base64Images, username: sellUser, password: sellPass
       });
       saveStorage(); 
-      showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
+
+      // Send Email Notification via FormSubmit
+      try {
+        fetch("https://formsubmit.co/ajax/pachori.karan@gmail.com", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: "SmartEarn AI - New ID For Approval!",
+            Title: sellTitle, Game: sellGame, Price: sellPrice, Username: sellUser, Password: sellPass
+          })
+        });
+      } catch(err) { console.log("Email Notification skipped."); }
+
+      showOutput("sellOutput", "sellResult", "Account submitted successfully! Check your email / Admin panel. 🛡️");
       this.reset(); btn.innerText = "Submit for Verification 🛡️"; btn.disabled = false;
     });
 
@@ -363,7 +382,12 @@
         </div>`).join("");
     }
 
-    window.approveItem = function(i) { marketItems.push(pendingItems.splice(i,1)[0]); saveStorage(); renderMarketplace(); renderAdmin(); };
+    // APPROVAL LOGIC FIX
+    window.approveItem = function(i) { 
+      marketItems.push(pendingItems.splice(i,1)[0]); 
+      saveStorage(); renderMarketplace(); renderAdmin(); 
+      alert("Success! ID approved and listed on marketplace! 🎉");
+    };
     window.deleteItem = function(i) { if(confirm("Remove this ID?")) { marketItems.splice(i,1); saveStorage(); renderMarketplace(); renderAdmin(); } };
     
     // WHATSAPP AUTOMATION ESCROW
@@ -392,7 +416,7 @@
       saveStorage(); closeCheckout(); alert(`Payment under review! ✅\nAdmin will verify UTR (${utr}) and send the ID/Password to your WhatsApp (${wa}) shortly.`);
     };
 
-    // FULL AI TOOLS LOGIC (COMPLETE - NO CUTS)
+    // FULL AI TOOLS LOGIC
     window.openTool = function(toolName) {
       document.getElementById("mainWebsiteView").style.display = "none";
       const detailView = document.getElementById("toolDetailView");
