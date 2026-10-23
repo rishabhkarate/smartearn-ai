@@ -69,10 +69,13 @@
     .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; color: transparent; }
     .logo-icon { font-size: 24px; }
     
-    .header nav { display: flex; gap: 24px; align-items: center; }
+    .header nav { display: flex; gap: 20px; align-items: center; }
     .header nav a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
     .header nav a:hover { color: var(--text); }
     .nav-btn { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); padding: 6px 14px; border-radius: 50px; color: var(--primary) !important; font-weight: 600; }
+    
+    .admin-icon-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text); transition: all 0.2s; }
+    .admin-icon-btn:hover { background: var(--primary); border-color: var(--primary); }
 
     .hero { text-align: center; max-width: 800px; margin: 60px auto 80px; padding: 0 20px; }
     .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; color: var(--text); background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
@@ -80,7 +83,7 @@
     .hero h1 { font-size: clamp(40px, 6vw, 70px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; font-weight: 800; }
     .hero h1 span { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; color: transparent; }
     .hero p { color: var(--muted); font-size: 17px; max-width: 500px; margin: 0 auto 30px; }
-       .primary-btn, .generate-btn, .copy-btn { 
+        .primary-btn, .generate-btn, .copy-btn { 
       display: inline-flex; justify-content: center; align-items: center; gap: 8px; 
       border: none; border-radius: var(--radius-md); 
       background: linear-gradient(135deg, var(--primary), #6d5dfc); 
@@ -171,6 +174,8 @@
     .qr-box { background: white; padding: 15px; border-radius: 12px; text-align: center; width: 180px; margin: 0 auto; }
     .qr-box img { width: 150px; height: 150px; }
 
+    #adminDashboardView { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+
     .output-box { 
       display: none; margin-top: 24px; padding: 20px; 
       background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
@@ -190,15 +195,15 @@
       .span-4, .span-6, .span-8 { grid-column: span 6; }
     }
     @media (max-width: 768px) {
-      .header { width: 95%; padding: 12px 20px; flex-direction: column; gap: 10px; border-radius: 24px; }
-      .header nav { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+      .header { width: 95%; padding: 12px 20px; }
+      .header nav { display: flex; gap: 8px; }
       .hero { margin-top: 40px; }
       .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
       .tool-card { padding: 24px; }
     }
   </style>
 </head>
-  <body>
+<body>
   <header class="header">
     <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
 
@@ -206,65 +211,83 @@
       <a href="#marketplace">Marketplace</a>
       <a href="#sell-section" class="nav-btn">Sell ID 🚀</a>
       <a href="#tools">Tools</a>
+      <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Dashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
-      <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
-      <p>Verified gaming & social media accounts with secure password delivery after payment verification[span_4](start_span)[span_4](end_span).</p>
-      <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
-    </section>
+  <div id="mainWebsiteView">
+    <main>
+      <section class="hero">
+        <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
+        <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
+        <p>Verified gaming & social media accounts with secure password delivery after payment verification[span_1](start_span)[span_1](end_span).</p>
+        <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
+      </section>
 
-    <!-- ID MARKETPLACE & SELLER SECTION -->
-    <section id="marketplace" class="tools-section">
-      <div class="section-title">
-        <h2>Verified ID Marketplace</h2>
-        <p>Select an account to buy securely via UPI QR Code.</p>
+      <!-- ID MARKETPLACE & SELLER SECTION -->
+      <section id="marketplace" class="tools-section">
+        <div class="section-title">
+          <h2>Verified ID Marketplace</h2>
+          <p>Select an account to buy securely via UPI QR Code.</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Marketplace Catalog -->
+          <article class="tool-card span-12" id="catalog-card">
+            <div class="tool-icon">🛒</div>
+            <h3>Available Verified Accounts</h3>
+            <p>Scan QR code, pay via UPI, and get credentials instantly.</p>
+            <div class="market-grid" id="marketList"></div>
+          </article>
+
+          <!-- Sell / List ID Form with Image URL Support -->
+          <article class="tool-card span-12" id="sell-section" style="max-width: 700px; margin: 0 auto;">
+            <div class="tool-icon">🏷️</div>
+            <h3>List Your ID for Sale</h3>
+            <p>Submit account details along with a screenshot/image link[span_2](start_span)[span_2](end_span).</p>
+            <form class="tool-form" id="sellForm">
+              <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" required></div>
+              <div style="display:flex; gap:10px;">
+                <select id="sellCategory" style="flex:1;"><option value="Gaming">Gaming</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option></select>
+                <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" required>
+              </div>
+              <div class="input-group"><input id="sellImage" placeholder="Image/Screenshot URL (Paste image link)" required></div>
+              <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" required></div>
+              <div class="input-group"><input id="sellPassword" placeholder="Account Password" required></div>
+              <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
+            </form>
+            <div class="output-box" id="sellOutput"><h4>Status</h4><div class="output-content" id="sellResult"></div></div>
+          </article>
+        </div>
+      </section>
+          <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
+    <div id="adminDashboardView">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+        <div>
+          <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Panel</h2>
+          <p style="color: var(--muted); font-size: 14px;">Manage pending ID submissions and active marketplace items.</p>
+        </div>
+        <button onclick="closeAdminDashboard()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">← Back to Website</button>
       </div>
 
-      <div class="bento-grid">
-        <!-- Marketplace Catalog -->
-        <article class="tool-card span-12" id="catalog-card">
-          <div class="tool-icon">🛒</div>
-          <h3>Available Verified Accounts</h3>
-          <p>Scan QR code, pay via UPI, and get credentials instantly.</p>
-          <div class="market-grid" id="marketList"></div>
-        </article>
-
-        <!-- Sell / List ID Form with Image URL Support -->
-        <article class="tool-card span-6" id="sell-section">
-          <div class="tool-icon">🏷️</div>
-          <h3>List Your ID for Sale</h3>
-          <p>Submit account details along with a screenshot/image link[span_5](start_span)[span_5](end_span).</p>
-          <form class="tool-form" id="sellForm">
-            <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" required></div>
-            <div style="display:flex; gap:10px;">
-              <select id="sellCategory" style="flex:1;"><option value="Gaming">Gaming</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option></select>
-              <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" required>
-            </div>
-            <div class="input-group"><input id="sellImage" placeholder="Image/Screenshot URL (Paste image link)" required></div>
-            <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" required></div>
-            <div class="input-group"><input id="sellPassword" placeholder="Account Password" required></div>
-            <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
-          </form>
-          <div class="output-box" id="sellOutput"><h4>Status</h4><div class="output-content" id="sellResult"></div></div>
-        </article>
-
-        <!-- Admin / Escrow Protected Panel -->
-        <article class="tool-card span-6" id="admin-section">
-          <div class="tool-icon">🔐</div>
-          <h3>Admin Protected Panel</h3>
-          <p>Review pending submissions and approve with your password[span_6](start_span)[span_6](end_span).</p>
-          <div id="pendingList" style="margin-top:10px; display:flex; flex-direction:column; gap:10px;">
-            <p style="color:var(--muted); font-size:14px;">No pending submissions right now.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div class="tool-card" style="margin: 0;">
+          <h3 style="margin-bottom: 15px; color: var(--secondary);">Pending Approvals</h3>
+          <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 12px;">
+            <p style="color: var(--muted); font-size: 14px;">No pending submissions right now.</p>
           </div>
-        </article>
-      </div>
-    </section>
+        </div>
 
-    <!-- CHECKOUT MODAL POPUP -->
+        <div class="tool-card" style="margin: 0;">
+          <h3 style="margin-bottom: 15px; color: var(--success);">Active Listed IDs</h3>
+          <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKOUT MODAL POPUP WITH REAL UPI ID -->
     <div class="modal-overlay" id="checkoutModal">
       <div class="modal-content">
         <button class="modal-close" onclick="closeCheckout()">✕</button>
@@ -272,11 +295,11 @@
         <p style="color: var(--muted); font-size: 14px;" id="modalPriceText">Scan QR code below to pay securely.</p>
         
         <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartearn@upi&pn=SmartEarnAI&am=1499" id="upiQrImg" alt="UPI QR">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=1499" id="upiQrImg" alt="UPI QR">
         </div>
         
         <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
-          UPI ID: <strong style="color: var(--secondary);">smartearn@upi</strong>
+          UPI ID: <strong style="color: var(--secondary);">gaminggamer3554@okicici</strong>[span_3](start_span)[span_3](end_span)
         </div>
 
         <div class="input-group">
@@ -287,7 +310,8 @@
         <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Verify & Get Password ⚡</button>
       </div>
     </div>
-       <section id="tools" class="tools-section">
+
+    <section id="tools" class="tools-section">
       <div class="section-title">
         <h2>AI Creator Power Tools</h2>
         <p>Automate your content journey with our suite.</p>
@@ -368,7 +392,7 @@
   <footer>
     <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
   </footer>
-      <script>
+    <script>
     "use strict";
     function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
     function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const result = document.getElementById(resultId); if (!box || !result) return; result.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
@@ -377,7 +401,7 @@
     function fallbackCopy(textToCopy) { const textarea = document.createElement("textarea"); textarea.value = textToCopy; textarea.style.position = "fixed"; textarea.style.opacity = "0"; document.body.appendChild(textarea); textarea.select(); try { document.execCommand("copy"); alert("Copied successfully!"); } catch (error) { alert("Copy failed."); } textarea.remove(); }
     function formatList(items) { return items.map((item, index) => `${index + 1}. ${item}`).join("\n\n"); }
 
-    const ADMIN_PASSWORD = "admin123";
+    const ADMIN_PASSWORD = "swasti@29";
     let selectedAccountId = null;
 
     let marketItems = [
@@ -406,23 +430,73 @@
       `).join("");
     }
 
-    function renderPending() {
-      const pendingEl = document.getElementById("pendingList");
-      if (!pendingEl) return;
+    function renderAdminDashboard() {
+      const pendingEl = document.getElementById("adminPendingList");
+      const activeEl = document.getElementById("adminActiveList");
+      if (!pendingEl || !activeEl) return;
+
       if (pendingItems.length === 0) {
         pendingEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No pending submissions right now.</p>`;
+      } else {
+        pendingEl.innerHTML = pendingItems.map((item, index) => `
+          <div style="background:rgba(0,0,0,0.3); padding:14px; border-radius:10px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>${item.title}</strong><br>
+              <small style="color:var(--muted);">₹${item.price} | User: ${item.username}</small>
+            </div>
+            <button onclick="approveItem(${index})" style="background:var(--success); color:white; border:none; padding:8px 14px; border-radius:6px; font-weight:600; cursor:pointer;">Approve & List ✔️</button>
+          </div>
+        `).join("");
+      }
+
+      if (marketItems.length === 0) {
+        activeEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No active accounts.</p>`;
+      } else {
+        activeEl.innerHTML = marketItems.map((item, index) => `
+          <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>${item.title}</strong><br>
+              <small style="color:var(--muted);">₹${item.price} | Pswd: ${item.password}</small>
+            </div>
+            <button onclick="deleteActiveItem(${index})" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:600; cursor:pointer;">Remove 🗑️</button>
+          </div>
+        `).join("");
+      }
+    }
+
+    window.openAdminDashboard = function() {
+      const enteredPass = prompt("Enter Admin Password (swasti@29):");
+      if (enteredPass === null) return;
+      if (enteredPass !== ADMIN_PASSWORD) {
+        alert("Incorrect Password! Access Denied ❌");
         return;
       }
-      pendingEl.innerHTML = pendingItems.map((item, index) => `
-        <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <strong>${item.title}</strong><br>
-            <small style="color:var(--muted);">₹${item.price} | User: ${item.username}</small>
-          </div>
-          <button onclick="approveItem(${index})" style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer;">Approve & List 🔐</button>
-        </div>
-      `).join("");
-    }
+      document.getElementById("mainWebsiteView").style.display = "none";
+      document.getElementById("adminDashboardView").style.display = "block";
+      renderAdminDashboard();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.closeAdminDashboard = function() {
+      document.getElementById("adminDashboardView").style.display = "none";
+      document.getElementById("mainWebsiteView").style.display = "block";
+    };
+
+    window.approveItem = function(index) {
+      const approved = pendingItems.splice(index, 1)[0];
+      marketItems.push(approved);
+      renderMarketplace();
+      renderAdminDashboard();
+      alert("Account approved and published successfully! 🎉");
+    };
+
+    window.deleteActiveItem = function(index) {
+      if (confirm("Are you sure you want to remove this listed account?")) {
+        marketItems.splice(index, 1);
+        renderMarketplace();
+        renderAdminDashboard();
+      }
+    };
 
     window.openCheckout = function(id) {
       const account = marketItems.find(item => item.id === id);
@@ -430,7 +504,7 @@
       selectedAccountId = id;
       document.getElementById("modalTitle").innerText = `Buy: ${account.title}`;
       document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${account.price}`;
-      document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartearn@upi&pn=SmartEarnAI&am=${account.price}`;
+      document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=${account.price}`;
       document.getElementById("utrInput").value = "";
       document.getElementById("checkoutModal").style.display = "flex";
     };
@@ -465,27 +539,11 @@
         password: getValue("sellPassword")
       };
       pendingItems.push(newItem);
-      renderPending();
       showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
       this.reset();
     });
 
-    window.approveItem = function(index) {
-      const enteredPass = prompt("Enter Admin Password to approve this ID:");
-      if (enteredPass === null) return;
-      if (enteredPass !== ADMIN_PASSWORD) {
-        alert("Incorrect Admin Password! Access Denied ❌");
-        return;
-      }
-      const approved = pendingItems.splice(index, 1)[0];
-      marketItems.push(approved);
-      renderMarketplace();
-      renderPending();
-      alert("Success! Account approved and published to marketplace 🎉");
-    };
-
     renderMarketplace();
-    renderPending();
 
     // TOOL EVENT LISTENERS
     document.getElementById("reelForm").addEventListener("submit", function(e) { e.preventDefault(); const niche = getValue("reelNiche"); const platform = getValue("reelPlatform"); const ideas = [`5 things beginners should know about ${niche}`, `A common ${niche} mistake and how to improve`, `Myth vs fact: ${niche}`, `A beginner's guide to ${niche}`, `Things I wish I knew earlier about ${niche}`, `Before vs after: learning ${niche}`, `3 tips to get better at ${niche}`, `Answering the most common ${niche} question`, `A day in my ${niche} journey`, `Reacting to popular ${niche} trends`]; const heading = platform === "youtube" ? "YouTube Shorts Ideas" : "Instagram Reel Ideas"; showOutput("reelOutput", "reelResult", heading + "\n\n" + formatList(pick(ideas, 5))); });
