@@ -358,6 +358,121 @@
       } catch(err) { console.log("Email Notification skipped."); }
 
       showOutput("sellOutput", "sellResult", "Account submitted successfully! Check your email / Admin panel. 🛡️");
+  <script>
+    "use strict";
+    function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const res = document.getElementById(resultId); if(!box || !res) return; res.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+    function copyOutput(id) { const el = document.getElementById(id); if(!el) return; const text = el.innerText || el.textContent || ""; navigator.clipboard.writeText(text).then(()=>alert("Copied!")).catch(()=>alert("Failed to copy.")); }
+    
+    const ADMIN_PASS = "swasti@29";
+    let selectedAccountId = null;
+    let currentGallery = []; let currentImgIndex = 0;
+
+    // Load data from LocalStorage
+    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [];
+    let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
+    let pendingPayments = JSON.parse(localStorage.getItem("pendingPayments")) || [];
+
+    function saveStorage() {
+      localStorage.setItem("marketItems", JSON.stringify(marketItems));
+      localStorage.setItem("pendingItems", JSON.stringify(pendingItems));
+      localStorage.setItem("pendingPayments", JSON.stringify(pendingPayments));
+    }
+
+    // IMAGE COMPRESSION TO PREVENT STORAGE LIMIT ERROR
+    function compressImage(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = e => {
+          const img = new Image(); img.src = e.target.result;
+          img.onload = () => {
+            const cvs = document.createElement('canvas'); const ctx = cvs.getContext('2d');
+            const ratio = 600 / img.width; cvs.width = 600; cvs.height = img.height * ratio;
+            ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
+            resolve(cvs.toDataURL('image/jpeg', 0.6));
+          };
+        };
+      });
+    }
+
+    // GALLERY VIEWER LOGIC (Handles old & new data securely)
+    window.openGallery = function(id) {
+      const acc = marketItems.find(i => i.id === id); if(!acc) return;
+      currentGallery = (acc.images && acc.images.length > 0) ? acc.images : (acc.image ? [acc.image] : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"]);
+      currentImgIndex = 0;
+      updateGalleryUI(); document.getElementById("imageViewerModal").style.display = "flex";
+    };
+    window.closeImageViewer = function() { document.getElementById("imageViewerModal").style.display = "none"; };
+    window.navigateImage = function(dir) {
+      currentImgIndex += dir;
+      if(currentImgIndex < 0) currentImgIndex = currentGallery.length - 1;
+      if(currentImgIndex >= currentGallery.length) currentImgIndex = 0;
+      updateGalleryUI();
+    };
+    function updateGalleryUI() {
+      document.getElementById("fullScreenImg").src = currentGallery[currentImgIndex];
+      document.getElementById("imgCounter").innerText = `Image ${currentImgIndex + 1} of ${currentGallery.length}`;
+    }
+
+    // RENDER MARKETPLACE
+    function renderMarketplace() {
+      const list = document.getElementById("marketList");
+      if(marketItems.length === 0) { list.innerHTML = `<p style="color:var(--muted);">No accounts listed.</p>`; return; }
+      list.innerHTML = marketItems.map(item => {
+        const imgs = (item.images && item.images.length > 0) ? item.images : (item.image ? [item.image] : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"]);
+        const gameName = item.gameName || item.category || "Gaming Account";
+        return `
+        <div class="market-item">
+          <div class="market-img-wrapper" onclick="openGallery(${item.id})">
+            <img src="${imgs[0]}" alt="Thumbnail" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60'">
+            <div class="img-count-badge">📸 ${imgs.length} Photos</div>
+          </div>
+          <div class="market-body">
+            <span style="font-size:11px; color:var(--secondary); font-weight:bold; text-transform:uppercase;">${gameName}</span>
+            <h4>${item.title}</h4>
+            <div class="market-price">₹${item.price}</div>
+            <button class="buy-btn" onclick="openCheckout(${item.id})">Buy via UPI ⚡</button>
+          </div>
+        </div>
+      `}).join("");
+    }
+
+    // SELL FORM SUBMISSION WITH EMAIL NOTIFICATION
+    document.getElementById("sellForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const files = document.getElementById("sellImageFile").files;
+      if(files.length === 0) return alert("Select at least 1 image!");
+      if(files.length > 7) return alert("Maximum 7 images allowed.");
+      
+      const btn = this.querySelector('button'); btn.innerText = "Processing Images... Wait ⏳"; btn.disabled = true;
+      let base64Images = [];
+      for(let i=0; i<files.length; i++) { base64Images.push(await compressImage(files[i])); }
+
+      const sellTitle = getValue("sellTitle");
+      const sellGame = getValue("sellGameName");
+      const sellPrice = getValue("sellPrice");
+      const sellUser = getValue("sellUsername");
+      const sellPass = getValue("sellPassword");
+
+      pendingItems.push({
+        id: Date.now(), title: sellTitle, gameName: sellGame, price: sellPrice,
+        images: base64Images, username: sellUser, password: sellPass
+      });
+      saveStorage(); 
+
+      // Send Email Notification via FormSubmit
+      try {
+        fetch("https://formsubmit.co/ajax/pachori.karan@gmail.com", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            _subject: "SmartEarn AI - New ID For Approval!",
+            Title: sellTitle, Game: sellGame, Price: sellPrice, Username: sellUser, Password: sellPass
+          })
+        });
+      } catch(err) { console.log("Email Notification skipped."); }
+
+      showOutput("sellOutput", "sellResult", "Account submitted successfully! Check your email / Admin panel. 🛡️");
       this.reset(); btn.innerText = "Submit for Verification 🛡️"; btn.disabled = false;
     });
 
@@ -370,30 +485,32 @@
     window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
 
     function renderAdmin() {
-      document.getElementById("adminPendingList").innerHTML = pendingItems.length === 0 ? `<p style="color:var(--muted);">No pending IDs.</p>` : pendingItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Game: ${i.gameName}<br>User: ${i.username}<br>Pass: ${i.password}</span><br><button onclick="approveItem(${idx})" style="background:var(--success); color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Approve & List ✔️</button></div>`).join("");
+      document.getElementById("adminPendingList").innerHTML = pendingItems.length === 0 ? `<p style="color:var(--muted);">No pending IDs.</p>` : pendingItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Game: ${i.gameName || i.category || 'N/A'}<br>User: ${i.username}<br>Pass: ${i.password}</span><br><button onclick="approveItem(${idx})" style="background:var(--success); color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Approve & List ✔️</button></div>`).join("");
       
       document.getElementById("adminActiveList").innerHTML = marketItems.length === 0 ? `<p style="color:var(--muted);">No active IDs.</p>` : marketItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Pass: ${i.password}</span><br><button onclick="deleteItem(${idx})" style="background:#ef4444; color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Delete 🗑️</button></div>`).join("");
       
       document.getElementById("adminPaymentsList").innerHTML = pendingPayments.length === 0 ? `<p style="color:var(--muted);">No pending payments.</p>` : pendingPayments.map((i, idx) => `
         <div class="admin-card-item" style="border: 1px solid var(--success);">
           <strong style="color:var(--success); font-size:18px;">₹${i.price} (UTR: ${i.utr})</strong>
-          <div style="font-size:13px; margin:8px 0; color:var(--muted);">Item: ${i.accountTitle}<br>Game: ${i.gameName}<br>WA: ${i.whatsapp}<br><hr style="border:0; border-top:1px dashed var(--border); margin:5px 0;">ID: ${i.username}<br>Pass: ${i.password}</div>
+          <div style="font-size:13px; margin:8px 0; color:var(--muted);">Item: ${i.accountTitle}<br>Game: ${i.gameName || 'N/A'}<br>WA: ${i.whatsapp}<br><hr style="border:0; border-top:1px dashed var(--border); margin:5px 0;">ID: ${i.username}<br>Pass: ${i.password}</div>
           <button onclick="sendWA(${idx})" style="background:#25D366; color:white; font-weight:bold; border:none; padding:10px; border-radius:6px; cursor:pointer; width:100%;">Verify & Send WA 💬</button>
         </div>`).join("");
     }
 
-    // APPROVAL LOGIC FIX
+    // FIXED APPROVAL LOGIC
     window.approveItem = function(i) { 
       marketItems.push(pendingItems.splice(i,1)[0]); 
       saveStorage(); renderMarketplace(); renderAdmin(); 
       alert("Success! ID approved and listed on marketplace! 🎉");
     };
+    
     window.deleteItem = function(i) { if(confirm("Remove this ID?")) { marketItems.splice(i,1); saveStorage(); renderMarketplace(); renderAdmin(); } };
     
     // WHATSAPP AUTOMATION ESCROW
     window.sendWA = function(i) {
       const item = pendingPayments[i];
-      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.accountTitle}\n*Game:* ${item.gameName}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for buying from SmartEarn AI Marketplace!_`;
+      const gameText = item.gameName ? item.gameName : 'Gaming Account';
+      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.accountTitle}\n*Game:* ${gameText}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for buying from SmartEarn AI Marketplace!_`;
       window.open(`https://wa.me/91${item.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
       if(confirm("Message Sent successfully? Click OK to clear this payment from pending list.")) { pendingPayments.splice(i,1); saveStorage(); renderAdmin(); }
     };
@@ -462,6 +579,7 @@
     window.closeToolView = function() { document.getElementById("toolDetailView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
 
     renderMarketplace();
+    const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
