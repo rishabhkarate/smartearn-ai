@@ -307,14 +307,12 @@
       </section>
     </main>
   </div>
-    <!-- INDIVIDUAL TOOL DETAIL VIEW (Opens when user clicks any tool card) -->
+    <!-- INDIVIDUAL TOOL DETAIL VIEW -->
   <div id="toolDetailView" class="tool-detail-view">
     <button onclick="closeToolView()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border); margin-bottom: 24px;">← Back to All Tools</button>
     
     <div class="tool-card" style="margin: 0; cursor: default;">
-      <div id="toolContainerContent">
-        <!-- Dynamic Tool Form Loaded Here -->
-      </div>
+      <div id="toolContainerContent"></div>
     </div>
   </div>
 
@@ -382,11 +380,16 @@
     const ADMIN_PASSWORD = "swasti@29";
     let selectedAccountId = null;
 
-    let marketItems = [
+    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [
       { id: 1, title: "Free Fire Max Level 72", category: "Gaming", price: 1499, image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60", username: "user_ff_72", password: "SecretPassword123" },
       { id: 2, title: "Instagram Organic Page (15k)", category: "Instagram", price: 2499, image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&auto=format&fit=crop&q=60", username: "insta_growth_hub", password: "SecureInstaPass99" }
     ];
-    let pendingItems = [];
+    let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
+
+    function saveToStorage() {
+      localStorage.setItem("marketItems", JSON.stringify(marketItems));
+      localStorage.setItem("pendingItems", JSON.stringify(pendingItems));
+    }
 
     function renderMarketplace() {
       const listEl = document.getElementById("marketList");
@@ -408,7 +411,6 @@
       `).join("");
     }
 
-    // TOOL PAGE NAVIGATION
     window.openTool = function(toolName) {
       document.getElementById("mainWebsiteView").style.display = "none";
       document.getElementById("adminDashboardView").style.display = "none";
@@ -427,7 +429,7 @@
             <div class="input-group"><textarea id="activePrompt" placeholder="e.g., A futuristic cyberpunk city, neon lights..." required></textarea></div>
             <button class="generate-btn" type="submit" id="activeVideoBtn" style="background: white; color: black;">Generate Video</button>
           </form>
-          <div class="output-box show" id="activeVideoOutput" style="display:none;"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
+          <div class="output-box" id="activeVideoOutput" style="display:none;"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
       } else if (toolName === 'pitch') {
         htmlContent = `
           <div class="tool-icon">🤝</div>
@@ -480,7 +482,6 @@
 
       container.innerHTML = htmlContent;
 
-      // Attach event listener for the active tool form
       document.getElementById("activeToolForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         if (toolName === 'video') {
@@ -579,6 +580,7 @@
     window.approveItem = function(index) {
       const approved = pendingItems.splice(index, 1)[0];
       marketItems.push(approved);
+      saveToStorage();
       renderMarketplace();
       renderAdminDashboard();
       alert("Account approved and published successfully! 🎉");
@@ -587,6 +589,7 @@
     window.deleteActiveItem = function(index) {
       if (confirm("Are you sure you want to remove this listed account?")) {
         marketItems.splice(index, 1);
+        saveToStorage();
         renderMarketplace();
         renderAdminDashboard();
       }
@@ -633,6 +636,7 @@
         password: getValue("sellPassword")
       };
       pendingItems.push(newItem);
+      saveToStorage();
       showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
       this.reset();
     });
