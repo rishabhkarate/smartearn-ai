@@ -70,9 +70,10 @@
     .section-title h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
 
     .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
-    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; display: flex; flex-direction: column; position: relative; overflow: hidden; cursor: pointer;}
+    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .tool-card-hover { cursor: pointer; transition: all 0.3s ease; }
+    .tool-card-hover:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
     .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-12 { grid-column: span 12; }
-    .tool-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
     
     .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: 15px; cursor: default;}
     .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -123,10 +124,12 @@
     <nav>
       <a href="#marketplace">Marketplace</a>
       <a href="#tools-hub">Tools</a>
+      <!-- SECURE ADMIN LOGIN BUTTON -->
       <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Login">🔐</button>
     </nav>
   </header>
 
+  <!-- MAIN WEBSITE VIEW -->
   <div id="mainWebsiteView">
     <main>
       <section class="hero">
@@ -135,30 +138,32 @@
         <p>Verified gaming & social media accounts with manual admin escrow for 100% safe delivery.</p>
       </section>
 
-      <!-- MARKETPLACE -->
+      <!-- MARKETPLACE & SELL SECTION -->
       <section id="marketplace" class="tools-section">
         <div class="bento-grid">
-          <article class="tool-card span-12" style="cursor: default;">
+          <article class="tool-card span-12">
             <h2>🛒 Available Accounts</h2>
-            <p style="color:var(--muted); margin-bottom: 20px;">Click image to view full screenshots.</p>
+            <p style="color:var(--muted); margin-bottom: 20px;">Click on the image to view full screenshots.</p>
             <div class="market-grid" id="marketList"></div>
           </article>
 
-          <article class="tool-card span-12" style="max-width: 700px; margin: 0 auto; cursor: default;">
+          <article class="tool-card span-12" style="max-width: 700px; margin: 0 auto;">
             <h2>🏷️ List Your ID for Sale</h2>
             <form class="tool-form" id="sellForm">
-              <div class="input-group"><input id="sellTitle" placeholder="Listing Title (e.g., Mythic Fashion Acc)" autocomplete="off" required></div>
-              <div style="display:flex; gap:10px;">
-                <input id="sellGameName" placeholder="Game/App Name (e.g., BGMI, Insta)" style="flex:1;" autocomplete="off" required>
-                <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" autocomplete="off" required>
+              <div class="input-group">
+                <input id="sellTitle" placeholder="Listing Title (e.g., Mythic Fashion Acc)" autocomplete="off" required>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input id="sellGameName" placeholder="Game/App Name (e.g., BGMI, Insta)" style="flex:1; min-width:150px;" autocomplete="off" required>
+                <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1; min-width:100px;" autocomplete="off" required>
               </div>
               <div class="input-group">
                 <label>Upload Screenshots (Select up to 7 images)</label>
                 <input type="file" id="sellImageFile" accept="image/*" multiple required>
               </div>
-              <div style="display:flex; gap:10px;">
-                <input id="sellUsername" placeholder="ID Username / Email" style="flex:1;" autocomplete="off" required>
-                <input type="password" id="sellPassword" placeholder="ID Password" style="flex:1;" autocomplete="new-password" required>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input id="sellUsername" placeholder="ID Username / Email" style="flex:1; min-width:150px;" autocomplete="off" required>
+                <input type="password" id="sellPassword" placeholder="ID Password" style="flex:1; min-width:150px;" autocomplete="new-password" required>
               </div>
               <button class="generate-btn" type="submit">Submit for Verification 🛡️</button>
             </form>
@@ -171,20 +176,20 @@
       <section id="tools-hub" class="tools-section">
         <div class="section-title"><h2>AI Creator Tools</h2><p>Click on any tool below to open.</p></div>
         <div class="bento-grid">
-          <article class="tool-card span-4" onclick="openTool('video')">
-            <h3 style="font-size:24px;">🪄 Auto Video</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          <article class="tool-card tool-card-hover span-4" onclick="openTool('video')">
+            <h3 style="font-size:24px;">🪄 Auto Video</h3><span style="color:var(--secondary); margin-top:auto; font-weight:bold;">Open Tool →</span>
           </article>
-          <article class="tool-card span-4" onclick="openTool('pitch')">
-            <h3 style="font-size:24px;">🤝 Sponsorship Pitch</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          <article class="tool-card tool-card-hover span-4" onclick="openTool('pitch')">
+            <h3 style="font-size:24px;">🤝 Sponsorship Pitch</h3><span style="color:var(--secondary); margin-top:auto; font-weight:bold;">Open Tool →</span>
           </article>
-          <article class="tool-card span-4" onclick="openTool('reel')">
-            <h3 style="font-size:24px;">📱 Reel Ideas</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          <article class="tool-card tool-card-hover span-4" onclick="openTool('reel')">
+            <h3 style="font-size:24px;">📱 Reel Ideas</h3><span style="color:var(--secondary); margin-top:auto; font-weight:bold;">Open Tool →</span>
           </article>
-          <article class="tool-card span-6" onclick="openTool('script')">
-            <h3 style="font-size:24px;">🎬 Reel Scripts</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          <article class="tool-card tool-card-hover span-6" onclick="openTool('script')">
+            <h3 style="font-size:24px;">🎬 Reel Scripts</h3><span style="color:var(--secondary); margin-top:auto; font-weight:bold;">Open Tool →</span>
           </article>
-          <article class="tool-card span-6" onclick="openTool('hook')">
-            <h3 style="font-size:24px;">🎣 Video Hooks</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          <article class="tool-card tool-card-hover span-6" onclick="openTool('hook')">
+            <h3 style="font-size:24px;">🎣 Video Hooks</h3><span style="color:var(--secondary); margin-top:auto; font-weight:bold;">Open Tool →</span>
           </article>
         </div>
       </section>
@@ -193,32 +198,32 @@
     <!-- INDIVIDUAL TOOL DETAIL VIEW -->
   <div id="toolDetailView" class="tool-detail-view" style="max-width:800px;">
     <button onclick="closeToolView()" class="primary-btn" style="margin-bottom: 24px;">← Back to Tools</button>
-    <div class="tool-card" style="cursor: default;"><div id="toolContainerContent"></div></div>
+    <div class="tool-card"><div id="toolContainerContent"></div></div>
   </div>
 
-  <!-- ADMIN DASHBOARD -->
+  <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
   <div id="adminDashboardView">
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px; flex-wrap:wrap; gap:10px;">
       <h2>🔐 Admin Control Panel</h2>
-      <button onclick="closeAdminDashboard()" class="primary-btn">← Exit</button>
+      <button onclick="closeAdminDashboard()" class="primary-btn">← Exit Dashboard</button>
     </div>
     <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
-      <div class="tool-card span-4" style="cursor: default;">
-        <h3 style="color:var(--secondary); margin-bottom:15px;">⏳ Pending IDs</h3>
+      <div class="tool-card span-4">
+        <h3 style="color:var(--secondary); margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">⏳ Pending IDs</h3>
         <div id="adminPendingList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
-      <div class="tool-card span-4" style="cursor: default;">
-        <h3 style="color:var(--primary); margin-bottom:15px;">🏪 Active Market</h3>
+      <div class="tool-card span-4">
+        <h3 style="color:var(--primary); margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">🏪 Active Market</h3>
         <div id="adminActiveList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
-      <div class="tool-card span-4" style="border-color:var(--success); cursor: default;">
-        <h3 style="color:var(--success); margin-bottom:15px;">💸 Payments Escrow</h3>
+      <div class="tool-card span-4" style="border-color:var(--success);">
+        <h3 style="color:var(--success); margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">💸 Payments Escrow</h3>
         <div id="adminPaymentsList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
     </div>
   </div>
 
-  <!-- CHECKOUT MODAL -->
+  <!-- CHECKOUT MODAL (WITH SPECIFIC UPI ID) -->
   <div class="modal-overlay" id="checkoutModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeCheckout()">✕</button>
@@ -250,17 +255,22 @@
   <footer><p>&copy; 2024 SmartEarn AI Marketplace.</p></footer>
     <script>
     "use strict";
+    // UTILS
     function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
-    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const res = document.getElementById(resultId); if(!box || !res) return; res.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
-    function copyOutput(id) { const el = document.getElementById(id); if(!el) return; const text = el.innerText || el.textContent || ""; navigator.clipboard.writeText(text).then(()=>alert("Copied!")).catch(()=>alert("Failed to copy.")); }
+    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const res = document.getElementById(resultId); if(!box || !res) return; res.textContent = content; box.classList.add("show"); }
+    function copyOutput(id) { const el = document.getElementById(id); if(!el) return; navigator.clipboard.writeText(el.innerText || el.textContent).then(()=>alert("Copied!")).catch(()=>alert("Failed to copy.")); }
     
     const ADMIN_PASS = "swasti@29";
     let selectedAccountId = null;
     let currentGallery = []; let currentImgIndex = 0;
 
-    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [];
-    let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
-    let pendingPayments = JSON.parse(localStorage.getItem("pendingPayments")) || [];
+    // SAFE STORAGE LOAD
+    function getSafeStorage(key, defaultVal) {
+      try { return JSON.parse(localStorage.getItem(key)) || defaultVal; } catch(e) { return defaultVal; }
+    }
+    let marketItems = getSafeStorage("marketItems", []);
+    let pendingItems = getSafeStorage("pendingItems", []);
+    let pendingPayments = getSafeStorage("pendingPayments", []);
 
     function saveStorage() {
       localStorage.setItem("marketItems", JSON.stringify(marketItems));
@@ -268,7 +278,7 @@
       localStorage.setItem("pendingPayments", JSON.stringify(pendingPayments));
     }
 
-    // IMAGE COMPRESSION TO PREVENT STORAGE CRASH
+    // IMAGE COMPRESSOR
     function compressImage(file) {
       return new Promise((resolve) => {
         const reader = new FileReader(); reader.readAsDataURL(file);
@@ -286,121 +296,9 @@
 
     // GALLERY VIEWER LOGIC
     window.openGallery = function(id) {
-      const acc = marketItems.find(i => i.id === id); if(!acc || !acc.images || acc.images.length === 0) return;
-      currentGallery = acc.images; currentImgIndex = 0;
-      updateGalleryUI(); document.getElementById("imageViewerModal").style.display = "flex";
-    };
-    window.closeImageViewer = function() { document.getElementById("imageViewerModal").style.display = "none"; };
-    window.navigateImage = function(dir) {
-      currentImgIndex += dir;
-      if(currentImgIndex < 0) currentImgIndex = currentGallery.length - 1;
-      if(currentImgIndex >= currentGallery.length) currentImgIndex = 0;
-      updateGalleryUI();
-    };
-    function updateGalleryUI() {
-      document.getElementById("fullScreenImg").src = currentGallery[currentImgIndex];
-      document.getElementById("imgCounter").innerText = `Image ${currentImgIndex + 1} of ${currentGallery.length}`;
-    }
-
-    // RENDER MARKETPLACE
-    function renderMarketplace() {
-      const list = document.getElementById("marketList");
-      if(marketItems.length === 0) { list.innerHTML = `<p style="color:var(--muted);">No accounts listed.</p>`; return; }
-      list.innerHTML = marketItems.map(item => `
-        <div class="market-item">
-          <div class="market-img-wrapper" onclick="openGallery(${item.id})">
-            <img src="${item.images[0]}" alt="Thumbnail">
-            <div class="img-count-badge">📸 ${item.images.length} Photos</div>
-          </div>
-          <div class="market-body">
-            <span style="font-size:11px; color:var(--secondary); font-weight:bold; text-transform:uppercase;">${item.gameName}</span>
-            <h4>${item.title}</h4>
-            <div class="market-price">₹${item.price}</div>
-            <button class="buy-btn" onclick="openCheckout(${item.id})">Buy via UPI ⚡</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    // SELL FORM SUBMISSION WITH EMAIL NOTIFICATION
-    document.getElementById("sellForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const files = document.getElementById("sellImageFile").files;
-      if(files.length === 0) return alert("Select at least 1 image!");
-      if(files.length > 7) return alert("Maximum 7 images allowed.");
-      
-      const btn = this.querySelector('button'); btn.innerText = "Processing Images... Wait ⏳"; btn.disabled = true;
-      let base64Images = [];
-      for(let i=0; i<files.length; i++) { base64Images.push(await compressImage(files[i])); }
-
-      const sellTitle = getValue("sellTitle");
-      const sellGame = getValue("sellGameName");
-      const sellPrice = getValue("sellPrice");
-      const sellUser = getValue("sellUsername");
-      const sellPass = getValue("sellPassword");
-
-      pendingItems.push({
-        id: Date.now(), title: sellTitle, gameName: sellGame, price: sellPrice,
-        images: base64Images, username: sellUser, password: sellPass
-      });
-      saveStorage(); 
-
-      // Send Email Notification via FormSubmit
-      try {
-        fetch("https://formsubmit.co/ajax/pachori.karan@gmail.com", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: "SmartEarn AI - New ID For Approval!",
-            Title: sellTitle, Game: sellGame, Price: sellPrice, Username: sellUser, Password: sellPass
-          })
-        });
-      } catch(err) { console.log("Email Notification skipped."); }
-
-      showOutput("sellOutput", "sellResult", "Account submitted successfully! Check your email / Admin panel. 🛡️");
-  <script>
-    "use strict";
-    function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
-    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const res = document.getElementById(resultId); if(!box || !res) return; res.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
-    function copyOutput(id) { const el = document.getElementById(id); if(!el) return; const text = el.innerText || el.textContent || ""; navigator.clipboard.writeText(text).then(()=>alert("Copied!")).catch(()=>alert("Failed to copy.")); }
-    
-    const ADMIN_PASS = "swasti@29";
-    let selectedAccountId = null;
-    let currentGallery = []; let currentImgIndex = 0;
-
-    // Load data from LocalStorage
-    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [];
-    let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
-    let pendingPayments = JSON.parse(localStorage.getItem("pendingPayments")) || [];
-
-    function saveStorage() {
-      localStorage.setItem("marketItems", JSON.stringify(marketItems));
-      localStorage.setItem("pendingItems", JSON.stringify(pendingItems));
-      localStorage.setItem("pendingPayments", JSON.stringify(pendingPayments));
-    }
-
-    // IMAGE COMPRESSION TO PREVENT STORAGE LIMIT ERROR
-    function compressImage(file) {
-      return new Promise((resolve) => {
-        const reader = new FileReader(); reader.readAsDataURL(file);
-        reader.onload = e => {
-          const img = new Image(); img.src = e.target.result;
-          img.onload = () => {
-            const cvs = document.createElement('canvas'); const ctx = cvs.getContext('2d');
-            const ratio = 600 / img.width; cvs.width = 600; cvs.height = img.height * ratio;
-            ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
-            resolve(cvs.toDataURL('image/jpeg', 0.6));
-          };
-        };
-      });
-    }
-
-    // GALLERY VIEWER LOGIC (Handles old & new data securely)
-    window.openGallery = function(id) {
       const acc = marketItems.find(i => i.id === id); if(!acc) return;
-      currentGallery = (acc.images && acc.images.length > 0) ? acc.images : (acc.image ? [acc.image] : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"]);
-      currentImgIndex = 0;
-      updateGalleryUI(); document.getElementById("imageViewerModal").style.display = "flex";
+      currentGallery = (acc.images && acc.images.length > 0) ? acc.images : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"];
+      currentImgIndex = 0; updateGalleryUI(); document.getElementById("imageViewerModal").style.display = "flex";
     };
     window.closeImageViewer = function() { document.getElementById("imageViewerModal").style.display = "none"; };
     window.navigateImage = function(dir) {
@@ -416,11 +314,10 @@
 
     // RENDER MARKETPLACE
     function renderMarketplace() {
-      const list = document.getElementById("marketList");
-      if(marketItems.length === 0) { list.innerHTML = `<p style="color:var(--muted);">No accounts listed.</p>`; return; }
+      const list = document.getElementById("marketList"); if(!list) return;
+      if(marketItems.length === 0) { list.innerHTML = `<p style="color:var(--muted);">No accounts listed right now.</p>`; return; }
       list.innerHTML = marketItems.map(item => {
-        const imgs = (item.images && item.images.length > 0) ? item.images : (item.image ? [item.image] : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"]);
-        const gameName = item.gameName || item.category || "Gaming Account";
+        const imgs = (item.images && item.images.length > 0) ? item.images : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"];
         return `
         <div class="market-item">
           <div class="market-img-wrapper" onclick="openGallery(${item.id})">
@@ -428,7 +325,7 @@
             <div class="img-count-badge">📸 ${imgs.length} Photos</div>
           </div>
           <div class="market-body">
-            <span style="font-size:11px; color:var(--secondary); font-weight:bold; text-transform:uppercase;">${gameName}</span>
+            <span style="font-size:11px; color:var(--secondary); font-weight:bold; text-transform:uppercase;">${item.gameName || 'Gaming'}</span>
             <h4>${item.title}</h4>
             <div class="market-price">₹${item.price}</div>
             <button class="buy-btn" onclick="openCheckout(${item.id})">Buy via UPI ⚡</button>
@@ -437,7 +334,7 @@
       `}).join("");
     }
 
-    // SELL FORM SUBMISSION WITH EMAIL NOTIFICATION
+    // SELL FORM (WITH EMAIL AUTO NOTIFICATION)
     document.getElementById("sellForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const files = document.getElementById("sellImageFile").files;
@@ -448,71 +345,66 @@
       let base64Images = [];
       for(let i=0; i<files.length; i++) { base64Images.push(await compressImage(files[i])); }
 
-      const sellTitle = getValue("sellTitle");
-      const sellGame = getValue("sellGameName");
-      const sellPrice = getValue("sellPrice");
-      const sellUser = getValue("sellUsername");
-      const sellPass = getValue("sellPassword");
+      const sellTitle = getValue("sellTitle"), sellGame = getValue("sellGameName"), sellPrice = getValue("sellPrice");
+      const sellUser = getValue("sellUsername"), sellPass = getValue("sellPassword");
 
-      pendingItems.push({
-        id: Date.now(), title: sellTitle, gameName: sellGame, price: sellPrice,
-        images: base64Images, username: sellUser, password: sellPass
-      });
+      pendingItems.push({ id: Date.now(), title: sellTitle, gameName: sellGame, price: sellPrice, images: base64Images, username: sellUser, password: sellPass });
       saveStorage(); 
 
-      // Send Email Notification via FormSubmit
       try {
         fetch("https://formsubmit.co/ajax/pachori.karan@gmail.com", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: "SmartEarn AI - New ID For Approval!",
-            Title: sellTitle, Game: sellGame, Price: sellPrice, Username: sellUser, Password: sellPass
-          })
+          method: "POST", headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ _subject: "SmartEarn AI - New ID Request!", Title: sellTitle, Game: sellGame, Price: sellPrice, Username: sellUser, Password: sellPass })
         });
-      } catch(err) { console.log("Email Notification skipped."); }
+      } catch(err) { console.log("Email skip"); }
 
-      showOutput("sellOutput", "sellResult", "Account submitted successfully! Check your email / Admin panel. 🛡️");
+      showOutput("sellOutput", "sellResult", "Account submitted successfully! Check Admin panel. 🛡️");
       this.reset(); btn.innerText = "Submit for Verification 🛡️"; btn.disabled = false;
     });
 
-    // ADMIN DASHBOARD LOGIC
+    // ADMIN DASHBOARD
     window.openAdminDashboard = function() {
-      const p = prompt("Admin Password:"); if(p !== ADMIN_PASS) { if(p!==null) alert("Wrong Password! ❌"); return; }
-      document.getElementById("mainWebsiteView").style.display = "none"; document.getElementById("toolDetailView").style.display = "none";
-      document.getElementById("adminDashboardView").style.display = "block"; renderAdmin();
+      const p = prompt("Enter Admin Password (swasti@29):"); 
+      if (p === null) return; // Cancelled
+      if (p !== ADMIN_PASS) { alert("Wrong Password! Access Denied ❌"); return; }
+      
+      document.getElementById("mainWebsiteView").style.display = "none"; 
+      document.getElementById("toolDetailView").style.display = "none";
+      document.getElementById("adminDashboardView").style.display = "block"; 
+      renderAdmin(); window.scrollTo(0,0);
     };
-    window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
+    
+    window.closeAdminDashboard = function() { 
+      document.getElementById("adminDashboardView").style.display = "none"; 
+      document.getElementById("mainWebsiteView").style.display = "block"; 
+    };
 
     function renderAdmin() {
-      document.getElementById("adminPendingList").innerHTML = pendingItems.length === 0 ? `<p style="color:var(--muted);">No pending IDs.</p>` : pendingItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Game: ${i.gameName || i.category || 'N/A'}<br>User: ${i.username}<br>Pass: ${i.password}</span><br><button onclick="approveItem(${idx})" style="background:var(--success); color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Approve & List ✔️</button></div>`).join("");
+      const pList = document.getElementById("adminPendingList");
+      const aList = document.getElementById("adminActiveList");
+      const payList = document.getElementById("adminPaymentsList");
+
+      pList.innerHTML = pendingItems.length === 0 ? `<p style="color:var(--muted);">No pending IDs.</p>` : pendingItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Game: ${i.gameName || 'N/A'}<br>User: ${i.username}<br>Pass: ${i.password}</span><br><button onclick="approveItem(${idx})" style="background:var(--success); color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Approve & List ✔️</button></div>`).join("");
       
-      document.getElementById("adminActiveList").innerHTML = marketItems.length === 0 ? `<p style="color:var(--muted);">No active IDs.</p>` : marketItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Pass: ${i.password}</span><br><button onclick="deleteItem(${idx})" style="background:#ef4444; color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Delete 🗑️</button></div>`).join("");
+      aList.innerHTML = marketItems.length === 0 ? `<p style="color:var(--muted);">No active IDs.</p>` : marketItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Pass: ${i.password}</span><br><button onclick="deleteItem(${idx})" style="background:#ef4444; color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Delete 🗑️</button></div>`).join("");
       
-      document.getElementById("adminPaymentsList").innerHTML = pendingPayments.length === 0 ? `<p style="color:var(--muted);">No pending payments.</p>` : pendingPayments.map((i, idx) => `
+      payList.innerHTML = pendingPayments.length === 0 ? `<p style="color:var(--muted);">No pending payments.</p>` : pendingPayments.map((i, idx) => `
         <div class="admin-card-item" style="border: 1px solid var(--success);">
           <strong style="color:var(--success); font-size:18px;">₹${i.price} (UTR: ${i.utr})</strong>
-          <div style="font-size:13px; margin:8px 0; color:var(--muted);">Item: ${i.accountTitle}<br>Game: ${i.gameName || 'N/A'}<br>WA: ${i.whatsapp}<br><hr style="border:0; border-top:1px dashed var(--border); margin:5px 0;">ID: ${i.username}<br>Pass: ${i.password}</div>
+          <div style="font-size:13px; margin:8px 0; color:var(--muted);">Item: ${i.accountTitle}<br>WA: ${i.whatsapp}<br><hr style="border:0; border-top:1px dashed var(--border); margin:5px 0;">ID: ${i.username}<br>Pass: ${i.password}</div>
           <button onclick="sendWA(${idx})" style="background:#25D366; color:white; font-weight:bold; border:none; padding:10px; border-radius:6px; cursor:pointer; width:100%;">Verify & Send WA 💬</button>
         </div>`).join("");
     }
 
-    // FIXED APPROVAL LOGIC
-    window.approveItem = function(i) { 
-      marketItems.push(pendingItems.splice(i,1)[0]); 
-      saveStorage(); renderMarketplace(); renderAdmin(); 
-      alert("Success! ID approved and listed on marketplace! 🎉");
-    };
-    
+    window.approveItem = function(i) { marketItems.push(pendingItems.splice(i,1)[0]); saveStorage(); renderMarketplace(); renderAdmin(); alert("Success! ID approved and listed on marketplace! 🎉"); };
     window.deleteItem = function(i) { if(confirm("Remove this ID?")) { marketItems.splice(i,1); saveStorage(); renderMarketplace(); renderAdmin(); } };
     
-    // WHATSAPP AUTOMATION ESCROW
+    // WHATSAPP ESCROW SENDER
     window.sendWA = function(i) {
       const item = pendingPayments[i];
-      const gameText = item.gameName ? item.gameName : 'Gaming Account';
-      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.accountTitle}\n*Game:* ${gameText}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for buying from SmartEarn AI Marketplace!_`;
+      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.accountTitle}\n*Game:* ${item.gameName || 'Gaming Account'}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for buying from SmartEarn AI!_`;
       window.open(`https://wa.me/91${item.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
-      if(confirm("Message Sent successfully? Click OK to clear this payment from pending list.")) { pendingPayments.splice(i,1); saveStorage(); renderAdmin(); }
+      if(confirm("Message Sent successfully? Click OK to clear this payment from list.")) { pendingPayments.splice(i,1); saveStorage(); renderAdmin(); }
     };
 
     // CHECKOUT LOGIC
@@ -528,17 +420,17 @@
       const utr = getValue("utrInput"); const wa = getValue("whatsappInput");
       if(utr.length !== 12) return alert("Strict Check ❌: Please enter a valid 12-digit UTR."); 
       if(wa.length < 10) return alert("Please enter a valid WhatsApp Number.");
-      const a = marketItems.find(i => i.id === selectedAccountId);
+      const a = marketItems.find(i => i.id === selectedAccountId); if(!a) return;
       pendingPayments.push({ id:Date.now(), accountTitle: a.title, gameName: a.gameName, price: a.price, utr: utr, whatsapp: wa, username: a.username, password: a.password });
       saveStorage(); closeCheckout(); alert(`Payment under review! ✅\nAdmin will verify UTR (${utr}) and send the ID/Password to your WhatsApp (${wa}) shortly.`);
     };
 
-    // FULL AI TOOLS LOGIC
+    // AI CREATOR TOOLS LOGIC
     window.openTool = function(toolName) {
       document.getElementById("mainWebsiteView").style.display = "none";
       const detailView = document.getElementById("toolDetailView");
       const container = document.getElementById("toolContainerContent");
-      detailView.style.display = "block"; window.scrollTo({ top: 0, behavior: "smooth" });
+      detailView.style.display = "block"; window.scrollTo(0, 0);
 
       if (toolName === 'video') {
         container.innerHTML = `<h2>🪄 AI Auto Video Generator</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><textarea id="activePrompt" placeholder="Prompt (e.g., Cyberpunk city...)" required></textarea></div><button class="generate-btn" type="submit" id="activeVideoBtn">Generate Video</button></form><div class="output-box" id="activeOutputBox"><h4 id="activeVideoStatus">Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
@@ -566,20 +458,23 @@
         } else if (toolName === 'pitch') {
           showOutput("activeOutputBox", "activeOutputResult", `Hi ${getValue("pitchBrand")} Team,\n\nI run a ${getValue("pitchNiche")} channel with ${getValue("pitchFollowers")} followers. I love your brand and would love to collaborate.\n\nBest,\n${getValue("pitchName")}`);
         } else if (toolName === 'reel') {
-          const niche = getValue("reelNiche");
-          showOutput("activeOutputBox", "activeOutputResult", `1. 5 mistakes beginners make in ${niche}\n2. A day in my life doing ${niche}\n3. Myth vs Fact about ${niche}\n4. Best free tools for ${niche}\n5. How I got started with ${niche}`);
+          showOutput("activeOutputBox", "activeOutputResult", `1. 5 mistakes beginners make in ${getValue("reelNiche")}\n2. A day in my life doing ${getValue("reelNiche")}\n3. Myth vs Fact about ${getValue("reelNiche")}`);
         } else if (toolName === 'script') {
           const vibe = getValue("scriptVibe");
-          showOutput("activeOutputBox", "activeOutputResult", vibe === "funny" ? `Hook (0-3s): Me trying to understand ${getValue("scriptTopic")}...\nScene 1: Total confusion!\nCTA: Tag a friend who relates!` : `Hook (0-3s): Stop doing ${getValue("scriptTopic")} the wrong way!\nScene 1: 90% of people make this mistake...\nCTA: Follow for part 2!`);
+          showOutput("activeOutputBox", "activeOutputResult", vibe === "funny" ? `Hook (0-3s): Me trying to understand ${getValue("scriptTopic")}...\nScene 1: Total confusion!\nCTA: Tag a friend!` : `Hook (0-3s): Stop doing ${getValue("scriptTopic")} the wrong way!\nScene 1: 90% of people make this mistake...\nCTA: Follow for part 2!`);
         } else if (toolName === 'hook') {
           showOutput("activeOutputBox", "activeOutputResult", `1. Want to master ${getValue("hookTopic")}?\n2. Nobody is talking about this ${getValue("hookTopic")} secret.\n3. Here is why your ${getValue("hookTopic")} isn't working.`);
         }
       });
     };
-    window.closeToolView = function() { document.getElementById("toolDetailView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
+    
+    window.closeToolView = function() { 
+      document.getElementById("toolDetailView").style.display = "none"; 
+      document.getElementById("mainWebsiteView").style.display = "block"; 
+    };
 
+    // INIT APP
     renderMarketplace();
-    const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
