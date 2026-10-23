@@ -77,7 +77,7 @@
     .admin-icon-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text); transition: all 0.2s; }
     .admin-icon-btn:hover { background: var(--primary); border-color: var(--primary); }
 
-    .hero { text-align: center; max-width: 800px; margin: 60px auto 80px; padding: 0 20px; }
+    .hero { text-align: center; max-width: 800px; margin: 60px auto 60px; padding: 0 20px; }
     .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; color: var(--text); background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
     .badge span { color: var(--secondary); }
     .hero h1 { font-size: clamp(40px, 6vw, 70px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; font-weight: 800; }
@@ -105,7 +105,6 @@
     .bento-grid { 
       display: grid; 
       grid-template-columns: repeat(12, 1fr); 
-      grid-auto-rows: minmax(min-content, max-content);
       gap: 24px; 
     }
     
@@ -118,6 +117,7 @@
       position: relative;
       overflow: hidden;
       display: flex; flex-direction: column;
+      cursor: pointer;
     }
     
     .tool-card::before {
@@ -130,7 +130,6 @@
 
     .span-4 { grid-column: span 4; }
     .span-6 { grid-column: span 6; }
-    .span-8 { grid-column: span 8; }
     .span-12 { grid-column: span 12; }
     
     .tool-icon { 
@@ -140,7 +139,8 @@
     }
     
     .tool-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .tool-card > p { color: var(--muted); font-size: 14px; margin-bottom: 24px; flex-grow: 1; }
+    .tool-card > p { color: var(--muted); font-size: 14px; margin-bottom: 16px; flex-grow: 1; }
+    .tool-card .link-text { color: var(--secondary); font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; }
 
     .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
     .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -167,14 +167,13 @@
     .buy-btn { background: var(--success); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: auto; }
     .buy-btn:hover { opacity: 0.9; }
 
-    /* CHECKOUT MODAL POPUP */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
     .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 16px; }
     .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
     .qr-box { background: white; padding: 15px; border-radius: 12px; text-align: center; width: 180px; margin: 0 auto; }
     .qr-box img { width: 150px; height: 150px; }
 
-    #adminDashboardView { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+    #adminDashboardView, .tool-detail-view { display: none; padding: 40px 5%; max-width: 900px; margin: 0 auto; }
 
     .output-box { 
       display: none; margin-top: 24px; padding: 20px; 
@@ -192,13 +191,13 @@
     footer a:hover { color: var(--primary); }
 
     @media (max-width: 1024px) {
-      .span-4, .span-6, .span-8 { grid-column: span 6; }
+      .span-4, .span-6 { grid-column: span 6; }
     }
     @media (max-width: 768px) {
       .header { width: 95%; padding: 12px 20px; }
       .header nav { display: flex; gap: 8px; }
       .hero { margin-top: 40px; }
-      .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+      .span-4, .span-6, .span-12 { grid-column: span 12; }
       .tool-card { padding: 24px; }
     }
   </style>
@@ -210,19 +209,20 @@
     <nav>
       <a href="#marketplace">Marketplace</a>
       <a href="#sell-section" class="nav-btn">Sell ID 🚀</a>
-      <a href="#tools">Tools</a>
+      <a href="#tools-hub">Tools</a>
       <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Dashboard">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
     </nav>
   </header>
 
+  <!-- MAIN WEBSITE VIEW -->
   <div id="mainWebsiteView">
     <main>
       <section class="hero">
         <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
         <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
-        <p>Verified gaming & social media accounts with secure password delivery after payment verification[span_1](start_span)[span_1](end_span).</p>
+        <p>Verified gaming & social media accounts with secure password delivery after payment verification[span_0](start_span)[span_0](end_span).</p>
         <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
       </section>
 
@@ -234,160 +234,138 @@
         </div>
 
         <div class="bento-grid">
-          <!-- Marketplace Catalog -->
-          <article class="tool-card span-12" id="catalog-card">
+          <article class="tool-card span-12" id="catalog-card" style="cursor: default;">
             <div class="tool-icon">🛒</div>
             <h3>Available Verified Accounts</h3>
             <p>Scan QR code, pay via UPI, and get credentials instantly.</p>
             <div class="market-grid" id="marketList"></div>
           </article>
 
-          <!-- Sell / List ID Form with Image URL Support -->
-          <article class="tool-card span-12" id="sell-section" style="max-width: 700px; margin: 0 auto;">
+          <article class="tool-card span-12" id="sell-section" style="max-width: 700px; margin: 0 auto; cursor: default;">
             <div class="tool-icon">🏷️</div>
             <h3>List Your ID for Sale</h3>
-            <p>Submit account details along with a screenshot/image link[span_2](start_span)[span_2](end_span).</p>
+            <p>Submit account details along with a screenshot/image link[span_1](start_span)[span_1](end_span).</p>
             <form class="tool-form" id="sellForm">
-              <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" required></div>
+              <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" autocomplete="off" required></div>
               <div style="display:flex; gap:10px;">
                 <select id="sellCategory" style="flex:1;"><option value="Gaming">Gaming</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option></select>
-                <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" required>
+                <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" autocomplete="off" required>
               </div>
-              <div class="input-group"><input id="sellImage" placeholder="Image/Screenshot URL (Paste image link)" required></div>
-              <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" required></div>
-              <div class="input-group"><input id="sellPassword" placeholder="Account Password" required></div>
+              <div class="input-group"><input id="sellImage" placeholder="Image/Screenshot URL" autocomplete="off" required></div>
+              <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" autocomplete="off" required></div>
+              <div class="input-group"><input type="password" id="sellPassword" placeholder="Account Password" autocomplete="new-password" required></div>
               <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
             </form>
             <div class="output-box" id="sellOutput"><h4>Status</h4><div class="output-content" id="sellResult"></div></div>
           </article>
         </div>
       </section>
-          <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
-    <div id="adminDashboardView">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
-        <div>
-          <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Panel</h2>
-          <p style="color: var(--muted); font-size: 14px;">Manage pending ID submissions and active marketplace items.</p>
-        </div>
-        <button onclick="closeAdminDashboard()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">← Back to Website</button>
-      </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <div class="tool-card" style="margin: 0;">
-          <h3 style="margin-bottom: 15px; color: var(--secondary);">Pending Approvals</h3>
-          <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 12px;">
-            <p style="color: var(--muted); font-size: 14px;">No pending submissions right now.</p>
-          </div>
+      <!-- TOOLS HUB (GRID OF CARDS) -->
+      <section id="tools-hub" class="tools-section">
+        <div class="section-title">
+          <h2>AI Creator Power Tools</h2>
+          <p>Click on any tool below to open and use it.</p>
         </div>
 
-        <div class="tool-card" style="margin: 0;">
-          <h3 style="margin-bottom: 15px; color: var(--success);">Active Listed IDs</h3>
-          <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;"></div>
+        <div class="bento-grid">
+          <article class="tool-card span-4" onclick="openTool('video')">
+            <div class="tool-icon">🪄</div>
+            <h3>AI Auto Video Generator</h3>
+            <p>Instantly generate AI videos from text prompt.</p>
+            <span class="link-text">Open Tool →</span>
+          </article>
+
+          <article class="tool-card span-4" onclick="openTool('pitch')">
+            <div class="tool-icon">🤝</div>
+            <h3>Sponsorship Pitch</h3>
+            <p>Generate professional emails to pitch brands.</p>
+            <span class="link-text">Open Tool →</span>
+          </article>
+
+          <article class="tool-card span-4" onclick="openTool('reel')">
+            <div class="tool-icon">📱</div>
+            <h3>Reel Ideas</h3>
+            <p>Viral short-video concept generator.</p>
+            <span class="link-text">Open Tool →</span>
+          </article>
+
+          <article class="tool-card span-6" onclick="openTool('script')">
+            <div class="tool-icon">🎬</div>
+            <h3>Reel Scripts</h3>
+            <p>Scene-by-scene engaging script creator.</p>
+            <span class="link-text">Open Tool →</span>
+          </article>
+
+          <article class="tool-card span-6" onclick="openTool('hook')">
+            <div class="tool-icon">🎣</div>
+            <h3>Video Hooks</h3>
+            <p>Opening lines that stop viewers from scrolling.</p>
+            <span class="link-text">Open Tool →</span>
+          </article>
         </div>
+      </section>
+    </main>
+  </div>
+    <!-- INDIVIDUAL TOOL DETAIL VIEW (Opens when user clicks any tool card) -->
+  <div id="toolDetailView" class="tool-detail-view">
+    <button onclick="closeToolView()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border); margin-bottom: 24px;">← Back to All Tools</button>
+    
+    <div class="tool-card" style="margin: 0; cursor: default;">
+      <div id="toolContainerContent">
+        <!-- Dynamic Tool Form Loaded Here -->
       </div>
     </div>
+  </div>
 
-    <!-- CHECKOUT MODAL POPUP WITH REAL UPI ID -->
-    <div class="modal-overlay" id="checkoutModal">
-      <div class="modal-content">
-        <button class="modal-close" onclick="closeCheckout()">✕</button>
-        <h3 id="modalTitle" style="font-size: 20px;">Complete Payment</h3>
-        <p style="color: var(--muted); font-size: 14px;" id="modalPriceText">Scan QR code below to pay securely.</p>
-        
-        <div class="qr-box">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=1499" id="upiQrImg" alt="UPI QR">
-        </div>
-        
-        <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
-          UPI ID: <strong style="color: var(--secondary);">gaminggamer3554@okicici</strong>[span_3](start_span)[span_3](end_span)
-        </div>
-
-        <div class="input-group">
-          <label style="font-size: 12px; color: var(--muted);">Enter UTR / Transaction ID after payment:</label>
-          <input type="text" id="utrInput" placeholder="e.g., 432156789012">
-        </div>
-
-        <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Verify & Get Password ⚡</button>
+  <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
+  <div id="adminDashboardView">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
+      <div>
+        <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Panel</h2>
+        <p style="color: var(--muted); font-size: 14px;">Manage pending ID submissions and active marketplace items.</p>
       </div>
+      <button onclick="closeAdminDashboard()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">← Back to Website</button>
     </div>
 
-    <section id="tools" class="tools-section">
-      <div class="section-title">
-        <h2>AI Creator Power Tools</h2>
-        <p>Automate your content journey with our suite.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+      <div class="tool-card" style="margin: 0; cursor: default;">
+        <h3 style="margin-bottom: 15px; color: var(--secondary);">Pending Approvals</h3>
+        <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 12px;">
+          <p style="color: var(--muted); font-size: 14px;">No pending submissions right now.</p>
+        </div>
       </div>
 
-      <div class="bento-grid">
-        <!-- 11. AI AUTO VIDEO GENERATOR -->
-        <article class="tool-card span-8" id="video-tool" style="background: linear-gradient(to bottom right, #121217, #1e1133); border-color: rgba(139, 92, 246, 0.3);">
-          <div class="tool-icon" style="background: var(--primary); border: none;">🪄</div>
-          <h3>AI Auto Video Generator</h3>
-          <p>Instantly generate AI videos from a simple text prompt.</p>
-          <form class="tool-form" id="videoForm">
-            <div class="input-group"><textarea id="videoPrompt" placeholder="e.g., A futuristic cyberpunk city, neon lights..." required></textarea></div>
-            <button class="generate-btn" type="submit" id="videoBtn" style="background: white; color: black;">Generate Video</button>
-          </form>
-          <div class="output-box" id="videoOutput"><h4 id="videoStatus">Your AI Video</h4><div class="output-content" id="videoResult" style="text-align: center;"><video id="aiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>
-        </article>
-
-        <!-- 12. BRAND SPONSORSHIP -->
-        <article class="tool-card span-4" id="pitch-tool">
-          <div class="tool-icon">🤝</div>
-          <h3>Sponsorship Pitch</h3>
-          <p>Generate emails to pitch brands.</p>
-          <form class="tool-form" id="pitchForm">
-            <div class="input-group"><input id="pitchName" placeholder="Your/Channel Name" required></div>
-            <div class="input-group"><input id="pitchNiche" placeholder="Niche (e.g. Tech)" required></div>
-            <div style="display: flex; gap: 10px;">
-              <div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" required></div>
-              <div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" required></div>
-            </div>
-            <button class="generate-btn" type="submit">Draft Pitch</button>
-          </form>
-          <div class="output-box" id="pitchOutput"><h4>Your Pitch</h4><div class="output-content" id="pitchResult"></div><button class="copy-btn" type="button" onclick="copyOutput('pitchResult')">Copy</button></div>
-        </article>
-
-        <!-- 4. REEL IDEAS -->
-        <article class="tool-card span-4" id="reel-tool">
-          <div class="tool-icon">📱</div>
-          <h3>Reel Ideas</h3>
-          <p>Viral short-video concepts.</p>
-          <form class="tool-form" id="reelForm">
-            <div class="input-group"><input id="reelNiche" placeholder="Your Niche" required></div>
-            <div class="input-group"><select id="reelPlatform"><option value="instagram">Instagram Reels</option><option value="youtube">YouTube Shorts</option></select></div>
-            <button class="generate-btn" type="submit">Get Ideas</button>
-          </form>
-          <div class="output-box" id="reelOutput"><h4>Ideas</h4><div class="output-content" id="reelResult"></div><button class="copy-btn" type="button" onclick="copyOutput('reelResult')">Copy</button></div>
-        </article>
-
-        <!-- 10. REEL SCRIPTS -->
-        <article class="tool-card span-4" id="script-tool">
-          <div class="tool-icon">🎬</div>
-          <h3>Reel Scripts</h3>
-          <p>Scene-by-scene script generator.</p>
-          <form class="tool-form" id="scriptForm">
-            <div class="input-group"><input id="scriptTopic" placeholder="Video Topic" required></div>
-            <div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option><option value="motivational">Motivational</option><option value="story">Storytelling</option></select></div>
-            <button class="generate-btn" type="submit">Write Script</button>
-          </form>
-          <div class="output-box" id="scriptOutput"><h4>Script</h4><div class="output-content" id="scriptResult"></div><button class="copy-btn" type="button" onclick="copyOutput('scriptResult')">Copy</button></div>
-        </article>
-
-        <!-- 8. VIDEO HOOKS -->
-        <article class="tool-card span-4" id="hook-tool">
-          <div class="tool-icon">🎣</div>
-          <h3>Video Hooks</h3>
-          <p>Opening lines that stop scroll.</p>
-          <form class="tool-form" id="hookForm">
-            <div class="input-group"><input id="hookTopic" placeholder="Video topic" required></div>
-            <div class="input-group"><select id="hookStyle"><option value="question">Question</option><option value="curiosity">Curiosity</option><option value="story">Story</option><option value="bold">Bold statement</option></select></div>
-            <button class="generate-btn" type="submit">Get Hooks</button>
-          </form>
-          <div class="output-box" id="hookOutput"><h4>Hooks</h4><div class="output-content" id="hookResult"></div><button class="copy-btn" type="button" onclick="copyOutput('hookResult')">Copy</button></div>
-        </article>
+      <div class="tool-card" style="margin: 0; cursor: default;">
+        <h3 style="margin-bottom: 15px; color: var(--success);">Active Listed IDs</h3>
+        <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;"></div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL POPUP -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeCheckout()">✕</button>
+      <h3 id="modalTitle" style="font-size: 20px;">Complete Payment</h3>
+      <p style="color: var(--muted); font-size: 14px;" id="modalPriceText">Scan QR code below to pay securely.</p>
+      
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=1499" id="upiQrImg" alt="UPI QR">
+      </div>
+      
+      <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
+        UPI ID: <strong style="color: var(--secondary);">gaminggamer3554@okicici</strong>
+      </div>
+
+      <div class="input-group">
+        <label style="font-size: 12px; color: var(--muted);">Enter UTR / Transaction ID after payment:</label>
+        <input type="text" id="utrInput" placeholder="e.g., 432156789012" autocomplete="off">
+      </div>
+
+      <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Verify & Get Password ⚡</button>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
@@ -430,6 +408,140 @@
       `).join("");
     }
 
+    // TOOL PAGE NAVIGATION
+    window.openTool = function(toolName) {
+      document.getElementById("mainWebsiteView").style.display = "none";
+      document.getElementById("adminDashboardView").style.display = "none";
+      const detailView = document.getElementById("toolDetailView");
+      const container = document.getElementById("toolContainerContent");
+      detailView.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      let htmlContent = "";
+      if (toolName === 'video') {
+        htmlContent = `
+          <div class="tool-icon" style="background: var(--primary); border: none;">🪄</div>
+          <h3>AI Auto Video Generator</h3>
+          <p>Instantly generate AI videos from a simple text prompt.</p>
+          <form class="tool-form" id="activeToolForm">
+            <div class="input-group"><textarea id="activePrompt" placeholder="e.g., A futuristic cyberpunk city, neon lights..." required></textarea></div>
+            <button class="generate-btn" type="submit" id="activeVideoBtn" style="background: white; color: black;">Generate Video</button>
+          </form>
+          <div class="output-box show" id="activeVideoOutput" style="display:none;"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
+      } else if (toolName === 'pitch') {
+        htmlContent = `
+          <div class="tool-icon">🤝</div>
+          <h3>Sponsorship Pitch</h3>
+          <p>Generate emails to pitch brands.</p>
+          <form class="tool-form" id="activeToolForm">
+            <div class="input-group"><input id="pitchName" placeholder="Your/Channel Name" autocomplete="off" required></div>
+            <div class="input-group"><input id="pitchNiche" placeholder="Niche (e.g. Tech)" autocomplete="off" required></div>
+            <div style="display: flex; gap: 10px;">
+              <div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" autocomplete="off" required></div>
+              <div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" autocomplete="off" required></div>
+            </div>
+            <button class="generate-btn" type="submit">Draft Pitch</button>
+          </form>
+          <div class="output-box" id="activeOutputBox"><h4>Your Pitch</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+      } else if (toolName === 'reel') {
+        htmlContent = `
+          <div class="tool-icon">📱</div>
+          <h3>Reel Ideas</h3>
+          <p>Viral short-video concepts.</p>
+          <form class="tool-form" id="activeToolForm">
+            <div class="input-group"><input id="reelNiche" placeholder="Your Niche" autocomplete="off" required></div>
+            <div class="input-group"><select id="reelPlatform"><option value="instagram">Instagram Reels</option><option value="youtube">YouTube Shorts</option></select></div>
+            <button class="generate-btn" type="submit">Get Ideas</button>
+          </form>
+          <div class="output-box" id="activeOutputBox"><h4>Ideas</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+      } else if (toolName === 'script') {
+        htmlContent = `
+          <div class="tool-icon">🎬</div>
+          <h3>Reel Scripts</h3>
+          <p>Scene-by-scene script generator.</p>
+          <form class="tool-form" id="activeToolForm">
+            <div class="input-group"><input id="scriptTopic" placeholder="Video Topic" autocomplete="off" required></div>
+            <div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option><option value="motivational">Motivational</option><option value="story">Storytelling</option></select></div>
+            <button class="generate-btn" type="submit">Write Script</button>
+          </form>
+          <div class="output-box" id="activeOutputBox"><h4>Script</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+      } else if (toolName === 'hook') {
+        htmlContent = `
+          <div class="tool-icon">🎣</div>
+          <h3>Video Hooks</h3>
+          <p>Opening lines that stop scroll.</p>
+          <form class="tool-form" id="activeToolForm">
+            <div class="input-group"><input id="hookTopic" placeholder="Video topic" autocomplete="off" required></div>
+            <div class="input-group"><select id="hookStyle"><option value="question">Question</option><option value="curiosity">Curiosity</option><option value="story">Story</option><option value="bold">Bold statement</option></select></div>
+            <button class="generate-btn" type="submit">Get Hooks</button>
+          </form>
+          <div class="output-box" id="activeOutputBox"><h4>Hooks</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+      }
+
+      container.innerHTML = htmlContent;
+
+      // Attach event listener for the active tool form
+      document.getElementById("activeToolForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        if (toolName === 'video') {
+          const prompt = getValue("activePrompt");
+          const btn = document.getElementById("activeVideoBtn");
+          const statusText = document.getElementById("activeVideoStatus");
+          const videoPlayer = document.getElementById("activeAiVideoPlayer");
+          const box = document.getElementById("activeVideoOutput");
+          box.style.display = "block";
+          btn.innerText = "Generating... (Wait ⏳)"; btn.disabled = true;
+          statusText.innerText = "Connecting to server...";
+          videoPlayer.style.display = "none";
+          try {
+            const response = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt }) });
+            const data = await response.json();
+            if (data.success) { statusText.innerText = "Video Generated Successfully! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; }
+          } catch (error) { statusText.innerText = "Error connecting to server."; }
+          btn.innerText = "Generate Video 🪄"; btn.disabled = false;
+        } else if (toolName === 'pitch') {
+          const name = getValue("pitchName"), niche = getValue("pitchNiche"), followers = getValue("pitchFollowers"), brand = getValue("pitchBrand");
+          showOutput("activeOutputBox", "activeOutputResult", `Subject: Collaboration Opportunity: ${name} x ${brand}\n\nHi ${brand} Team,\n\nI run a ${niche} channel with ${followers} followers. Let's collaborate!\n\nBest,\n${name}`);
+        } else if (toolName === 'reel') {
+          const niche = getValue("reelNiche"), platform = getValue("reelPlatform");
+          const ideas = [`5 things beginners should know about ${niche}`, `A common ${niche} mistake and how to improve`, `Myth vs fact: ${niche}`, `A beginner's guide to ${niche}`, `Things I wish I knew earlier about ${niche}`];
+          showOutput("activeOutputBox", "activeOutputResult", (platform === "youtube" ? "YouTube Shorts Ideas" : "Instagram Reel Ideas") + "\n\n" + formatList(pick(ideas, 5)));
+        } else if (toolName === 'script') {
+          const topic = getValue("scriptTopic"), vibe = getValue("scriptVibe");
+          const scripts = { educational: `Hook (0-3s): Stop doing ${topic} like this!\nScene 1: 90% of people get it wrong...\nCTA: Follow for more!`, funny: `Hook (0-3s): Me trying to understand ${topic}...\nScene 1: Total confusion!\nCTA: Tag a friend!` };
+          showOutput("activeOutputBox", "activeOutputResult", scripts[vibe] || scripts.educational);
+        } else if (toolName === 'hook') {
+          const topic = getValue("hookTopic");
+          const hooks = [`Want to improve your ${topic} skills?`, `Most beginners overlook this about ${topic}.`, `Let me tell you what happened during my ${topic} journey.`];
+          showOutput("activeOutputBox", "activeOutputResult", formatList(hooks));
+        }
+      });
+    };
+
+    window.closeToolView = function() {
+      document.getElementById("toolDetailView").style.display = "none";
+      document.getElementById("mainWebsiteView").style.display = "block";
+    };
+
+    window.openAdminDashboard = function() {
+      const enteredPass = prompt("Enter Admin Password:");
+      if (enteredPass === null) return;
+      if (enteredPass !== ADMIN_PASSWORD) {
+        alert("Incorrect Password! Access Denied ❌");
+        return;
+      }
+      document.getElementById("mainWebsiteView").style.display = "none";
+      document.getElementById("toolDetailView").style.display = "none";
+      document.getElementById("adminDashboardView").style.display = "block";
+      renderAdminDashboard();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.closeAdminDashboard = function() {
+      document.getElementById("adminDashboardView").style.display = "none";
+      document.getElementById("mainWebsiteView").style.display = "block";
+    };
+
     function renderAdminDashboard() {
       const pendingEl = document.getElementById("adminPendingList");
       const activeEl = document.getElementById("adminActiveList");
@@ -463,24 +575,6 @@
         `).join("");
       }
     }
-
-    window.openAdminDashboard = function() {
-      const enteredPass = prompt("Enter Admin Password (swasti@29):");
-      if (enteredPass === null) return;
-      if (enteredPass !== ADMIN_PASSWORD) {
-        alert("Incorrect Password! Access Denied ❌");
-        return;
-      }
-      document.getElementById("mainWebsiteView").style.display = "none";
-      document.getElementById("adminDashboardView").style.display = "block";
-      renderAdminDashboard();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    window.closeAdminDashboard = function() {
-      document.getElementById("adminDashboardView").style.display = "none";
-      document.getElementById("mainWebsiteView").style.display = "block";
-    };
 
     window.approveItem = function(index) {
       const approved = pendingItems.splice(index, 1)[0];
@@ -544,13 +638,6 @@
     });
 
     renderMarketplace();
-
-    // TOOL EVENT LISTENERS
-    document.getElementById("reelForm").addEventListener("submit", function(e) { e.preventDefault(); const niche = getValue("reelNiche"); const platform = getValue("reelPlatform"); const ideas = [`5 things beginners should know about ${niche}`, `A common ${niche} mistake and how to improve`, `Myth vs fact: ${niche}`, `A beginner's guide to ${niche}`, `Things I wish I knew earlier about ${niche}`, `Before vs after: learning ${niche}`, `3 tips to get better at ${niche}`, `Answering the most common ${niche} question`, `A day in my ${niche} journey`, `Reacting to popular ${niche} trends`]; const heading = platform === "youtube" ? "YouTube Shorts Ideas" : "Instagram Reel Ideas"; showOutput("reelOutput", "reelResult", heading + "\n\n" + formatList(pick(ideas, 5))); });
-    document.getElementById("scriptForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("scriptTopic"); const vibe = getValue("scriptVibe"); const scripts = { educational: `Hook (0-3s): Stop doing ${topic} like this!\nScene 1: 90% of people get it wrong...\nCTA: Follow for more!`, funny: `Hook (0-3s): Me trying to understand ${topic}...\nScene 1: Total confusion!\nCTA: Tag a friend!` }; showOutput("scriptOutput", "scriptResult", scripts[vibe] || scripts.educational); });
-    document.getElementById("hookForm").addEventListener("submit", function(e) { e.preventDefault(); const topic = getValue("hookTopic"); const hooks = [`Want to improve your ${topic} skills?`, `Most beginners overlook this about ${topic}.`, `Let me tell you what happened during my ${topic} journey.`]; showOutput("hookOutput", "hookResult", formatList(hooks)); });
-    document.getElementById("videoForm").addEventListener("submit", async function(e) { e.preventDefault(); const prompt = getValue("videoPrompt"); const btn = document.getElementById("videoBtn"); const statusText = document.getElementById("videoStatus"); const videoPlayer = document.getElementById("aiVideoPlayer"); btn.innerText = "Generating... (Wait ⏳)"; btn.disabled = true; showOutput("videoOutput", "videoResult", ""); statusText.innerText = "Connecting to server..."; videoPlayer.style.display = "none"; try { const response = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt }) }); const data = await response.json(); if (data.success) { statusText.innerText = "Video Generated Successfully! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; } } catch (error) { statusText.innerText = "Error connecting to server."; } btn.innerText = "Generate Video 🪄"; btn.disabled = false; });
-    document.getElementById("pitchForm").addEventListener("submit", function(e) { e.preventDefault(); const name = getValue("pitchName"); const niche = getValue("pitchNiche"); const followers = getValue("pitchFollowers"); const brand = getValue("pitchBrand"); showOutput("pitchOutput", "pitchResult", `Subject: Collaboration Opportunity: ${name} x ${brand}\n\nHi ${brand} Team,\n\nI run a ${niche} channel with ${followers} followers. Let's collaborate!\n\nBest,\n${name}`); });
 
     const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
   </script>
