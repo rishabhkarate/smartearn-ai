@@ -3,384 +3,1610 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartEarn AI - Premium Creator & ID Marketplace</title>
+
+  <title>SmartEarn AI - Free Creator Tools & Marketplace</title>
+
+  <meta name="description" content="SmartEarn AI offers creator tools, content ideas, script writing utilities and a digital marketplace.">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#09090b">
 
-  <!-- Google Search Console -->
-  <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0" />
+  <!-- Google Search Console: Preserve verification -->
+  <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS3F36C9QF"></script>
+  <!-- Google Analytics: Verify this Measurement ID in your GA account -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T53F36C9QF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
     gtag('js', new Date());
-    gtag('config', 'G-TS3F36C9QF');
+    gtag('config', 'G-T53F36C9QF');
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-    :root { 
-      --bg: #09090b; --surface: #121217; --surface-hover: #1a1a24;
-      --text: #f8fafc; --muted: #94a3b8; --primary: #6366f1; 
-      --primary-hover: #4f46e5; --secondary: #06b6d4; --success: #10b981; --danger: #ef4444;
-      --border: rgba(255, 255, 255, 0.1); --radius-lg: 16px; --radius-md: 10px;
-      --glow: rgba(99, 102, 241, 0.15); --shadow: 0 4px 20px rgba(0,0,0,0.4);
+    :root {
+      --bg: #09090b;
+      --surface: #121217;
+      --surface-hover: #1a1a24;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary: #06b6d4;
+      --success: #10b981;
+      --danger: #ef4444;
+      --border: rgba(255, 255, 255, 0.1);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --glow: rgba(99, 102, 241, 0.15);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    html { scroll-behavior: smooth; }
-    body { 
-      background-color: var(--bg); 
-      background-image: radial-gradient(circle at top left, var(--glow) 0%, transparent 40%),
-                        radial-gradient(circle at bottom right, rgba(6,182,212,0.05) 0%, transparent 40%);
-      color: var(--text); line-height: 1.6; min-height: 100vh; overflow-x: hidden;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
-    
-    a { color: inherit; text-decoration: none; }
-    button, input, textarea, select { font: inherit; outline: none; border: none; }
-    button { cursor: pointer; transition: all 0.2s ease; }
 
-    .header { 
-      width: 92%; max-width: 1200px; margin: 20px auto; padding: 14px 28px; 
-      display: flex; justify-content: space-between; align-items: center; 
-      background: rgba(18, 18, 23, 0.7); border: 1px solid var(--border); border-radius: 100px;
-      position: sticky; top: 20px; z-index: 100; backdrop-filter: blur(12px); box-shadow: var(--shadow);
+    html {
+      scroll-behavior: smooth;
     }
-    .logo { font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px;}
-    .logo span { color: var(--primary); }
-    
-    .header nav { display: flex; gap: 24px; align-items: center; }
-    .header nav a { color: var(--muted); font-size: 14px; font-weight: 600; transition: color 0.2s; }
-    .header nav a:hover { color: var(--text); }
-    .admin-icon-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 18px; }
-    .admin-icon-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--muted); }
-    
-    .hero { text-align: center; max-width: 800px; margin: 70px auto; padding: 0 20px; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; background: rgba(255,255,255,0.03); font-size: 13px; font-weight: 600; color: var(--muted); }
-    .badge span { color: var(--success); }
-    .hero h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 24px; font-weight: 800; }
-    .hero p { color: var(--muted); font-size: 18px; max-width: 550px; margin: 0 auto 25px; }
 
-    .trust-badges { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
-    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text); background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); }
-        .btn-primary { display: inline-flex; justify-content: center; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 14px 28px; border-radius: var(--radius-md); font-weight: 600; font-size: 15px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); }
-    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
-    .btn-full { width: 100%; padding: 15px; font-size: 16px; }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; }
-    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at top left, var(--glow), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.05), transparent 40%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; margin-bottom: 80px; }
-    .section-title { margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-    .section-title h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-    .section-title p { color: var(--muted); font-size: 15px; margin-top: 5px; }
-    
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow); }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .filter-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-    .search-bar { width: 100%; padding: 14px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 50px; color: var(--text); font-size: 15px; }
-    .search-bar:focus { border-color: var(--primary); outline: none; }
-    .category-chips { display: flex; gap: 10px; flex-wrap: wrap; }
-    .chip { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted); padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .chip:hover { background: rgba(255,255,255,0.1); color: var(--text); }
-    .chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+    button, input, textarea, select {
+      font: inherit;
+      outline: none;
+    }
 
-    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-    .form-row { display: flex; gap: 15px; margin-bottom: 20px; }
-    .form-row .form-group { margin-bottom: 0; flex: 1; }
-    label { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    input, select, textarea { width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text); font-size: 15px; transition: 0.2s; }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); background: rgba(99, 102, 241, 0.05); outline: none; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
-    select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; }
-    select option { background: var(--surface); color: var(--text); }
-    input[type="file"] { padding: 10px; border: 1px dashed var(--muted); background: rgba(255,255,255,0.02); cursor: pointer; color: var(--muted); }
+    button {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
 
-    .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-    .item-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
-    .item-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-4px); box-shadow: var(--shadow); }
-    .item-img { position: relative; width: 100%; height: 180px; cursor: pointer; background: #000; }
-    .item-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.3s; }
-    .item-img:hover img { opacity: 1; transform: scale(1.03); }
-    .img-badge { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.8); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1); }
-    .item-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-    .item-tags { display: flex; gap: 8px; margin-bottom: 10px; }
-    .tag { background: rgba(255,255,255,0.05); color: var(--muted); font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 600; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.05); }
-    .tag-game { color: var(--secondary); background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.2); }
-    .item-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; line-height: 1.4; }
-    .item-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
-    .price { font-size: 22px; font-weight: 800; color: var(--success); }
+    img {
+      max-width: 100%;
+    }
 
-    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-    .modal-box { background: var(--surface); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: 35px; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-    .close-btn { position: absolute; top: 15px; right: 20px; background: none; color: var(--muted); font-size: 24px; cursor: pointer; }
-    .close-btn:hover { color: white; }
+    .header {
+      width: 92%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 18, 23, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
 
-    .viewer-content { text-align: center; max-width: 900px; position: relative; width: 100%; }
-    .viewer-img { max-width: 100%; max-height: 80vh; border-radius: 12px; border: 1px solid var(--border); object-fit: contain; }
-    .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; width: 50px; height: 50px; border-radius: 50%; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .nav-arrow:hover { background: var(--primary); border-color: var(--primary); }
-    .nav-left { left: 20px; } .nav-right { right: 20px; }
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.5px;
+    }
 
-    .admin-list { display: flex; flex-direction: column; gap: 12px; max-height: 600px; overflow-y: auto; padding-right: 5px; }
-    .admin-item { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; transition: 0.2s; }
-    .admin-item:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
-    .admin-header { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: flex-start; }
-    .admin-header h4 { font-size: 15px; color: var(--text); }
-    .admin-header .price { font-size: 16px; color: var(--success); }
-    .admin-details { font-size: 13px; color: var(--muted); display: grid; grid-template-columns: 1fr; gap: 4px; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; }
-    .admin-details span { color: var(--text); font-family: monospace; }
-    .admin-actions { display: flex; gap: 10px; }
-    .btn-sm { flex: 1; padding: 8px; font-size: 13px; border-radius: 6px; font-weight: 600; text-align: center; border: none; cursor: pointer;}
-    .bg-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
-    .bg-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
-    .bg-success:hover { background: var(--success); color: white; }
-    .bg-danger:hover { background: var(--danger); color: white; }
+    .logo span {
+      color: var(--primary);
+    }
 
-    #adminDashboardView, #toolDetailView { display: none; }
-    
-    footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 50px; }
-    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
-    .footer-links a { color: var(--muted); font-size: 14px; font-weight: 500; }
-    .footer-links a:hover { color: var(--primary); }
+    .header nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
 
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    .header nav a {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-    @media (max-width: 768px) {
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
-      .form-row { flex-direction: column; gap: 0; }
-      .header { width: 95%; padding: 12px 20px; }
-      .header nav { gap: 12px; }
-      .hero h1 { font-size: 32px; }
-      .trust-badges { flex-direction: column; align-items: center; gap: 10px;}
+    .header nav a:hover {
+      color: var(--text);
+    }
+
+    .admin-icon-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .admin-icon-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 800px;
+      margin: 70px auto;
+      padding: 0 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .badge span {
+      color: var(--success);
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 550px;
+      margin: 0 auto 25px;
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 15px;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-full {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      padding: 0 5%;
+    }
+
+    .section-title {
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 5px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .filter-section {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .search-bar {
+      width: 100%;
+      padding: 14px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .search-bar:focus {
+      border-color: var(--primary);
+    }
+
+    .category-chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+       .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: #09090b;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .form-control::placeholder {
+      color: #64748b;
+    }
+
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 25px;
+      border-radius: var(--radius-lg);
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(99, 102, 241, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.12);
+    }
+
+    .tool-card h3 {
+      font-size: 18px;
+    }
+
+    .tool-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-output {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: #08080b;
+      border: 1px solid var(--border);
+      overflow-wrap: anywhere;
+    }
+
+    .tool-output.show {
+      display: block;
+    }
+
+    .tool-output pre {
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .market-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .market-image {
+      height: 190px;
+      width: 100%;
+      object-fit: cover;
+      background: #1e1e27;
+    }
+
+    .market-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .market-content h3 {
+      font-size: 17px;
+      overflow-wrap: anywhere;
+    }
+
+    .market-category {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .market-price {
+      font-size: 23px;
+      font-weight: 800;
+      color: var(--success);
+    }
+
+    .market-description {
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .market-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .market-actions button {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 45px 20px;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .status-message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px 15px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .status-message.show {
+      display: block;
+    }
+
+    .status-message.success {
+      color: #a7f3d0;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-message.error {
+      color: #fecaca;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .status-message.info {
+      color: #bfdbfe;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .divider {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 25px 0;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
+      padding: 20px;
+      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      border: 1px solid var(--border);
+      background: #20202a;
+      color: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .modal-content h2 {
+      font-size: 23px;
+      margin-bottom: 20px;
+      padding-right: 35px;
+    }
+
+    .admin-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .admin-row {
+      padding: 15px;
+      background: #09090b;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-wrap: anywhere;
+    }
+
+    .admin-row h4 {
+      margin-bottom: 7px;
+    }
+
+    .admin-row p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .admin-row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .admin-row-actions button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+
+    .loading {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3,
+      .market-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        margin: 50px auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        width: 94%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        gap: 10px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .header nav {
+        gap: 12px;
+      }
+
+      .header nav a {
+        font-size: 12px;
+      }
+
+      .admin-icon-btn {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+      }
+
+      .hero {
+        margin: 42px auto;
+      }
+
+      .hero h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .container {
+        padding: 0 4%;
+        margin-bottom: 55px;
+      }
+
+      .section-title h2 {
+        font-size: 23px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .grid-3,
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-badges {
+        gap: 8px;
+      }
+
+      .trust-item {
+        font-size: 11px;
+        padding: 7px 10px;
+      }
+
+      .modal {
+        padding: 10px;
+      }
+
+      .modal-content {
+        padding: 22px 16px;
+      }
     }
   </style>
-</head>
+  </head>
 <body>
+
+  <!-- HEADER -->
   <header class="header">
-    <a href="#" class="logo"><span>SmartEarn</span> AI</a>
+    <a href="#" class="logo">⚡ Smart<span>Earn AI</span></a>
+
     <nav>
+      <a href="#tools">Tools</a>
       <a href="#marketplace">Marketplace</a>
-      <a href="#tools-hub">Tools</a>
-      <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Login">🔐</button>
+      <a href="#sell">Sell</a>
     </nav>
+
+    <button class="admin-icon-btn" onclick="openAdminDashboard()" aria-label="Admin dashboard" title="Admin Dashboard">
+      ⚙
+    </button>
   </header>
 
-  <div id="mainWebsiteView">
-    <main>
-      <section class="hero">
-        <div class="badge"><span>✦</span> 100% Safe Escrow System</div>
-        <h1>Premium ID Marketplace</h1>
-        <p>Buy and sell verified gaming and social media accounts securely. Handled manually by admins for complete safety.</p>
-        
-        <div class="trust-badges">
-          <div class="trust-item">🛡️ 100% Secure Escrow</div>
-          <div class="trust-item">✔️ Admin Verified IDs</div>
-          <div class="trust-item">💬 Instant WhatsApp Delivery</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge"><span>●</span> Creator tools & digital marketplace</div>
+
+    <h1>Create Smarter.<br><span style="color:var(--primary)">Earn Better.</span></h1>
+
+    <p>
+      Discover useful creator tools, generate content ideas,
+      write scripts and explore our digital marketplace.
+    </p>
+
+    <div class="trust-badges">
+      <div class="trust-item">⚡ Quick tools</div>
+      <div class="trust-item">✍️ Content creation</div>
+      <div class="trust-item">📱 Mobile friendly</div>
+    </div>
+
+    <a href="#tools" class="btn-primary">Explore Free Tools →</a>
+  </section>
+
+  <!-- CREATOR TOOLS -->
+  <main class="container" id="tools">
+    <div class="section-title">
+      <h2>🧠 Creator Tools</h2>
+      <p>Generate drafts and ideas for your next piece of content.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- BIO GENERATOR -->
+      <section class="card">
+        <h3>✨ Bio Generator</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 20px">
+          Create profile bio ideas for social media.
+        </p>
+
+        <div class="form-group">
+          <label for="bioNiche">Your niche</label>
+          <input
+            id="bioNiche"
+            class="form-control"
+            type="text"
+            maxlength="80"
+            placeholder="e.g. Gaming, Fitness, Creator"
+          >
         </div>
 
-        <a href="#marketplace" class="btn-primary" style="padding: 16px 36px; border-radius: 50px;">Browse Accounts</a>
+        <div class="form-group">
+          <label for="bioPlatform">Platform</label>
+          <select id="bioPlatform" class="form-control">
+            <option value="Instagram">Instagram</option>
+            <option value="YouTube">YouTube</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Gaming">Gaming profile</option>
+          </select>
+        </div>
+
+        <button class="btn-primary btn-full" id="bioGenerateBtn" onclick="generateBio()">
+          Generate Bio
+        </button>
+
+        <div class="tool-output" id="bioOutput" aria-live="polite">
+          <pre id="bioResult"></pre>
+          <button class="btn-outline" onclick="copyOutput('bioResult')" style="margin-top:15px">
+            Copy Bio
+          </button>
+        </div>
       </section>
 
-      <div class="container" id="marketplace">
-        <div class="section-title">
-          <h2>🛒 Active Marketplace</h2>
-          <p>Verified accounts ready for instant purchase.</p>
+      <!-- CAPTION GENERATOR -->
+      <section class="card">
+        <h3>📸 Caption Generator</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 20px">
+          Create caption drafts and hashtags for your post.
+        </p>
+
+        <div class="form-group">
+          <label for="captionTopic">Post topic</label>
+          <input
+            id="captionTopic"
+            class="form-control"
+            type="text"
+            maxlength="160"
+            placeholder="e.g. New gaming setup"
+          >
         </div>
 
-        <div class="filter-section">
-          <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search for BGMI, Free Fire, Instagram, Level 75..." onkeyup="filterMarket()">
-          <div class="category-chips">
-            <button class="chip active" onclick="setCategory('All', this)">All Accounts</button>
-            <button class="chip" onclick="setCategory('BGMI', this)">BGMI / PUBG</button>
-            <button class="chip" onclick="setCategory('Free Fire', this)">Free Fire</button>
-            <button class="chip" onclick="setCategory('Valorant', this)">Valorant</button>
-            <button class="chip" onclick="setCategory('Instagram', this)">Instagram</button>
-            <button class="chip" onclick="setCategory('YouTube', this)">YouTube</button>
-          </div>
+        <div class="form-group">
+          <label for="captionStyle">Caption style</label>
+          <select id="captionStyle" class="form-control">
+            <option value="cool">Cool & aesthetic</option>
+            <option value="funny">Funny</option>
+            <option value="motivational">Motivational</option>
+            <option value="professional">Professional</option>
+          </select>
         </div>
 
-        <div class="market-grid" id="marketList"></div>
+        <button class="btn-primary btn-full" onclick="generateCaption()">
+          Generate Caption
+        </button>
+
+        <div class="tool-output" id="captionOutput" aria-live="polite">
+          <pre id="captionResult"></pre>
+          <button class="btn-outline" onclick="copyOutput('captionResult')" style="margin-top:15px">
+            Copy Caption
+          </button>
+        </div>
+      </section>
+
+      <!-- SCRIPT GENERATOR -->
+      <section class="card">
+        <h3>🎬 Video Script Writer</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 20px">
+          Prepare a short script for a Reel or YouTube Short.
+        </p>
+
+        <div class="form-group">
+          <label for="scriptTopic">Video topic</label>
+          <input
+            id="scriptTopic"
+            class="form-control"
+            type="text"
+            maxlength="160"
+            placeholder="e.g. 3 Free Fire tips"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="scriptDuration">Video length</label>
+          <select id="scriptDuration" class="form-control">
+            <option value="15">15 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="60">60 seconds</option>
+          </select>
+        </div>
+
+        <button class="btn-primary btn-full" onclick="generateScript()">
+          Generate Script
+        </button>
+
+        <div class="tool-output" id="scriptOutput" aria-live="polite">
+          <pre id="scriptResult"></pre>
+          <button class="btn-outline" onclick="copyOutput('scriptResult')" style="margin-top:15px">
+            Copy Script
+          </button>
+        </div>
+      </section>
+
+      <!-- REEL IDEA GENERATOR -->
+      <section class="card">
+        <h3>🚀 Reel Idea Generator</h3>
+        <p style="color:var(--muted);font-size:14px;margin:8px 0 20px">
+          Get starter ideas and prompts for short videos.
+        </p>
+
+        <div class="form-group">
+          <label for="reelNiche">Reel niche</label>
+          <input
+            id="reelNiche"
+            class="form-control"
+            type="text"
+            maxlength="100"
+            placeholder="e.g. Gaming, Travel, Education"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="reelPlatform">Platform</label>
+          <select id="reelPlatform" class="form-control">
+            <option value="Instagram Reels">Instagram Reels</option>
+            <option value="YouTube Shorts">YouTube Shorts</option>
+            <option value="Facebook Reels">Facebook Reels</option>
+          </select>
+        </div>
+
+        <button class="btn-primary btn-full" onclick="generateReelIdeas()">
+          Generate Reel Ideas
+        </button>
+
+        <div class="tool-output" id="reelOutput" aria-live="polite">
+          <pre id="reelResult"></pre>
+          <button class="btn-outline" onclick="copyOutput('reelResult')" style="margin-top:15px">
+            Copy Ideas
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="small-note" style="margin-top:18px">
+      Note: These starter tools generate template-based drafts in your browser.
+      Connecting a real AI model requires an API and a secure backend.
+      This page does not generate or export finished video files.
+    </p>
+  </main>
+
+  <!-- MARKETPLACE -->
+  <section class="container" id="marketplace">
+    <div class="section-title">
+      <h2>🛍️ Digital Marketplace</h2>
+      <p>Browse available listings and contact the seller for details.</p>
+    </div>
+
+    <div class="filter-section">
+      <input
+        id="searchInput"
+        class="search-bar"
+        type="search"
+        maxlength="100"
+        placeholder="🔍 Search listings..."
+        oninput="filterMarket()"
+      >
+
+      <div class="category-chips">
+        <button class="chip active" onclick="setCategory('All', this)">All</button>
+        <button class="chip" onclick="setCategory('Gaming', this)">Gaming</button>
+        <button class="chip" onclick="setCategory('Social Media', this)">Social Media</button>
+        <button class="chip" onclick="setCategory('Other', this)">Other</button>
       </div>
 
-      <div class="container">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <label for="sortMarket" style="color:var(--muted);font-size:13px">Sort:</label>
+        <select id="sortMarket" class="form-control" style="max-width:220px" onchange="filterMarket()">
+          <option value="newest">Newest first</option>
+          <option value="low">Price: Low to high</option>
+          <option value="high">Price: High to low</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="marketStatus" class="status-message info" aria-live="polite"></div>
+
+    <div class="market-grid" id="marketGrid">
+      <div class="empty-state">Loading listings...</div>
+    </div>
+
+    <p class="small-note" style="margin-top:18px">
+      Only list items you own or are authorized to transfer. Never share passwords,
+      OTPs, recovery codes or other sensitive login credentials through this website.
+    </p>
+  </section>
+
+  <!-- SELL LISTING -->
+  <section class="container" id="sell">
+    <div class="section-title">
+      <h2>➕ Submit a Listing</h2>
+      <p>Submit your listing for review. It will not appear publicly until approved.</p>
+    </div>
+
+    <div class="card" style="max-width:760px;margin:0 auto">
+      <form id="sellForm">
+
+        <div class="form-group">
+          <label for="listingTitle">Listing title *</label>
+          <input
+            id="listingTitle"
+            class="form-control"
+            type="text"
+            maxlength="100"
+            required
+            placeholder="Enter a clear listing title"
+          >
+        </div>
+
         <div class="grid-2">
-          
-          <div class="card" style="border-top: 4px solid var(--primary);">
-            <div class="section-title">
-              <h2>🏷️ List Your Account</h2>
-              <p>Fill detailed info. Admin will verify before making it live.</p>
-            </div>
-            
-            <form id="sellForm" autocomplete="off">
-              <div class="form-group">
-                <label>Listing Title</label>
-                <input type="text" id="sellTitle" placeholder="e.g., BGMI Level 75 Mythic Fashion" required>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Game / Platform</label>
-                  <select id="sellGame" required>
-                    <option value="" disabled selected>Select Category</option>
-                    <option value="BGMI">BGMI</option>
-                    <option value="Free Fire">Free Fire</option>
-                    <option value="Valorant">Valorant</option>
-                    <option value="Instagram">Instagram Page</option>
-                    <option value="YouTube">YouTube Channel</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Expected Price (₹)</label>
-                  <input type="number" id="sellPrice" placeholder="e.g., 2500" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Upload Screenshots (Max 7)</label>
-                <input type="file" id="sellImageFile" accept="image/*" multiple required>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Login Linked To</label>
-                  <select id="sellLoginType" required>
-                    <option value="Google / Gmail">Google / Gmail</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Twitter / X">Twitter / X</option>
-                    <option value="VK">VK Account</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Login ID / Email</label>
-                  <input type="text" id="sellUsername" placeholder="Enter Login ID" autocomplete="off" required>
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" id="sellPassword" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" placeholder="Enter Password" required>
-                </div>
-              </div>
-
-              <button class="btn-primary btn-full" type="submit" id="sellSubmitBtn">Submit for Verification 🛡️</button>
-            </form>
+          <div class="form-group">
+            <label for="listingCategory">Category *</label>
+            <select id="listingCategory" class="form-control" required>
+              <option value="Gaming">Gaming</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
-          <div class="card" id="tools-hub">
-            <div class="section-title">
-              <h2>⚡ Creator Tools</h2>
-              <p>Free AI utilities for creators.</p>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:15px;">
-              <button class="btn-outline" style="text-align:left; padding:20px; font-size:16px;" onclick="openTool('video')">🪄 AI Auto Video Generator</button>
-              <button class="btn-outline" style="text-align:left; padding:20px; font-size:16px;" onclick="openTool('pitch')">🤝 Brand Sponsorship Pitch</button>
-              <button class="btn-outline" style="text-align:left; padding:20px; font-size:16px;" onclick="openTool('reel')">📱 Viral Reel Ideas</button>
-              <button class="btn-outline" style="text-align:left; padding:20px; font-size:16px;" onclick="openTool('script')">🎬 Reel Script Writer</button>
-            </div>
+          <div class="form-group">
+            <label for="listingPrice">Price (₹) *</label>
+            <input
+              id="listingPrice"
+              class="form-control"
+              type="number"
+              min="1"
+              max="1000000"
+              step="1"
+              required
+              placeholder="e.g. 500"
+            >
           </div>
-
         </div>
-      </div>
-    </main>
-  </div>
-    <!-- TOOL DETAIL VIEW -->
-  <div class="container" id="toolDetailView" style="max-width: 800px; padding-top: 40px;">
-    <button onclick="closeToolView()" class="btn-outline" style="margin-bottom: 24px;">← Back to Home</button>
-    <div class="card" id="toolContainerContent"></div>
-  </div>
 
-  <!-- ADMIN DASHBOARD -->
-  <div class="container" id="adminDashboardView" style="padding-top: 40px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
-      <div>
-        <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Center</h2>
-        <p style="color: var(--muted); font-size: 14px;">Manage everything securely from here.</p>
-      </div>
-      <button onclick="closeAdminDashboard()" class="btn-outline">← Exit</button>
-    </div>
-
-    <div class="grid-3">
-      <div class="card" style="padding: 20px;">
-        <h3 style="margin-bottom: 15px; color: var(--secondary); display:flex; align-items:center; gap:8px;">⏳ Pending Approvals</h3>
-        <div class="admin-list" id="adminPendingList"></div>
-      </div>
-
-      <div class="card" style="padding: 20px;">
-        <h3 style="margin-bottom: 15px; color: var(--primary); display:flex; align-items:center; gap:8px;">🏪 Active Listings</h3>
-        <div class="admin-list" id="adminActiveList"></div>
-      </div>
-
-      <div class="card" style="padding: 20px; border-color: rgba(16, 185, 129, 0.3);">
-        <h3 style="margin-bottom: 15px; color: var(--success); display:flex; align-items:center; gap:8px;">💸 Payment Escrow</h3>
-        <div class="admin-list" id="adminPaymentsList"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CHECKOUT MODAL -->
-  <div class="modal-backdrop" id="checkoutModal">
-    <div class="modal-box">
-      <button class="close-btn" onclick="closeCheckout()">✕</button>
-      <h2 style="margin-bottom: 5px;">Secure Checkout</h2>
-      <p style="color:var(--muted); font-size:13px; margin-bottom: 20px;" id="modalPriceText"></p>
-      
-      <div style="background:white; padding:15px; border-radius:16px; width:180px; margin: 0 auto 20px; text-align: center;">
-        <!-- Using provided UPI ID -->
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME" id="upiQrImg" style="width:150px; height:150px; display:block;">
-      </div>
-      <div style="text-align:center; font-size:14px; margin-bottom:20px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-        UPI ID: <strong style="color:var(--primary); letter-spacing: 0.5px;">gaminggamer3554@okicici</strong>
-      </div>
-
-      <form id="paymentForm" autocomplete="off" onsubmit="verifyPayment(event)">
         <div class="form-group">
-          <label>12-Digit UTR / Ref Number</label>
-          <input type="text" id="utrInput" placeholder="e.g., 412345678901" pattern="\d{12}" title="Must be exactly 12 digits" autocomplete="off" required>
+          <label for="listingDescription">Description *</label>
+          <textarea
+            id="listingDescription"
+            class="form-control"
+            maxlength="1000"
+            required
+            placeholder="Describe the item and any relevant conditions."
+          ></textarea>
         </div>
+
         <div class="form-group">
-          <label>Your WhatsApp No. (For ID Delivery)</label>
-          <input type="number" id="whatsappInput" placeholder="e.g., 9876543210" autocomplete="off" required>
+          <label for="sellerContact">Seller contact email *</label>
+          <input
+            id="sellerContact"
+            class="form-control"
+            type="email"
+            maxlength="150"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+          >
+          <p class="small-note">
+            Do not enter passwords or account recovery details.
+          </p>
         </div>
-        <button class="btn-primary btn-full" type="submit" style="background:var(--success);">Submit Verification ✅</button>
+
+        <div class="form-group">
+          <label for="listingImage">Listing image (optional)</label>
+          <input
+            id="listingImage"
+            class="form-control"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+          >
+          <p class="small-note">
+            Choose one small JPG, PNG or WebP image. Do not upload private information.
+          </p>
+        </div>
+
+        <button class="btn-primary btn-full" id="submitListingBtn" type="submit">
+          Submit for Review
+        </button>
+
+        <div id="sellStatus" class="status-message" role="status" aria-live="polite"></div>
       </form>
     </div>
-  </div>
+  </section>
 
-  <!-- IMAGE VIEWER MODAL -->
-  <div class="modal-backdrop" id="imageViewerModal">
-    <button class="close-btn" style="top:25px; right:35px; font-size:35px;" onclick="closeImageViewer()">✕</button>
-    <div class="viewer-content">
-      <p id="imgCounter" style="color:white; margin-bottom:15px; font-weight:700; letter-spacing:1px;"></p>
-      <img id="fullScreenImg" class="viewer-img" src="">
-      <button class="nav-arrow nav-left" onclick="navigateImage(-1)">❮</button>
-      <button class="nav-arrow nav-right" onclick="navigateImage(1)">❯</button>
+  <!-- PAYMENT / CONTACT MODAL -->
+  <div class="modal" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('paymentModal')" aria-label="Close">×</button>
+
+      <h2 id="paymentTitle">Contact Seller</h2>
+
+      <div id="paymentDetails"></div>
+
+      <p class="small-note" style="margin:18px 0">
+        Check the listing details and seller information before making any payment.
+        Payment is not automatically verified by this website.
+      </p>
+
+      <button class="btn-outline btn-full" onclick="closeModal('paymentModal')">
+        Close
+      </button>
+    </div>
+  </div>
+    <!-- ADMIN DASHBOARD MODAL -->
+  <div class="modal" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('adminModal')" aria-label="Close">×</button>
+
+      <h2 id="adminTitle">Admin Dashboard</h2>
+
+      <div id="adminLogin">
+        <p style="color:var(--muted);margin-bottom:18px">
+          Sign in with your Firebase Authentication admin account.
+        </p>
+
+        <div class="form-group">
+          <label for="adminEmail">Admin email</label>
+          <input id="adminEmail" class="form-control" type="email" autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input id="adminPassword" class="form-control" type="password" autocomplete="current-password">
+        </div>
+
+        <button class="btn-primary btn-full" onclick="adminLogin()">
+          Sign In
+        </button>
+
+        <div id="adminLoginStatus" class="status-message" role="status" aria-live="polite"></div>
+      </div>
+
+      <div id="adminPanel" style="display:none">
+        <p style="color:var(--muted)">Pending listings awaiting review:</p>
+        <div id="pendingListings" class="admin-list">
+          <p class="small-note">Loading pending listings...</p>
+        </div>
+
+        <hr class="divider">
+
+        <button class="btn-outline btn-full" onclick="adminLogout()">
+          Sign Out
+        </button>
+      </div>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-links">
-      <a href="#" onclick="alert('Terms & Conditions will be updated shortly.')">Terms & Conditions</a>
-      <a href="#" onclick="alert('Privacy Policy will be updated shortly.')">Privacy Policy</a>
-      <a href="#" onclick="alert('All sales are final. Accounts are verified before listing.')">Refund Policy</a>
-    </div>
-    <p style="color: var(--muted);">&copy; <span id="currentYear"></span> SmartEarn AI Marketplace. All rights reserved.</p>
+  <footer class="footer">
+    <p><strong>⚡ SmartEarn AI</strong></p>
+    <p style="margin-top:8px">Free creator tools and digital marketplace.</p>
+    <p style="margin-top:8px">© <span id="currentYear"></span> SmartEarn AI</p>
   </footer>
-    <!-- FIREBASE SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
 
   <script>
     "use strict";
 
-    // --- FIREBASE INITIALIZATION ---
+    // ---------- GENERAL HELPERS ----------
+
+    const $ = (id) => document.getElementById(id);
+
+    function getValue(id) {
+      const element = $(id);
+      return element ? element.value.trim() : "";
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, function (character) {
+        const entities = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        };
+        return entities[character];
+      });
+    }
+
+    function showStatus(id, message, type = "info") {
+      const element = $(id);
+      if (!element) return;
+
+      element.textContent = message;
+      element.className = "status-message show " + type;
+    }
+
+    function showOutput(outputId, resultId, text) {
+      const output = $(outputId);
+      const result = $(resultId);
+
+      if (!output || !result) {
+        console.error("Missing output element:", outputId, resultId);
+        return;
+      }
+
+      result.textContent = text;
+      output.classList.add("show");
+    }
+
+    function closeModal(id) {
+      const modal = $(id);
+      if (modal) modal.classList.remove("open");
+    }
+
+    function openModal(id) {
+      const modal = $(id);
+      if (modal) modal.classList.add("open");
+    }
+
+    async function copyOutput(id) {
+      const element = $(id);
+      if (!element) return;
+
+      const text = element.textContent || "";
+
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Copied successfully!");
+      } catch (error) {
+        // Fallback for browsers where Clipboard API is unavailable.
+        const temporary = document.createElement("textarea");
+        temporary.value = text;
+        temporary.style.position = "fixed";
+        temporary.style.opacity = "0";
+
+        document.body.appendChild(temporary);
+        temporary.select();
+
+        try {
+          document.execCommand("copy");
+          alert("Copied successfully!");
+        } catch (copyError) {
+          alert("Copy failed. Please select and copy the text manually.");
+        }
+
+        temporary.remove();
+      }
+    }
+
+    function safeTextInput(id, label) {
+      const value = getValue(id);
+
+      if (!value) {
+        alert("Please enter " + label + ".");
+        if ($(id)) $(id).focus();
+        return "";
+      }
+
+      return value;
+    }
+
+    // ---------- BIO GENERATOR ----------
+    // This is a local template generator, not a live AI service.
+
+    function generateBio() {
+      const niche = safeTextInput("bioNiche", "your niche");
+      if (!niche) return;
+
+      const platform = getValue("bioPlatform") || "Instagram";
+
+      const bioTemplates = [
+        "✨ " + niche + " enthusiast\n🚀 Creating, learning & growing\n📍 Welcome to my world\n💫 Follow the journey",
+        "🔥 " + niche + " | Daily inspiration\n🎯 Passion turned into purpose\n📩 Connect for collaborations",
+        "⚡ Welcome to my " + niche + " zone\n🌱 Improving every day\n🎬 New content, fresh ideas\n👇 Join the journey",
+        "💎 " + niche + " creator\n🚀 Big goals. Consistent action.\n✨ Stay inspired\n📲 Follow for more"
+      ];
+
+      const selected = bioTemplates[Math.floor(Math.random() * bioTemplates.length)];
+
+      showOutput(
+        "bioOutput",
+        "bioResult",
+        "Platform: " + platform + "\n\n" + selected
+      );
+    }
+
+    // ---------- CAPTION GENERATOR ----------
+
+    function generateCaption() {
+      const topic = safeTextInput("captionTopic", "a post topic");
+      if (!topic) return;
+
+      const style = getValue("captionStyle");
+
+      const captions = {
+        cool: [
+          "Less noise, more " + topic + ". ✨\nOwn your vibe. #Aesthetic #Lifestyle",
+          "A little moment, a lasting memory: " + topic + ". 📸\n#GoodVibes #DailyLife",
+          "My lane. My pace. My story. 🚀\nToday's vibe: " + topic + ". #StayOriginal"
+        ],
+        funny: [
+          "Came for the vibes, stayed for " + topic + ". 😂\n#JustForFun #Relatable",
+          "POV: You said one minute and now it's all about " + topic + ". 😅\n#Mood #Funny",
+          "No explanation needed. Just " + topic + ". 🤝😂\n#Random #DailyMood"
+        ],
+        motivational: [
+          "Small steps lead to big progress. Today's focus: " + topic + ". 💪\n#KeepGoing #Growth",
+          "Consistency beats excuses. Keep working on " + topic + ". 🚀\n#Discipline #Motivation",
+          "Your journey is yours. Make every step count. ✨\nToday's goal: " + topic + ". #Believe"
+        ],
+        professional: [
+          "Sharing a new update on " + topic + ". Looking forward to learning and growing. ✨\n#ProfessionalGrowth",
+          "Focused on progress, creativity and meaningful work. Today's topic: " + topic + ".\n#Creator #Innovation",
+          "New ideas, thoughtful execution and continuous improvement. 📈\n#ContentCreation #Growth"
+        ]
+      };
+
+      const choices = captions[style] || captions.cool;
+      const caption = choices[Math.floor(Math.random() * choices.length)];
+
+      showOutput("captionOutput", "captionResult", caption);
+    }
+
+    // ---------- VIDEO SCRIPT GENERATOR ----------
+
+    function generateScript() {
+      const topic = safeTextInput("scriptTopic", "a video topic");
+      if (!topic) return;
+
+      const duration = Number(getValue("scriptDuration")) || 15;
+
+      let script;
+
+      if (duration === 15) {
+        script =
+          "HOOK (0–3 sec)\n" +
+          "“Want to know something useful about " + topic + "?”\n\n" +
+          "MAIN POINT (3–11 sec)\n" +
+          "Share one clear tip, example or surprising fact about " + topic + ".\n\n" +
+          "CALL TO ACTION (11–15 sec)\n" +
+          "“Save this video and follow for more!”";
+      } else if (duration === 30) {
+        script =
+          "HOOK (0–4 sec)\n" +
+          "“Here is something you should know about " + topic + ".”\n\n" +
+          "POINT 1 (4–12 sec)\n" +
+          "Introduce the main idea with a simple example.\n\n" +
+          "POINT 2 (12–21 sec)\n" +
+          "Explain a practical tip related to " + topic + ".\n\n" +
+          "WRAP-UP (21–26 sec)\n" +
+          "Summarize the main takeaway.\n\n" +
+          "CALL TO ACTION (26–30 sec)\n" +
+          "“Comment your thoughts and follow for more!”";
+      } else {
+        script =
+          "HOOK (0–5 sec)\n" +
+          "“Let's explore " + topic + " and why it matters.”\n\n" +
+          "INTRO (5–15 sec)\n" +
+          "Explain what viewers will learn and why they should keep watching.\n\n" +
+          "MAIN CONTENT (15–42 sec)\n" +
+          "Share three useful points, examples or steps about " + topic + ".\n\n" +
+          "SUMMARY (42–53 sec)\n" +
+          "Repeat the most important takeaway.\n\n" +
+          "CALL TO ACTION (53–60 sec)\n" +
+          "“Save this video, share it with a friend and follow for more!”";
+      }
+
+      showOutput(
+        "scriptOutput",
+        "scriptResult",
+        "Topic: " + topic + "\nDuration: " + duration + " seconds\n\n" + script
+      );
+    }
+
+    // ---------- REEL IDEA GENERATOR ----------
+
+    function generateReelIdeas() {
+      const niche = safeTextInput("reelNiche", "a Reel niche");
+      if (!niche) return;
+
+      const platform = getValue("reelPlatform") || "Instagram Reels";
+
+      const ideas = [
+        "1. Beginner's guide: Explain three things beginners should know about " + niche + ".",
+        "2. Myth vs fact: Share one common myth and correct it with a useful example.",
+        "3. Before and after: Show a process, improvement or transformation related to " + niche + ".",
+        "4. Three quick tips: Share three short, practical tips viewers can try.",
+        "5. Common mistakes: Explain three mistakes and how to avoid them.",
+        "6. Behind the scenes: Show how you prepare or work on something in " + niche + ".",
+        "7. Challenge format: Create a safe, achievable challenge related to " + niche + ".",
+        "8. FAQ: Answer a question your audience often asks.",
+        "9. Story format: Tell a short story about a lesson you learned.",
+        "10. Checklist: Give viewers a simple checklist they can save."
+      ];
+
+      showOutput(
+        "reelOutput",
+        "reelResult",
+        "Platform: " + platform + "\nNiche: " + niche + "\n\n" +
+        ideas.join("\n\n") +
+        "\n\nThese are starter ideas generated from local templates."
+      );
+    }
+
+    // ---------- MARKETPLACE FILTERS ----------
+
+    let allMarketItems = [];
+    let selectedCategory = "All";
+
+    function setCategory(category, button) {
+      selectedCategory = category;
+
+      document.querySelectorAll(".category-chips .chip").forEach(function (chip) {
+        chip.classList.remove("active");
+      });
+
+      if (button) button.classList.add("active");
+
+      filterMarket();
+    }
+
+    function filterMarket() {
+      const search = getValue("searchInput").toLowerCase();
+      const sort = getValue("sortMarket") || "newest";
+
+      let items = allMarketItems.filter(function (item) {
+        const title = String(item.title || "").toLowerCase();
+        const category = String(item.category || "Other");
+        const description = String(item.description || "").toLowerCase();
+
+        const matchesSearch =
+          title.includes(search) ||
+          category.toLowerCase().includes(search) ||
+          description.includes(search);
+
+        const matchesCategory =
+          selectedCategory === "All" || category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      if (sort === "low") {
+        items.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+      } else if (sort === "high") {
+        items.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+      } else {
+        items.sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
+      }
+
+      renderMarket(items);
+    }
+
+    // renderMarket() and Firebase/database code continue in Part 5.
+        // ---------- MARKETPLACE RENDERING ----------
+
+    function renderMarket(items) {
+      const grid = $("marketGrid");
+      if (!grid) return;
+
+      if (!items.length) {
+        grid.innerHTML =
+          '<div class="empty-state">No listings found. Try another search.</div>';
+        return;
+      }
+
+      grid.replaceChildren();
+
+      items.forEach(function (item) {
+        const card = document.createElement("article");
+        card.className = "market-card";
+
+        const image = document.createElement("img");
+        image.className = "market-image";
+        image.alt = item.title || "Marketplace listing";
+        image.loading = "lazy";
+        image.src = isSafeImage(item.image)
+          ? item.image
+          : "https://placehold.co/600x400/121217/94a3b8?text=SmartEarn+AI";
+
+        const content = document.createElement("div");
+        content.className = "market-content";
+
+        const category = document.createElement("span");
+        category.className = "market-category";
+        category.textContent = item.category || "Other";
+
+        const title = document.createElement("h3");
+        title.textContent = item.title || "Untitled listing";
+
+        const description = document.createElement("p");
+        description.className = "market-description";
+        description.textContent = item.description || "";
+
+        const price = document.createElement("div");
+        price.className = "market-price";
+        price.textContent = "₹" + Number(item.price || 0).toLocaleString("en-IN");
+
+        const actions = document.createElement("div");
+        actions.className = "market-actions";
+
+        const contactButton = document.createElement("button");
+        contactButton.className = "btn-primary";
+        contactButton.textContent = "Contact Seller";
+        contactButton.type = "button";
+
+        contactButton.addEventListener("click", function () {
+          contactSeller(item.id);
+        });
+
+        actions.appendChild(contactButton);
+        content.append(category, title, description, price, actions);
+        card.append(image, content);
+        grid.appendChild(card);
+      });
+    }
+
+    function isSafeImage(value) {
+      if (typeof value !== "string") return false;
+
+      return (
+        value.startsWith("data:image/jpeg;base64,") ||
+        value.startsWith("data:image/png;base64,") ||
+        value.startsWith("data:image/webp;base64,") ||
+        /^https:\/\/[a-z0-9.-]+\//i.test(value)
+      );
+    }
+
+    function contactSeller(itemId) {
+      const item = allMarketItems.find(function (entry) {
+        return entry.id === itemId;
+      });
+
+      if (!item) {
+        alert("This listing is no longer available.");
+        return;
+      }
+
+      const details = $("paymentDetails");
+      details.replaceChildren();
+
+      const title = document.createElement("h3");
+      title.textContent = item.title || "Listing";
+
+      const price = document.createElement("p");
+      price.style.marginTop = "10px";
+      price.textContent =
+        "Price: ₹" + Number(item.price || 0).toLocaleString("en-IN");
+
+      const description = document.createElement("p");
+      description.style.marginTop = "10px";
+      description.style.color = "var(--muted)";
+      description.textContent = item.description || "";
+
+      details.append(title, price, description);
+
+      if (item.sellerContact) {
+        const emailButton = document.createElement("a");
+        emailButton.className = "btn-primary btn-full";
+        emailButton.style.marginTop = "18px";
+        emailButton.textContent = "Email Seller";
+        emailButton.href =
+          "mailto:" + encodeURIComponent(item.sellerContact) +
+          "?subject=" + encodeURIComponent("Marketplace enquiry: " + item.title);
+
+        details.appendChild(emailButton);
+      } else {
+        const note = document.createElement("p");
+        note.className = "small-note";
+        note.textContent = "Seller contact details are unavailable.";
+        details.appendChild(note);
+      }
+
+      openModal("paymentModal");
+    }
+
+    // ---------- FIREBASE CONNECTION ----------
+
+    // This configuration matches the Firebase project supplied earlier.
     const firebaseConfig = {
       apiKey: "AIzaSyCbkDHDqMnsGe7Ju0vt3W-ye2mTqCYlzaM",
       authDomain: "smartearn-marketplace.firebaseapp.com",
@@ -389,217 +1615,437 @@
       messagingSenderId: "204331587866",
       appId: "1:204331587866:web:e44dc4f6864a567ddf74a3"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
 
-    // --- UTILITIES ---
-    function val(id) { return document.getElementById(id).value.trim(); }
-    const ADMIN_PASS = "swasti@29";
-    let selectedId = null, gallery = [], imgIndex = 0;
-    let activeCategory = 'All';
+    let db = null;
+    let auth = null;
+    let firebaseReady = false;
+    let adminListener = null;
 
-    // --- LIVE DB ARRAYS ---
-    let marketItems = [];
-    let pendingItems = [];
-    let pendingPayments = [];
+    function setFirebaseStatus(message, type) {
+      showStatus("marketStatus", message, type);
+    }
 
-    // --- REAL-TIME FIREBASE LISTENERS ---
-    db.collection("marketItems").onSnapshot((snapshot) => {
-      marketItems = snapshot.docs.map(doc => doc.data());
-      filterMarket(); 
-      if(document.getElementById("adminDashboardView").style.display === "block") renderAdmin();
-    });
+    function initializeFirebase() {
+      if (typeof firebase === "undefined") {
+        setFirebaseStatus(
+          "Firebase SDK failed to load. Check your internet connection and script tags.",
+          "error"
+        );
+        return;
+      }
 
-    db.collection("pendingItems").onSnapshot((snapshot) => {
-      pendingItems = snapshot.docs.map(doc => doc.data());
-      if(document.getElementById("adminDashboardView").style.display === "block") renderAdmin();
-    });
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
 
-    db.collection("pendingPayments").onSnapshot((snapshot) => {
-      pendingPayments = snapshot.docs.map(doc => doc.data());
-      if(document.getElementById("adminDashboardView").style.display === "block") renderAdmin();
-    });
+        db = firebase.firestore();
+        auth = firebase.auth();
+        firebaseReady = true;
 
-    // --- IMAGE COMPRESSOR (CRITICAL FOR FIREBASE LIMITS) ---
-    function compressImg(file) {
-      return new Promise(resolve => {
-        const reader = new FileReader(); reader.readAsDataURL(file);
-        reader.onload = e => {
-          const img = new Image(); img.src = e.target.result;
-          img.onload = () => {
-            const cvs = document.createElement('canvas'); const ctx = cvs.getContext('2d');
-            const ratio = 400 / img.width; cvs.width = 400; cvs.height = img.height * ratio;
-            ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
-            resolve(cvs.toDataURL('image/jpeg', 0.4));
-          };
+        loadMarketItems();
+      } catch (error) {
+        console.error("Firebase initialization error:", error);
+
+        setFirebaseStatus(
+          "Firebase could not initialize. Check your Firebase configuration.",
+          "error"
+        );
+      }
+    }
+
+    function loadMarketItems() {
+      if (!db) return;
+
+      db.collection("marketItems")
+        .onSnapshot(
+          function (snapshot) {
+            allMarketItems = snapshot.docs.map(function (doc) {
+              return {
+                ...doc.data(),
+                id: doc.id
+              };
+            });
+
+            filterMarket();
+            setFirebaseStatus(
+              allMarketItems.length
+                ? "Listings loaded successfully."
+                : "No listings published yet.",
+              "info"
+            );
+          },
+          function (error) {
+            console.error("Marketplace read error:", error);
+
+            setFirebaseStatus(
+              "Unable to load listings. Check Firestore database rules.",
+              "error"
+            );
+
+            const grid = $("marketGrid");
+            if (grid) {
+              grid.innerHTML =
+                '<div class="empty-state">Listings are temporarily unavailable.</div>';
+            }
+          }
+        );
+    }
+
+    // ---------- IMAGE COMPRESSION ----------
+
+    function compressImage(file) {
+      return new Promise(function (resolve, reject) {
+        if (!file) {
+          resolve("");
+          return;
+        }
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+        if (!allowedTypes.includes(file.type)) {
+          reject(new Error("Please choose a JPG, PNG or WebP image."));
+          return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+          reject(new Error("Image must be smaller than 5 MB."));
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onerror = function () {
+          reject(new Error("Could not read the image."));
         };
+
+        reader.onload = function (event) {
+          const image = new Image();
+
+          image.onerror = function () {
+            reject(new Error("Could not process this image."));
+          };
+
+          image.onload = function () {
+            const canvas = document.createElement("canvas");
+            const maxSide = 400;
+            const scale = Math.min(
+              1,
+              maxSide / Math.max(image.width, image.height)
+            );
+
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+
+            const context = canvas.getContext("2d");
+
+            if (!context) {
+              reject(new Error("Image processing is unavailable."));
+              return;
+            }
+
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            const result = canvas.toDataURL("image/jpeg", 0.5);
+
+            if (result.length > 300000) {
+              reject(
+                new Error("Image is too large after compression. Try a smaller image.")
+              );
+              return;
+            }
+
+            resolve(result);
+          };
+
+          image.src = event.target.result;
+        };
+
+        reader.readAsDataURL(file);
       });
     }
 
-    // --- SEARCH & FILTER LOGIC ---
-    window.setCategory = function(cat, btnElement) {
-      activeCategory = cat;
-      document.querySelectorAll('.chip').forEach(btn => btn.classList.remove('active'));
-      btnElement.classList.add('active');
-      filterMarket();
-    };
+    // ---------- LISTING SUBMISSION ----------
 
-    window.filterMarket = function() {
-      const query = val("searchInput") ? val("searchInput").toLowerCase() : "";
-      const filtered = marketItems.filter(item => {
-        const matchCat = activeCategory === 'All' || item.game === activeCategory;
-        const matchSearch = item.title.toLowerCase().includes(query) || item.game.toLowerCase().includes(query);
-        return matchCat && matchSearch;
-      });
-      renderMarket(filtered);
-    };
+    $("sellForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-    // --- RENDER MARKETPLACE ---
-    function renderMarket(itemsToRender = marketItems) {
-      const list = document.getElementById("marketList"); if(!list) return;
-      if(itemsToRender.length === 0) { list.innerHTML = `<p style="color:var(--muted); text-align:center; padding:40px; grid-column:1/-1; background:rgba(0,0,0,0.2); border-radius:var(--radius-lg); border:1px dashed var(--border);">No accounts found.</p>`; return; }
-      
-      list.innerHTML = itemsToRender.map(item => {
-        const imgs = item.images && item.images.length ? item.images : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"];
-        return `
-        <div class="item-card">
-          <div class="item-img" onclick="openGallery('${item.id}')">
-            <img src="${imgs[0]}" alt="Img">
-            <div class="img-badge">📸 ${imgs.length}</div>
-          </div>
-          <div class="item-info">
-            <div class="item-tags">
-              <span class="tag tag-game">${item.game}</span>
-              <span class="tag">Login: ${item.loginType}</span>
-            </div>
-            <h4 class="item-title">${item.title}</h4>
-            <div class="item-footer">
-              <span class="price">₹${item.price}</span>
-              <button class="btn-primary" style="padding: 8px 16px; font-size:13px;" onclick="openCheckout('${item.id}')">Buy Now</button>
-            </div>
-          </div>
-        </div>`
-      }).join("");
-    }
+      if (!firebaseReady || !db) {
+        showStatus(
+          "sellStatus",
+          "Database is not connected. Please try again later.",
+          "error"
+        );
+        return;
+      }
 
-    // --- GALLERY VIEWER ---
-    window.openGallery = function(id) {
-      const acc = marketItems.find(i => String(i.id) === String(id)); if(!acc) return;
-      gallery = acc.images && acc.images.length ? acc.images : ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"];
-      imgIndex = 0; updateGallery(); document.getElementById("imageViewerModal").style.display = "flex";
-    };
-    window.closeImageViewer = function() { document.getElementById("imageViewerModal").style.display = "none"; };
-    window.navigateImage = function(dir) {
-      imgIndex += dir; if(imgIndex < 0) imgIndex = gallery.length - 1; if(imgIndex >= gallery.length) imgIndex = 0;
-      updateGallery();
-    };
-    function updateGallery() {
-      document.getElementById("fullScreenImg").src = gallery[imgIndex];
-      document.getElementById("imgCounter").innerText = `Screenshot ${imgIndex + 1} of ${gallery.length}`;
-    }
+      const title = getValue("listingTitle");
+      const category = getValue("listingCategory");
+      const price = Number(getValue("listingPrice"));
+      const description = getValue("listingDescription");
+      const sellerContact = getValue("sellerContact");
+      const imageFile = $("listingImage").files[0];
 
-    // --- SELL SUBMIT TO FIREBASE ---
-    document.getElementById("sellForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const files = document.getElementById("sellImageFile").files;
-      if(files.length < 1 || files.length > 7) return alert("Select 1 to 7 screenshots.");
-      
-      const btn = document.getElementById('sellSubmitBtn'); btn.innerText = "Uploading to Cloud... ⏳"; btn.disabled = true;
-      let b64 = []; for(let i=0; i<files.length; i++) b64.push(await compressImg(files[i]));
+      if (!title || !description || !sellerContact) {
+        showStatus("sellStatus", "Please complete all required fields.", "error");
+        return;
+      }
 
-      const data = {
-        id: Date.now().toString(), title: val("sellTitle"), game: val("sellGame"), price: val("sellPrice"),
-        loginType: val("sellLoginType"), username: val("sellUsername"), password: val("sellPassword"), images: b64
-      };
-      
-      await db.collection("pendingItems").doc(data.id).set(data);
-      try { fetch("https://formsubmit.co/ajax/pachori.karan@gmail.com", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ _subject: "SmartEarn AI - New ID", ...data }) }); } catch(err){}
-      
-      alert("✅ Account Uploaded! Waiting for Admin Approval.");
-      this.reset(); btn.innerText = "Submit for Verification 🛡️"; btn.disabled = false;
+      if (!Number.isFinite(price) || price < 1 || price > 1000000) {
+        showStatus("sellStatus", "Enter a valid price between ₹1 and ₹10,00,000.", "error");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sellerContact)) {
+        showStatus("sellStatus", "Please enter a valid email address.", "error");
+        return;
+      }
+
+      const submitButton = $("submitListingBtn");
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+
+      try {
+        const image = await compressImage(imageFile);
+
+        const listing = {
+          title: title,
+          category: category,
+          price: price,
+          description: description,
+          sellerContact: sellerContact,
+          image: image,
+          createdAt: Date.now(),
+          status: "pending"
+        };
+
+        await db.collection("pendingItems").add(listing);
+
+        $("sellForm").reset();
+
+        showStatus(
+          "sellStatus",
+          "Listing submitted successfully! It will appear in the marketplace only after admin approval.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Listing submission error:", error);
+
+        showStatus(
+          "sellStatus",
+          error.message || "Submission failed. Check your database rules and try again.",
+          "error"
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit for Review";
+      }
     });
 
-    // --- ADMIN DASHBOARD ---
-    window.openAdminDashboard = function() {
-      const p = prompt("Enter Admin Password:"); if(p === null) return;
-      if(p !== ADMIN_PASS) return alert("❌ Incorrect Password!");
-      document.getElementById("mainWebsiteView").style.display = "none";
-      document.getElementById("adminDashboardView").style.display = "block"; renderAdmin();
-    };
-    window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
+    // ---------- ADMIN LOGIN ----------
+    // Requires Firebase Authentication to be enabled.
+    // Firestore security rules must also restrict admin-only operations.
 
-    function renderAdmin() {
-      document.getElementById("adminPendingList").innerHTML = pendingItems.length ? pendingItems.map(i => `
-        <div class="admin-item"><div class="admin-header"><h4>${i.title}</h4><span class="price">₹${i.price}</span></div>
-        <div class="admin-details">Game: <span>${i.game}</span> | Login: <span>${i.loginType}</span><br>User: <span>${i.username}</span><br>Pass: <span>${i.password}</span></div>
-        <div class="admin-actions"><button class="btn-sm bg-success" onclick="approveId('${i.id}')">Approve</button><button class="btn-sm bg-danger" onclick="rejectId('${i.id}', 'pending')">Reject</button></div></div>
-      `).join("") : `<p style="color:var(--muted); font-size:13px;">No pending IDs.</p>`;
+    async function adminLogin() {
+      if (!auth) {
+        showStatus("adminLoginStatus", "Firebase Authentication is unavailable.", "error");
+        return;
+      }
 
-      document.getElementById("adminActiveList").innerHTML = marketItems.length ? marketItems.map(i => `
-        <div class="admin-item"><div class="admin-header"><h4>${i.title}</h4><span class="price">₹${i.price}</span></div>
-        <div class="admin-details">Pass: <span>${i.password}</span></div>
-        <div class="admin-actions"><button class="btn-sm bg-danger" onclick="rejectId('${i.id}', 'active')">Remove Listing</button></div></div>
-      `).join("") : `<p style="color:var(--muted); font-size:13px;">No active IDs.</p>`;
+      const email = getValue("adminEmail");
+      const password = $("adminPassword").value;
 
-      document.getElementById("adminPaymentsList").innerHTML = pendingPayments.length ? pendingPayments.map(i => `
-        <div class="admin-item" style="border-color:var(--success);"><div class="admin-header"><h4 style="color:var(--success);">₹${i.price}</h4><span style="color:white; font-family:monospace; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">UTR: ${i.utr}</span></div>
-        <div class="admin-details">Item: <span>${i.title}</span><br>WA: <span>${i.whatsapp}</span><hr style="border:0; border-top:1px solid rgba(255,255,255,0.05); margin:4px 0;">ID: <span>${i.username}</span><br>Pass: <span>${i.password}</span></div>
-        <div class="admin-actions"><button class="btn-sm bg-success" onclick="sendWA('${i.id}')">Verify & Send WA 💬</button></div></div>
-      `).join("") : `<p style="color:var(--muted); font-size:13px;">No pending payments.</p>`;
+      if (!email || !password) {
+        showStatus("adminLoginStatus", "Enter your admin email and password.", "error");
+        return;
+      }
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+
+        $("adminPassword").value = "";
+        $("adminLogin").style.display = "none";
+        $("adminPanel").style.display = "block";
+
+        loadPendingListings();
+      } catch (error) {
+        console.error("Admin login error:", error);
+
+        showStatus(
+          "adminLoginStatus",
+          "Sign-in failed. Check your Firebase admin account and Authentication settings.",
+          "error"
+        );
+      }
     }
 
-    // FIREBASE APPROVALS
-    window.approveId = async function(id) { 
-      const item = pendingItems.find(i => String(i.id) === String(id)); if(!item) return;
-      await db.collection("marketItems").doc(item.id).set(item);
-      await db.collection("pendingItems").doc(item.id).delete();
-      alert("✅ Approved and Listed to Database!"); 
-    };
+    function openAdminDashboard() {
+      openModal("adminModal");
 
-    window.rejectId = async function(id, type) { 
-      if(!confirm("Are you sure you want to delete this from Database?")) return;
-      if(type === 'pending') await db.collection("pendingItems").doc(String(id)).delete();
-      if(type === 'active') await db.collection("marketItems").doc(String(id)).delete();
-    };
+      if (auth && auth.currentUser) {
+        $("adminLogin").style.display = "none";
+        $("adminPanel").style.display = "block";
+        loadPendingListings();
+      } else {
+        $("adminLogin").style.display = "block";
+        $("adminPanel").style.display = "none";
+      }
+    }
 
-    // --- CHECKOUT LOGIC ---
-    window.openCheckout = function(id) {
-      const a = marketItems.find(i => String(i.id) === String(id)); if(!a) return; selectedId = id;
-      document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${a.price}`;
-      document.getElementById("paymentForm").reset(); document.getElementById("checkoutModal").style.display = "flex";
-    };
-    window.closeCheckout = function() { document.getElementById("checkoutModal").style.display = "none"; };
+    async function adminLogout() {
+      try {
+        if (adminListener) {
+          adminListener();
+          adminListener = null;
+        }
 
-    window.verifyPayment = async function(e) {
-      e.preventDefault();
-      const a = marketItems.find(i => String(i.id) === String(selectedId)); if(!a) return;
-      const payData = { id: Date.now().toString(), title: a.title, game: a.game, price: a.price, utr: val("utrInput"), whatsapp: val("whatsappInput"), username: a.username, password: a.password };
-      
-      await db.collection("pendingPayments").doc(payData.id).set(payData);
-      closeCheckout(); alert(`✅ Payment Sent to Cloud!\nAdmin will verify your UTR and send credentials to your WhatsApp.`);
-    };
+        if (auth) {
+          await auth.signOut();
+        }
 
-    window.sendWA = async function(id) {
-      const item = pendingPayments.find(i => String(i.id) === String(id)); if(!item) return;
-      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.title}\n*Game:* ${item.game}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for trusting SmartEarn AI!_`;
-      window.open(`https://wa.me/91${item.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
-      if(confirm("Message Sent? Click OK to clear payment from database.")) { await db.collection("pendingPayments").doc(String(id)).delete(); }
-    };
+        $("adminLogin").style.display = "block";
+        $("adminPanel").style.display = "none";
+        closeModal("adminModal");
+      } catch (error) {
+        console.error("Admin logout error:", error);
+        alert("Could not sign out. Please try again.");
+      }
+    }
 
-    // --- AI TOOLS ---
-    window.openTool = function(name) {
-      document.getElementById("mainWebsiteView").style.display = "none"; document.getElementById("toolDetailView").style.display = "block"; window.scrollTo(0,0);
-      const c = document.getElementById("toolContainerContent");
-      if(name==='video') c.innerHTML = `<div class="section-title"><h2>🪄 Auto Video</h2></div><form id="tForm"><div class="form-group"><label>Prompt</label><textarea id="tInput" rows="3" required></textarea></div><button class="btn-primary btn-full" type="submit">Generate Video</button></form>`;
-      else if(name==='pitch') c.innerHTML = `<div class="section-title"><h2>🤝 Pitch</h2></div><form id="tForm"><div class="form-group"><label>Brand Name</label><input id="tInput" required></div><button class="btn-primary btn-full" type="submit">Draft Pitch</button></form>`;
-      else c.innerHTML = `<div class="section-title"><h2>⚡ Idea Generator</h2></div><form id="tForm"><div class="form-group"><label>Niche / Topic</label><input id="tInput" required></div><button class="btn-primary btn-full" type="submit">Generate Ideas</button></form>`;
-      else if(name==='script') c.innerHTML = `<div class="section-title"><h2>🎬 Script Writer</h2></div><form id="tForm"><div class="form-group"><label>Video Topic</label><input id="tInput" required></div><button class="btn-primary btn-full" type="submit">Write Script</button></form>`;
-      
-      document.getElementById("tForm").addEventListener("submit", function(e){ e.preventDefault(); alert("AI Generated result for: " + val("tInput") + "\n(Integration logic pending)"); });
-    };
-    window.closeToolView = function() { document.getElementById("toolDetailView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
+    function loadPendingListings() {
+      if (!db || !auth || !auth.currentUser) return;
 
-    document.getElementById("currentYear").innerText = new Date().getFullYear();
+      if (adminListener) {
+        adminListener();
+        adminListener = null;
+      }
+
+      const container = $("pendingListings");
+      container.textContent = "Loading pending listings...";
+
+      adminListener = db.collection("pendingItems")
+        .onSnapshot(
+          function (snapshot) {
+            container.replaceChildren();
+
+            if (snapshot.empty) {
+              container.textContent = "No pending listings.";
+              return;
+            }
+
+            snapshot.docs.forEach(function (documentSnapshot) {
+              const item = documentSnapshot.data();
+              const row = document.createElement("div");
+              row.className = "admin-row";
+
+              const title = document.createElement("h4");
+              title.textContent = item.title || "Untitled listing";
+
+              const category = document.createElement("p");
+              category.textContent = "Category: " + (item.category || "Other");
+
+              const price = document.createElement("p");
+              price.textContent =
+                "Price: ₹" + Number(item.price || 0).toLocaleString("en-IN");
+
+              const description = document.createElement("p");
+              description.textContent = item.description || "";
+
+              const actions = document.createElement("div");
+              actions.className = "admin-row-actions";
+
+              const approve = document.createElement("button");
+              approve.className = "btn-primary";
+              approve.textContent = "Approve";
+              approve.addEventListener("click", function () {
+                approveListing(documentSnapshot.id);
+              });
+
+              const reject = document.createElement("button");
+              reject.className = "btn-outline";
+              reject.textContent = "Reject";
+              reject.addEventListener("click", function () {
+                rejectListing(documentSnapshot.id);
+              });
+
+              actions.append(approve, reject);
+              row.append(title, category, price, description, actions);
+              container.appendChild(row);
+            });
+          },
+          function (error) {
+            console.error("Pending listings error:", error);
+            container.textContent =
+              "Unable to load pending listings. Check Firestore security rules.";
+          }
+        );
+    }
+
+    async function approveListing(id) {
+      if (!db || !auth || !auth.currentUser) {
+        alert("Please sign in as admin.");
+        return;
+      }
+
+      try {
+        const pendingRef = db.collection("pendingItems").doc(id);
+        const pendingSnapshot = await pendingRef.get();
+
+        if (!pendingSnapshot.exists) {
+          alert("This listing no longer exists.");
+          return;
+        }
+
+        const listing = pendingSnapshot.data();
+
+        // The database security rules must ensure only authorized admins
+        // can write marketItems and delete pendingItems.
+        await db.collection("marketItems").add({
+          ...listing,
+          status: "approved",
+          approvedAt: Date.now()
+        });
+
+        await pendingRef.delete();
+
+        alert("Listing approved.");
+      } catch (error) {
+        console.error("Approval error:", error);
+        alert("Approval failed. Check admin permissions and Firestore rules.");
+      }
+    }
+
+    async function rejectListing(id) {
+      if (!db || !auth || !auth.currentUser) {
+        alert("Please sign in as admin.");
+        return;
+      }
+
+      if (!confirm("Reject and delete this listing submission?")) return;
+
+      try {
+        await db.collection("pendingItems").doc(id).delete();
+        alert("Listing rejected.");
+      } catch (error) {
+        console.error("Rejection error:", error);
+        alert("Rejection failed. Check your admin permissions.");
+      }
+    }
+
+    // ---------- STARTUP ----------
+
+    $("currentYear").textContent = new Date().getFullYear();
+
+    // Firebase SDKs are loaded immediately after this script.
+    // Wait until the page has finished loading before initializing.
+    window.addEventListener("load", initializeFirebase);
+
   </script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
 </body>
 </html>
