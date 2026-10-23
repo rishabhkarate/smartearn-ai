@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartEarn AI - Premium Creator & ID Marketplace</title>
-  
-  <meta name="description" content="Free creator tools and secure ID marketplace to buy and sell verified gaming and social accounts.">
   <meta name="robots" content="index, follow">
 
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0" />
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS3F36C9QF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,35 +20,20 @@
 
   <style>
     :root { 
-      --bg: #09090b; 
-      --surface: #121217; 
-      --surface-hover: #1a1a24;
-      --text: #f8fafc; 
-      --muted: #94a3b8; 
-      --primary: #8b5cf6; 
-      --secondary: #06b6d4; 
-      --success: #10b981;
-      --border: rgba(255, 255, 255, 0.08); 
-      --radius-lg: 24px;
-      --radius-md: 14px;
+      --bg: #09090b; --surface: #121217; --surface-hover: #1a1a24;
+      --text: #f8fafc; --muted: #94a3b8; --primary: #8b5cf6; 
+      --secondary: #06b6d4; --success: #10b981;
+      --border: rgba(255, 255, 255, 0.08); --radius-lg: 24px; --radius-md: 14px;
       --glow: rgba(139, 92, 246, 0.15);
     }
-    
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    
     body { 
       background-color: var(--bg); 
-      background-image: 
-        radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
-      color: var(--text); 
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-      line-height: 1.6; 
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-image: radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; overflow-x: hidden;
     }
-    
     a { color: inherit; text-decoration: none; }
     button, input, textarea, select { font: inherit; outline: none; }
     button { cursor: pointer; }
@@ -54,205 +41,126 @@
     .header { 
       width: 90%; max-width: 1200px; margin: 24px auto; padding: 16px 32px; 
       display: flex; justify-content: space-between; align-items: center; 
-      background: rgba(18, 18, 23, 0.6); 
-      border: 1px solid var(--border); 
-      border-radius: 100px;
-      position: sticky; top: 24px; z-index: 100; 
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      background: rgba(18, 18, 23, 0.6); border: 1px solid var(--border); border-radius: 100px;
+      position: sticky; top: 24px; z-index: 100; backdrop-filter: blur(16px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
-    .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;}
+    .logo { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px;}
     .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; color: transparent; }
-    .logo-icon { font-size: 24px; }
     
     .header nav { display: flex; gap: 20px; align-items: center; }
-    .header nav a { color: var(--muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .header nav a { color: var(--muted); font-size: 14px; font-weight: 500; transition: 0.2s; }
     .header nav a:hover { color: var(--text); }
     .nav-btn { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); padding: 6px 14px; border-radius: 50px; color: var(--primary) !important; font-weight: 600; }
-    
-    .admin-icon-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text); transition: all 0.2s; }
+    .admin-icon-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text); transition: 0.2s;}
     .admin-icon-btn:hover { background: var(--primary); border-color: var(--primary); }
-
-    .hero { text-align: center; max-width: 800px; margin: 60px auto 60px; padding: 0 20px; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; color: var(--text); background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
-    .badge span { color: var(--secondary); }
+    
+    .hero { text-align: center; max-width: 800px; margin: 60px auto; padding: 0 20px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 50px; background: var(--surface); font-size: 13px; font-weight: 600; box-shadow: 0 0 20px var(--glow); }
     .hero h1 { font-size: clamp(40px, 6vw, 70px); line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px; font-weight: 800; }
     .hero h1 span { background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; color: transparent; }
     .hero p { color: var(--muted); font-size: 17px; max-width: 500px; margin: 0 auto 30px; }
-        .primary-btn, .generate-btn, .copy-btn { 
-      display: inline-flex; justify-content: center; align-items: center; gap: 8px; 
-      border: none; border-radius: var(--radius-md); 
-      background: linear-gradient(135deg, var(--primary), #6d5dfc); 
-      color: white; font-weight: 600; 
-      transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-    }
+        .primary-btn, .generate-btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border: none; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--primary), #6d5dfc); color: white; font-weight: 600; transition: all 0.3s ease; }
     .primary-btn { padding: 14px 28px; font-size: 15px; border-radius: 100px; }
     .generate-btn { padding: 14px 20px; width: 100%; margin-top: 10px; font-size: 15px; }
-    .copy-btn { padding: 10px 16px; font-size: 13px; margin-top: 16px; background: var(--surface); border: 1px solid var(--border); color: var(--text); box-shadow: none; }
-    
     .primary-btn:hover, .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5); }
-    .copy-btn:hover { background: rgba(255,255,255,0.05); }
+    .copy-btn { padding: 10px 16px; font-size: 13px; margin-top: 16px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 8px;}
 
     .tools-section { padding: 0 5%; max-width: 1400px; margin: 0 auto 80px; }
     .section-title { text-align: center; margin-bottom: 40px; }
     .section-title h2 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
-    .section-title p { color: var(--muted); font-size: 15px; }
 
-    .bento-grid { 
-      display: grid; 
-      grid-template-columns: repeat(12, 1fr); 
-      gap: 24px; 
-    }
-    
-    .tool-card { 
-      background: var(--surface); 
-      border: 1px solid var(--border); 
-      border-radius: var(--radius-lg); 
-      padding: 32px; 
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      cursor: pointer;
-    }
-    
-    .tool-card::before {
-      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      opacity: 0; transition: opacity 0.3s ease;
-    }
+    .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; display: flex; flex-direction: column; position: relative; overflow: hidden; cursor: pointer;}
+    .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-12 { grid-column: span 12; }
     .tool-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.4); }
-    .tool-card:hover::before { opacity: 1; }
-
-    .span-4 { grid-column: span 4; }
-    .span-6 { grid-column: span 6; }
-    .span-12 { grid-column: span 12; }
     
-    .tool-icon { 
-      width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; 
-      font-size: 24px; background: rgba(255,255,255,0.03); 
-      border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; 
-    }
-    
-    .tool-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .tool-card > p { color: var(--muted); font-size: 14px; margin-bottom: 16px; flex-grow: 1; }
-    .tool-card .link-text { color: var(--secondary); font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; }
-
-    .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: auto; }
+    .tool-form { display: flex; flex-direction: column; gap: 16px; margin-top: 15px; cursor: default;}
     .input-group { display: flex; flex-direction: column; gap: 6px; }
     .tool-form label { color: var(--muted); font-size: 13px; font-weight: 500; }
-    
-    .tool-form input, .tool-form textarea, .tool-form select { 
-      width: 100%; padding: 14px 16px; 
-      background: rgba(0,0,0,0.2); color: var(--text); 
-      border: 1px solid var(--border); border-radius: var(--radius-md); 
-      transition: all 0.2s; 
-    }
-    .tool-form textarea { resize: vertical; min-height: 100px; }
-    .tool-form input:focus, .tool-form textarea:focus, .tool-form select:focus { 
-      border-color: var(--primary); background: rgba(139, 92, 246, 0.05);
-    }
-    .tool-form select option { background: var(--surface); color: white; }
-    .tool-form input[type="file"] { padding: 10px; background: rgba(0,0,0,0.4); border: 1px dashed var(--border); cursor: pointer; }
+    .tool-form input, .tool-form select, .tool-form textarea { width: 100%; padding: 14px; background: rgba(0,0,0,0.2); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); }
+    .tool-form input[type="file"] { padding: 10px; border: 1px dashed var(--border); cursor: pointer; }
 
-    .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+    .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; cursor: default; }
     .market-item { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
-    .market-img { width: 100%; height: 160px; object-fit: cover; background: #1a1a24; }
-    .market-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
-    .market-item h4 { font-size: 18px; color: var(--text); }
-    .market-price { font-size: 20px; font-weight: 700; color: var(--success); }
-    .buy-btn { background: var(--success); color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: auto; }
-    .buy-btn:hover { opacity: 0.9; }
-
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-    .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 16px; }
-    .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; }
-    .qr-box { background: white; padding: 15px; border-radius: 12px; text-align: center; width: 180px; margin: 0 auto; }
-    .qr-box img { width: 150px; height: 150px; }
-
-    #adminDashboardView, .tool-detail-view { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+    .market-img-wrapper { position: relative; width: 100%; height: 180px; background: #000; cursor: pointer; }
+    .market-img-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
+    .market-img-wrapper:hover img { opacity: 1; transform: scale(1.05); }
+    .img-count-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; backdrop-filter: blur(4px); }
     
-    .admin-card-item { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-    .admin-card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 5px; }
-    .admin-card-detail { font-size: 14px; color: var(--text); display: flex; flex-direction: column; gap: 4px; }
-    .admin-card-detail span { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .market-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+    .market-item h4 { font-size: 18px; color: var(--text); line-height: 1.3;}
+    .market-price { font-size: 20px; font-weight: 700; color: var(--success); margin-bottom: 10px; }
+    .buy-btn { background: var(--success); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: auto; }
+
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+    .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: 30px; position: relative; }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; }
+
+    /* IMAGE VIEWER MODAL */
+    .img-viewer-content { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 800px; position: relative; }
+    .full-image { max-width: 100%; max-height: 75vh; border-radius: 12px; border: 2px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
+    .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; padding: 15px; font-size: 20px; cursor: pointer; border-radius: 50%; }
+    .nav-left { left: 10px; } .nav-right { right: 10px; }
+    
+    #adminDashboardView, .tool-detail-view { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+    .admin-card-item { background: rgba(0,0,0,0.4); padding: 16px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px;}
 
     .output-box { display: none; margin-top: 24px; padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); }
     .output-box.show { display: block; animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .output-box h4 { color: var(--secondary); font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
     .output-content { white-space: pre-wrap; font-size: 14px; color: #e2e8f0; }
-
-    footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; margin-top: 50px; }
-    footer a { margin: 0 10px; color: var(--text); }
-    footer a:hover { color: var(--primary); }
-
-    @media (max-width: 1024px) { .span-4, .span-6 { grid-column: span 6; } }
+    
     @media (max-width: 768px) {
-      .header { width: 95%; padding: 12px 20px; }
-      .header nav { display: flex; gap: 8px; }
-      .hero { margin-top: 40px; }
       .span-4, .span-6, .span-12 { grid-column: span 12; }
-      .tool-card { padding: 24px; }
       #adminDashboardView .bento-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header class="header">
-    <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
+    <a href="#" class="logo"><span>SmartEarn</span> AI</a>
     <nav>
       <a href="#marketplace">Marketplace</a>
-      <a href="#sell-section" class="nav-btn">Sell ID 🚀</a>
       <a href="#tools-hub">Tools</a>
-      <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Dashboard">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
+      <button class="admin-icon-btn" onclick="openAdminDashboard()" title="Admin Login">🔐</button>
     </nav>
   </header>
 
-  <!-- MAIN WEBSITE VIEW -->
   <div id="mainWebsiteView">
     <main>
       <section class="hero">
         <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
-        <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
-        <p>Verified gaming & social media accounts with manual admin escrow for secure delivery.</p>
-        <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
+        <h1>Secure ID Marketplace</h1>
+        <p>Verified gaming & social media accounts with manual admin escrow for 100% safe delivery.</p>
       </section>
 
-      <!-- ID MARKETPLACE & SELLER SECTION -->
+      <!-- MARKETPLACE -->
       <section id="marketplace" class="tools-section">
-        <div class="section-title">
-          <h2>Verified ID Marketplace</h2>
-          <p>Select an account to buy securely via UPI QR Code.</p>
-        </div>
-
         <div class="bento-grid">
-          <article class="tool-card span-12" id="catalog-card" style="cursor: default;">
-            <div class="tool-icon">🛒</div>
-            <h3>Available Verified Accounts</h3>
-            <p>Admin verified accounts ready for secure purchase.</p>
+          <article class="tool-card span-12" style="cursor: default;">
+            <h2>🛒 Available Accounts</h2>
+            <p style="color:var(--muted); margin-bottom: 20px;">Click image to view full screenshots.</p>
             <div class="market-grid" id="marketList"></div>
           </article>
 
-          <article class="tool-card span-12" id="sell-section" style="max-width: 700px; margin: 0 auto; cursor: default;">
-            <div class="tool-icon">🏷️</div>
-            <h3>List Your ID for Sale</h3>
-            <p>Upload a screenshot and submit details for admin approval.</p>
+          <article class="tool-card span-12" style="max-width: 700px; margin: 0 auto; cursor: default;">
+            <h2>🏷️ List Your ID for Sale</h2>
             <form class="tool-form" id="sellForm">
-              <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" autocomplete="off" required></div>
+              <div class="input-group"><input id="sellTitle" placeholder="Listing Title (e.g., Mythic Fashion Acc)" autocomplete="off" required></div>
               <div style="display:flex; gap:10px;">
-                <select id="sellCategory" style="flex:1;"><option value="Gaming">Gaming</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option></select>
+                <input id="sellGameName" placeholder="Game/App Name (e.g., BGMI, Insta)" style="flex:1;" autocomplete="off" required>
                 <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" autocomplete="off" required>
               </div>
               <div class="input-group">
-                <label>Upload Screenshot / Photo</label>
-                <input type="file" id="sellImageFile" accept="image/*" required>
+                <label>Upload Screenshots (Select up to 7 images)</label>
+                <input type="file" id="sellImageFile" accept="image/*" multiple required>
               </div>
-              <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" autocomplete="off" required></div>
-              <div class="input-group"><input type="password" id="sellPassword" placeholder="Account Password" autocomplete="new-password" required></div>
-              <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
+              <div style="display:flex; gap:10px;">
+                <input id="sellUsername" placeholder="ID Username / Email" style="flex:1;" autocomplete="off" required>
+                <input type="password" id="sellPassword" placeholder="ID Password" style="flex:1;" autocomplete="new-password" required>
+              </div>
+              <button class="generate-btn" type="submit">Submit for Verification 🛡️</button>
             </form>
             <div class="output-box" id="sellOutput"><h4>Status</h4><div class="output-content" id="sellResult"></div></div>
           </article>
@@ -261,283 +169,275 @@
 
       <!-- TOOLS HUB (GRID OF CARDS) -->
       <section id="tools-hub" class="tools-section">
-        <div class="section-title">
-          <h2>AI Creator Power Tools</h2>
-          <p>Click on any tool below to open and use it.</p>
-        </div>
+        <div class="section-title"><h2>AI Creator Tools</h2><p>Click on any tool below to open.</p></div>
         <div class="bento-grid">
-          <article class="tool-card span-4" onclick="openTool('video')"><div class="tool-icon">🪄</div><h3>AI Auto Video</h3><span class="link-text">Open Tool →</span></article>
-          <article class="tool-card span-4" onclick="openTool('pitch')"><div class="tool-icon">🤝</div><h3>Sponsorship Pitch</h3><span class="link-text">Open Tool →</span></article>
-          <article class="tool-card span-4" onclick="openTool('reel')"><div class="tool-icon">📱</div><h3>Reel Ideas</h3><span class="link-text">Open Tool →</span></article>
-          <article class="tool-card span-6" onclick="openTool('script')"><div class="tool-icon">🎬</div><h3>Reel Scripts</h3><span class="link-text">Open Tool →</span></article>
-          <article class="tool-card span-6" onclick="openTool('hook')"><div class="tool-icon">🎣</div><h3>Video Hooks</h3><span class="link-text">Open Tool →</span></article>
+          <article class="tool-card span-4" onclick="openTool('video')">
+            <h3 style="font-size:24px;">🪄 Auto Video</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          </article>
+          <article class="tool-card span-4" onclick="openTool('pitch')">
+            <h3 style="font-size:24px;">🤝 Sponsorship Pitch</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          </article>
+          <article class="tool-card span-4" onclick="openTool('reel')">
+            <h3 style="font-size:24px;">📱 Reel Ideas</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          </article>
+          <article class="tool-card span-6" onclick="openTool('script')">
+            <h3 style="font-size:24px;">🎬 Reel Scripts</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          </article>
+          <article class="tool-card span-6" onclick="openTool('hook')">
+            <h3 style="font-size:24px;">🎣 Video Hooks</h3><span style="color:var(--secondary); margin-top:auto;">Open Tool →</span>
+          </article>
         </div>
       </section>
     </main>
   </div>
     <!-- INDIVIDUAL TOOL DETAIL VIEW -->
-  <div id="toolDetailView" class="tool-detail-view">
-    <button onclick="closeToolView()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border); margin-bottom: 24px;">← Back to All Tools</button>
-    <div class="tool-card" style="margin: 0; cursor: default;"><div id="toolContainerContent"></div></div>
+  <div id="toolDetailView" class="tool-detail-view" style="max-width:800px;">
+    <button onclick="closeToolView()" class="primary-btn" style="margin-bottom: 24px;">← Back to Tools</button>
+    <div class="tool-card" style="cursor: default;"><div id="toolContainerContent"></div></div>
   </div>
 
-  <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
+  <!-- ADMIN DASHBOARD -->
   <div id="adminDashboardView">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
-      <div>
-        <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Panel</h2>
-        <p style="color: var(--muted); font-size: 14px;">Manage pending IDs, active marketplace, and verify payments securely.</p>
-      </div>
-      <button onclick="closeAdminDashboard()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">← Back to Website</button>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; flex-wrap:wrap; gap:10px;">
+      <h2>🔐 Admin Control Panel</h2>
+      <button onclick="closeAdminDashboard()" class="primary-btn">← Exit</button>
     </div>
-
     <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
-      
-      <!-- Column 1: Pending ID Approvals -->
-      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px;">
-        <h3 style="margin-bottom: 15px; color: var(--secondary); border-bottom: 1px solid var(--border); padding-bottom: 10px;">⏳ Pending IDs</h3>
-        <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
+      <div class="tool-card span-4" style="cursor: default;">
+        <h3 style="color:var(--secondary); margin-bottom:15px;">⏳ Pending IDs</h3>
+        <div id="adminPendingList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
-
-      <!-- Column 2: Active Marketplace -->
-      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px;">
-        <h3 style="margin-bottom: 15px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 10px;">🏪 Active List</h3>
-        <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
+      <div class="tool-card span-4" style="cursor: default;">
+        <h3 style="color:var(--primary); margin-bottom:15px;">🏪 Active Market</h3>
+        <div id="adminActiveList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
-
-      <!-- Column 3: Pending Payments (Escrow) -->
-      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px; border-color: rgba(16, 185, 129, 0.4);">
-        <h3 style="margin-bottom: 15px; color: var(--success); border-bottom: 1px solid var(--border); padding-bottom: 10px;">💸 Payment Verification</h3>
-        <div id="adminPaymentsList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
+      <div class="tool-card span-4" style="border-color:var(--success); cursor: default;">
+        <h3 style="color:var(--success); margin-bottom:15px;">💸 Payments Escrow</h3>
+        <div id="adminPaymentsList" style="max-height: 500px; overflow-y: auto;"></div>
       </div>
-
     </div>
   </div>
 
-  <!-- CHECKOUT MODAL POPUP -->
+  <!-- CHECKOUT MODAL -->
   <div class="modal-overlay" id="checkoutModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeCheckout()">✕</button>
-      <h3 id="modalTitle" style="font-size: 20px;">Complete Payment</h3>
-      <p style="color: var(--muted); font-size: 13px;" id="modalPriceText">Scan QR code to pay.</p>
-      
-      <div class="qr-box">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=1499" id="upiQrImg" alt="UPI QR">
+      <h3 id="modalTitle">Complete Payment</h3>
+      <p style="color:var(--muted); font-size:13px;" id="modalPriceText"></p>
+      <div class="qr-box" style="background:white; padding:10px; border-radius:12px; margin: 15px auto; width:170px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME" id="upiQrImg" style="width:150px; height:150px;">
       </div>
-      <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
-        UPI ID: <strong style="color: var(--secondary);">gaminggamer3554@okicici</strong>
-      </div>
-
+      <div style="text-align:center; font-size:14px; margin-bottom:15px;">UPI: <strong style="color:var(--primary);">gaminggamer3554@okicici</strong></div>
       <div class="input-group">
-        <label style="font-size: 12px; color: var(--muted);">12-Digit UTR / Ref Number:</label>
-        <input type="text" id="utrInput" placeholder="e.g., 412345678901" autocomplete="off" required>
+        <input type="text" id="utrInput" placeholder="12-Digit UTR Number" autocomplete="off" required>
+        <input type="number" id="whatsappInput" placeholder="Your WhatsApp No. (For Delivery)" autocomplete="off" required>
       </div>
-      <div class="input-group">
-        <label style="font-size: 12px; color: var(--muted);">Your WhatsApp Number (For Delivery):</label>
-        <input type="number" id="whatsappInput" placeholder="Enter valid mobile number" autocomplete="off" required>
-      </div>
-
-      <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Submit Verification ✅</button>
+      <button class="generate-btn" style="background:var(--success);" onclick="verifyPayment()">Submit UTR ✅</button>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; <span id="currentYear"></span> SmartEarn AI Toolkit. All rights reserved.</p>
-  </footer>
+  <!-- FULL SCREEN IMAGE VIEWER MODAL -->
+  <div class="modal-overlay" id="imageViewerModal">
+    <button class="modal-close" style="top:20px; right:30px; font-size:35px; color:white;" onclick="closeImageViewer()">✕</button>
+    <div class="img-viewer-content">
+      <p id="imgCounter" style="color:white; margin-bottom:10px; font-weight:bold; letter-spacing:2px;"></p>
+      <img id="fullScreenImg" class="full-image" src="">
+      <button class="nav-arrow nav-left" onclick="navigateImage(-1)">❮</button>
+      <button class="nav-arrow nav-right" onclick="navigateImage(1)">❯</button>
+    </div>
+  </div>
+
+  <footer><p>&copy; 2024 SmartEarn AI Marketplace.</p></footer>
     <script>
     "use strict";
     function getValue(id) { const el = document.getElementById(id); return el ? el.value.trim() : ""; }
-    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const result = document.getElementById(resultId); if (!box || !result) return; result.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
-    function pick(items, count = 5) { const copy = [...items]; const result = []; while (copy.length && result.length < count) { const index = Math.floor(Math.random() * copy.length); result.push(copy.splice(index, 1)[0]); } return result; }
-    function copyOutput(id) { const el = document.getElementById(id); if (!el) return; const textToCopy = el.innerText || el.textContent || ""; if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(textToCopy).then(() => alert("Copied successfully!")).catch(() => fallbackCopy(textToCopy)); } else { fallbackCopy(textToCopy); } }
-    function fallbackCopy(textToCopy) { const textarea = document.createElement("textarea"); textarea.value = textToCopy; textarea.style.position = "fixed"; textarea.style.opacity = "0"; document.body.appendChild(textarea); textarea.select(); try { document.execCommand("copy"); alert("Copied successfully!"); } catch (error) { alert("Copy failed."); } textarea.remove(); }
-    function formatList(items) { return items.map((item, index) => `${index + 1}. ${item}`).join("\n\n"); }
-
-    const ADMIN_PASSWORD = "swasti@29";
+    function showOutput(boxId, resultId, content) { const box = document.getElementById(boxId); const res = document.getElementById(resultId); if(!box || !res) return; res.textContent = content; box.classList.add("show"); box.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+    function copyOutput(id) { const el = document.getElementById(id); if(!el) return; const text = el.innerText || el.textContent || ""; navigator.clipboard.writeText(text).then(()=>alert("Copied!")).catch(()=>alert("Failed to copy.")); }
+    
+    const ADMIN_PASS = "swasti@29";
     let selectedAccountId = null;
+    let currentGallery = []; let currentImgIndex = 0;
 
-    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [
-      { id: 1, title: "Free Fire Max Level 72", category: "Gaming", price: 1499, image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60", username: "user_ff_72", password: "SecretPassword123" }
-    ];
+    let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [];
     let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
     let pendingPayments = JSON.parse(localStorage.getItem("pendingPayments")) || [];
 
-    function saveToStorage() {
+    function saveStorage() {
       localStorage.setItem("marketItems", JSON.stringify(marketItems));
       localStorage.setItem("pendingItems", JSON.stringify(pendingItems));
       localStorage.setItem("pendingPayments", JSON.stringify(pendingPayments));
     }
 
+    // IMAGE COMPRESSION TO PREVENT STORAGE CRASH
+    function compressImage(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = e => {
+          const img = new Image(); img.src = e.target.result;
+          img.onload = () => {
+            const cvs = document.createElement('canvas'); const ctx = cvs.getContext('2d');
+            const ratio = 600 / img.width; cvs.width = 600; cvs.height = img.height * ratio;
+            ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
+            resolve(cvs.toDataURL('image/jpeg', 0.6));
+          };
+        };
+      });
+    }
+
+    // GALLERY VIEWER LOGIC
+    window.openGallery = function(id) {
+      const acc = marketItems.find(i => i.id === id); if(!acc || !acc.images || acc.images.length === 0) return;
+      currentGallery = acc.images; currentImgIndex = 0;
+      updateGalleryUI(); document.getElementById("imageViewerModal").style.display = "flex";
+    };
+    window.closeImageViewer = function() { document.getElementById("imageViewerModal").style.display = "none"; };
+    window.navigateImage = function(dir) {
+      currentImgIndex += dir;
+      if(currentImgIndex < 0) currentImgIndex = currentGallery.length - 1;
+      if(currentImgIndex >= currentGallery.length) currentImgIndex = 0;
+      updateGalleryUI();
+    };
+    function updateGalleryUI() {
+      document.getElementById("fullScreenImg").src = currentGallery[currentImgIndex];
+      document.getElementById("imgCounter").innerText = `Image ${currentImgIndex + 1} of ${currentGallery.length}`;
+    }
+
+    // RENDER MARKETPLACE
     function renderMarketplace() {
-      const listEl = document.getElementById("marketList");
-      if (!listEl) return;
-      if (marketItems.length === 0) { listEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No accounts listed right now.</p>`; return; }
-      listEl.innerHTML = marketItems.map(item => `
+      const list = document.getElementById("marketList");
+      if(marketItems.length === 0) { list.innerHTML = `<p style="color:var(--muted);">No accounts listed.</p>`; return; }
+      list.innerHTML = marketItems.map(item => `
         <div class="market-item">
-          <img src="${item.image}" alt="Account Image" class="market-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60'">
+          <div class="market-img-wrapper" onclick="openGallery(${item.id})">
+            <img src="${item.images[0]}" alt="Thumbnail">
+            <div class="img-count-badge">📸 ${item.images.length} Photos</div>
+          </div>
           <div class="market-body">
-            <span style="font-size:11px; color:var(--secondary); font-weight:700; text-transform:uppercase;">${item.category}</span>
+            <span style="font-size:11px; color:var(--secondary); font-weight:bold; text-transform:uppercase;">${item.gameName}</span>
             <h4>${item.title}</h4>
             <div class="market-price">₹${item.price}</div>
-            <button class="buy-btn" onclick="openCheckout(${item.id})">Buy & Pay via UPI ⚡</button>
+            <button class="buy-btn" onclick="openCheckout(${item.id})">Buy via UPI ⚡</button>
           </div>
         </div>
       `).join("");
     }
 
+    // SELL FORM SUBMISSION
+    document.getElementById("sellForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const files = document.getElementById("sellImageFile").files;
+      if(files.length === 0) return alert("Select at least 1 image!");
+      if(files.length > 7) return alert("Maximum 7 images allowed.");
+      
+      const btn = this.querySelector('button'); btn.innerText = "Processing Images... Wait ⏳"; btn.disabled = true;
+      let base64Images = [];
+      for(let i=0; i<files.length; i++) { base64Images.push(await compressImage(files[i])); }
+
+      pendingItems.push({
+        id: Date.now(), title: getValue("sellTitle"), gameName: getValue("sellGameName"), price: getValue("sellPrice"),
+        images: base64Images, username: getValue("sellUsername"), password: getValue("sellPassword")
+      });
+      saveStorage(); 
+      showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
+      this.reset(); btn.innerText = "Submit for Verification 🛡️"; btn.disabled = false;
+    });
+
+    // ADMIN DASHBOARD LOGIC
+    window.openAdminDashboard = function() {
+      const p = prompt("Admin Password:"); if(p !== ADMIN_PASS) { if(p!==null) alert("Wrong Password! ❌"); return; }
+      document.getElementById("mainWebsiteView").style.display = "none"; document.getElementById("toolDetailView").style.display = "none";
+      document.getElementById("adminDashboardView").style.display = "block"; renderAdmin();
+    };
+    window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
+
+    function renderAdmin() {
+      document.getElementById("adminPendingList").innerHTML = pendingItems.length === 0 ? `<p style="color:var(--muted);">No pending IDs.</p>` : pendingItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Game: ${i.gameName}<br>User: ${i.username}<br>Pass: ${i.password}</span><br><button onclick="approveItem(${idx})" style="background:var(--success); color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Approve & List ✔️</button></div>`).join("");
+      
+      document.getElementById("adminActiveList").innerHTML = marketItems.length === 0 ? `<p style="color:var(--muted);">No active IDs.</p>` : marketItems.map((i, idx) => `<div class="admin-card-item"><b>${i.title}</b> (₹${i.price})<br><span style="color:var(--muted); font-size:13px;">Pass: ${i.password}</span><br><button onclick="deleteItem(${idx})" style="background:#ef4444; color:white; padding:6px 12px; margin-top:8px; border-radius:6px; cursor:pointer; border:none; font-weight:bold;">Delete 🗑️</button></div>`).join("");
+      
+      document.getElementById("adminPaymentsList").innerHTML = pendingPayments.length === 0 ? `<p style="color:var(--muted);">No pending payments.</p>` : pendingPayments.map((i, idx) => `
+        <div class="admin-card-item" style="border: 1px solid var(--success);">
+          <strong style="color:var(--success); font-size:18px;">₹${i.price} (UTR: ${i.utr})</strong>
+          <div style="font-size:13px; margin:8px 0; color:var(--muted);">Item: ${i.accountTitle}<br>Game: ${i.gameName}<br>WA: ${i.whatsapp}<br><hr style="border:0; border-top:1px dashed var(--border); margin:5px 0;">ID: ${i.username}<br>Pass: ${i.password}</div>
+          <button onclick="sendWA(${idx})" style="background:#25D366; color:white; font-weight:bold; border:none; padding:10px; border-radius:6px; cursor:pointer; width:100%;">Verify & Send WA 💬</button>
+        </div>`).join("");
+    }
+
+    window.approveItem = function(i) { marketItems.push(pendingItems.splice(i,1)[0]); saveStorage(); renderMarketplace(); renderAdmin(); };
+    window.deleteItem = function(i) { if(confirm("Remove this ID?")) { marketItems.splice(i,1); saveStorage(); renderMarketplace(); renderAdmin(); } };
+    
+    // WHATSAPP AUTOMATION ESCROW
+    window.sendWA = function(i) {
+      const item = pendingPayments[i];
+      const text = `🎉 *Payment Verified!*\n\n*Item:* ${item.accountTitle}\n*Game:* ${item.gameName}\n*Price:* ₹${item.price}\n\n*Your Login Details:*\n*Username:* ${item.username}\n*Password:* ${item.password}\n\n_Thank you for buying from SmartEarn AI Marketplace!_`;
+      window.open(`https://wa.me/91${item.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+      if(confirm("Message Sent successfully? Click OK to clear this payment from pending list.")) { pendingPayments.splice(i,1); saveStorage(); renderAdmin(); }
+    };
+
+    // CHECKOUT LOGIC
+    window.openCheckout = function(id) {
+      const a = marketItems.find(i => i.id === id); if(!a) return; selectedAccountId = id;
+      document.getElementById("modalTitle").innerText = `Buy: ${a.title}`; document.getElementById("modalPriceText").innerText = `Pay ₹${a.price}`;
+      document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=${a.price}`;
+      document.getElementById("utrInput").value = ""; document.getElementById("whatsappInput").value = ""; document.getElementById("checkoutModal").style.display = "flex";
+    };
+    window.closeCheckout = function() { document.getElementById("checkoutModal").style.display = "none"; };
+    
+    window.verifyPayment = function() {
+      const utr = getValue("utrInput"); const wa = getValue("whatsappInput");
+      if(utr.length !== 12) return alert("Strict Check ❌: Please enter a valid 12-digit UTR."); 
+      if(wa.length < 10) return alert("Please enter a valid WhatsApp Number.");
+      const a = marketItems.find(i => i.id === selectedAccountId);
+      pendingPayments.push({ id:Date.now(), accountTitle: a.title, gameName: a.gameName, price: a.price, utr: utr, whatsapp: wa, username: a.username, password: a.password });
+      saveStorage(); closeCheckout(); alert(`Payment under review! ✅\nAdmin will verify UTR (${utr}) and send the ID/Password to your WhatsApp (${wa}) shortly.`);
+    };
+
+    // FULL AI TOOLS LOGIC (COMPLETE - NO CUTS)
     window.openTool = function(toolName) {
       document.getElementById("mainWebsiteView").style.display = "none";
       const detailView = document.getElementById("toolDetailView");
       const container = document.getElementById("toolContainerContent");
-      detailView.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      detailView.style.display = "block"; window.scrollTo({ top: 0, behavior: "smooth" });
 
-      let htmlContent = "";
       if (toolName === 'video') {
-        htmlContent = `<div class="tool-icon" style="background: var(--primary); border: none;">🪄</div><h3>AI Auto Video Generator</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><textarea id="activePrompt" placeholder="Prompt..." required></textarea></div><button class="generate-btn" type="submit" id="activeVideoBtn" style="background: white; color: black;">Generate Video</button></form><div class="output-box" id="activeVideoOutput"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
+        container.innerHTML = `<h2>🪄 AI Auto Video Generator</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><textarea id="activePrompt" placeholder="Prompt (e.g., Cyberpunk city...)" required></textarea></div><button class="generate-btn" type="submit" id="activeVideoBtn">Generate Video</button></form><div class="output-box" id="activeOutputBox"><h4 id="activeVideoStatus">Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
       } else if (toolName === 'pitch') {
-        htmlContent = `<div class="tool-icon">🤝</div><h3>Sponsorship Pitch</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="pitchName" placeholder="Name" autocomplete="off" required></div><div class="input-group"><input id="pitchNiche" placeholder="Niche" autocomplete="off" required></div><div style="display: flex; gap: 10px;"><div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" autocomplete="off" required></div><div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" autocomplete="off" required></div></div><button class="generate-btn" type="submit">Draft Pitch</button></form><div class="output-box" id="activeOutputBox"><h4>Your Pitch</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        container.innerHTML = `<h2>🤝 Sponsorship Pitch</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="pitchName" placeholder="Your Name" autocomplete="off" required></div><div class="input-group"><input id="pitchNiche" placeholder="Niche" autocomplete="off" required></div><div style="display:flex; gap:10px;"><input id="pitchFollowers" placeholder="Followers" style="flex:1;" autocomplete="off" required><input id="pitchBrand" placeholder="Brand Name" style="flex:1;" autocomplete="off" required></div><button class="generate-btn" type="submit">Draft Pitch</button></form><div class="output-box" id="activeOutputBox"><h4>Pitch</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'reel') {
-        htmlContent = `<div class="tool-icon">📱</div><h3>Reel Ideas</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="reelNiche" placeholder="Your Niche" autocomplete="off" required></div><div class="input-group"><select id="reelPlatform"><option value="instagram">Instagram</option><option value="youtube">YouTube</option></select></div><button class="generate-btn" type="submit">Get Ideas</button></form><div class="output-box" id="activeOutputBox"><h4>Ideas</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        container.innerHTML = `<h2>📱 Reel Ideas</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="reelNiche" placeholder="Your Niche" autocomplete="off" required></div><button class="generate-btn" type="submit">Get Ideas</button></form><div class="output-box" id="activeOutputBox"><h4>Ideas</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'script') {
-        htmlContent = `<div class="tool-icon">🎬</div><h3>Reel Scripts</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="scriptTopic" placeholder="Topic" autocomplete="off" required></div><div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option></select></div><button class="generate-btn" type="submit">Write Script</button></form><div class="output-box" id="activeOutputBox"><h4>Script</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        container.innerHTML = `<h2>🎬 Reel Scripts</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="scriptTopic" placeholder="Video Topic" autocomplete="off" required></div><div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option></select></div><button class="generate-btn" type="submit">Write Script</button></form><div class="output-box" id="activeOutputBox"><h4>Script</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'hook') {
-        htmlContent = `<div class="tool-icon">🎣</div><h3>Video Hooks</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="hookTopic" placeholder="Topic" autocomplete="off" required></div><button class="generate-btn" type="submit">Get Hooks</button></form><div class="output-box" id="activeOutputBox"><h4>Hooks</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        container.innerHTML = `<h2>🎣 Video Hooks</h2><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="hookTopic" placeholder="Video Topic" autocomplete="off" required></div><button class="generate-btn" type="submit">Get Hooks</button></form><div class="output-box" id="activeOutputBox"><h4>Hooks</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       }
-
-      container.innerHTML = htmlContent;
 
       document.getElementById("activeToolForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         if (toolName === 'video') {
-          const btn = document.getElementById("activeVideoBtn"); const statusText = document.getElementById("activeVideoStatus"); const videoPlayer = document.getElementById("activeAiVideoPlayer"); const box = document.getElementById("activeVideoOutput");
-          box.style.display = "block"; btn.innerText = "Wait ⏳"; btn.disabled = true; statusText.innerText = "Connecting..."; videoPlayer.style.display = "none";
+          const btn = document.getElementById("activeVideoBtn"); const status = document.getElementById("activeVideoStatus"); const player = document.getElementById("activeAiVideoPlayer"); const box = document.getElementById("activeOutputBox");
+          box.style.display = "block"; btn.innerText = "Wait ⏳"; btn.disabled = true; status.innerText = "Connecting..."; player.style.display = "none";
           try {
             const res = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: getValue("activePrompt") }) });
             const data = await res.json();
-            if (data.success) { statusText.innerText = "Success! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; }
-          } catch (err) { statusText.innerText = "Error connecting to server."; }
+            if (data.success) { status.innerText = "Success! 🎉"; player.src = data.videoUrl; player.style.display = "block"; } else { status.innerText = "Error: " + data.message; }
+          } catch (err) { status.innerText = "Error connecting to server."; }
           btn.innerText = "Generate Video 🪄"; btn.disabled = false;
         } else if (toolName === 'pitch') {
-          showOutput("activeOutputBox", "activeOutputResult", `Hi ${getValue("pitchBrand")} Team,\nI run a ${getValue("pitchNiche")} channel with ${getValue("pitchFollowers")} followers. Let's collaborate!\nBest, ${getValue("pitchName")}`);
-        } else if (toolName === 'reel' || toolName === 'hook') {
-          showOutput("activeOutputBox", "activeOutputResult", formatList([`Idea 1 for ${getValue("reelNiche") || getValue("hookTopic")}`, `Idea 2 for beginners`, `Myth vs Fact`]));
+          showOutput("activeOutputBox", "activeOutputResult", `Hi ${getValue("pitchBrand")} Team,\n\nI run a ${getValue("pitchNiche")} channel with ${getValue("pitchFollowers")} followers. I love your brand and would love to collaborate.\n\nBest,\n${getValue("pitchName")}`);
+        } else if (toolName === 'reel') {
+          const niche = getValue("reelNiche");
+          showOutput("activeOutputBox", "activeOutputResult", `1. 5 mistakes beginners make in ${niche}\n2. A day in my life doing ${niche}\n3. Myth vs Fact about ${niche}\n4. Best free tools for ${niche}\n5. How I got started with ${niche}`);
         } else if (toolName === 'script') {
-          showOutput("activeOutputBox", "activeOutputResult", `Hook: Stop doing ${getValue("scriptTopic")} like this!\nScene 1: People get it wrong...\nCTA: Follow for more!`);
+          const vibe = getValue("scriptVibe");
+          showOutput("activeOutputBox", "activeOutputResult", vibe === "funny" ? `Hook (0-3s): Me trying to understand ${getValue("scriptTopic")}...\nScene 1: Total confusion!\nCTA: Tag a friend who relates!` : `Hook (0-3s): Stop doing ${getValue("scriptTopic")} the wrong way!\nScene 1: 90% of people make this mistake...\nCTA: Follow for part 2!`);
+        } else if (toolName === 'hook') {
+          showOutput("activeOutputBox", "activeOutputResult", `1. Want to master ${getValue("hookTopic")}?\n2. Nobody is talking about this ${getValue("hookTopic")} secret.\n3. Here is why your ${getValue("hookTopic")} isn't working.`);
         }
       });
     };
-
     window.closeToolView = function() { document.getElementById("toolDetailView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
 
-    window.openAdminDashboard = function() {
-      const enteredPass = prompt("Enter Admin Password:");
-      if (enteredPass === null) return;
-      if (enteredPass !== ADMIN_PASSWORD) { alert("Incorrect Password! Access Denied ❌"); return; }
-      document.getElementById("mainWebsiteView").style.display = "none";
-      document.getElementById("toolDetailView").style.display = "none";
-      document.getElementById("adminDashboardView").style.display = "block";
-      renderAdminDashboard(); window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
-    window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
-
-    function renderAdminDashboard() {
-      const pendingEl = document.getElementById("adminPendingList");
-      const activeEl = document.getElementById("adminActiveList");
-      const paymentsEl = document.getElementById("adminPaymentsList");
-
-      if (pendingItems.length === 0) pendingEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No pending IDs.</p>`;
-      else pendingEl.innerHTML = pendingItems.map((item, index) => `
-        <div class="admin-card-item">
-          <div class="admin-card-header">
-            <strong style="color:var(--secondary); font-size:15px;">${item.title}</strong>
-            <button onclick="approveItem(${index})" style="background:var(--success); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Approve</button>
-          </div>
-          <div class="admin-card-detail">
-            <div><span>Price:</span> ₹${item.price}</div>
-            <div><span>User:</span> ${item.username}</div>
-            <div><span>Pass:</span> ${item.password}</div>
-          </div>
-        </div>`).join("");
-
-      if (marketItems.length === 0) activeEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No active IDs.</p>`;
-      else activeEl.innerHTML = marketItems.map((item, index) => `
-        <div class="admin-card-item">
-          <div class="admin-card-header">
-            <strong style="color:var(--primary); font-size:15px;">${item.title}</strong>
-            <button onclick="deleteActiveItem(${index})" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Delete</button>
-          </div>
-          <div class="admin-card-detail">
-            <div><span>Price:</span> ₹${item.price}</div>
-            <div><span>Pass:</span> ${item.password}</div>
-          </div>
-        </div>`).join("");
-
-      if (pendingPayments.length === 0) paymentsEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No payments to verify.</p>`;
-      else paymentsEl.innerHTML = pendingPayments.map((item, index) => `
-        <div class="admin-card-item" style="border-color: rgba(16, 185, 129, 0.4);">
-          <div class="admin-card-header">
-            <strong style="color:var(--success); font-size:15px;">₹${item.price}</strong>
-            <button onclick="clearPayment(${index})" style="background:var(--success); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Clear</button>
-          </div>
-          <div class="admin-card-detail">
-            <div><span>Item:</span> ${item.accountTitle}</div>
-            <div><span>UTR:</span> <strong style="color:white; letter-spacing:1px;">${item.utr}</strong></div>
-            <div><span>WhatsApp:</span> ${item.whatsapp}</div>
-            <hr style="border: 0; border-top: 1px dashed var(--border); margin: 6px 0;">
-            <div><span>ID:</span> ${item.username}</div>
-            <div><span>Pass:</span> ${item.password}</div>
-          </div>
-        </div>`).join("");
-    }
-
-    window.approveItem = function(index) { marketItems.push(pendingItems.splice(index, 1)[0]); saveToStorage(); renderMarketplace(); renderAdminDashboard(); };
-    window.deleteActiveItem = function(index) { if (confirm("Remove this ID?")) { marketItems.splice(index, 1); saveToStorage(); renderMarketplace(); renderAdminDashboard(); } };
-    window.clearPayment = function(index) { if (confirm("Mark payment as verified and clear?")) { pendingPayments.splice(index, 1); saveToStorage(); renderAdminDashboard(); } };
-
-    window.openCheckout = function(id) {
-      const account = marketItems.find(item => item.id === id); if (!account) return;
-      selectedAccountId = id; document.getElementById("modalTitle").innerText = `Buy: ${account.title}`; document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${account.price}`;
-      document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=${account.price}`;
-      document.getElementById("utrInput").value = ""; document.getElementById("whatsappInput").value = ""; document.getElementById("checkoutModal").style.display = "flex";
-    };
-
-    window.closeCheckout = function() { document.getElementById("checkoutModal").style.display = "none"; selectedAccountId = null; };
-
-    window.verifyPayment = function() {
-      const utr = document.getElementById("utrInput").value.trim();
-      const whatsapp = document.getElementById("whatsappInput").value.trim();
-      if (!/^\d{12}$/.test(utr)) { alert("Strict Alert ❌: Please enter a valid 12-digit UTR / Transaction ID."); return; }
-      if (whatsapp.length < 10) { alert("Please enter a valid WhatsApp number."); return; }
-      
-      const account = marketItems.find(item => item.id === selectedAccountId); if (!account) return;
-      
-      pendingPayments.push({ id: Date.now(), accountTitle: account.title, price: account.price, utr: utr, whatsapp: whatsapp, username: account.username, password: account.password });
-      saveToStorage(); closeCheckout();
-      alert(`Payment details sent securely! ✅\n\nAdmin will verify your UTR (${utr}).\nYour ID & Password will be sent to your WhatsApp (${whatsapp}) shortly.`);
-    };
-
-    document.getElementById("sellForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const fileInput = document.getElementById("sellImageFile");
-      if (fileInput.files.length === 0) return alert("Please select an image/screenshot!");
-      
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        pendingItems.push({
-          id: Date.now(), title: getValue("sellTitle"), category: getValue("sellCategory"), price: getValue("sellPrice"),
-          image: event.target.result, username: getValue("sellUsername"), password: getValue("sellPassword")
-        });
-        saveToStorage(); showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
-        document.getElementById("sellForm").reset();
-      };
-      reader.readAsDataURL(file);
-    });
-
     renderMarketplace();
-    const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
