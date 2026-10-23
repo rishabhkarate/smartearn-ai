@@ -8,10 +8,6 @@
   <meta name="description" content="Free creator tools and secure ID marketplace to buy and sell verified gaming and social accounts.">
   <meta name="robots" content="index, follow">
 
-  <!-- Google Search Console Verification -->
-  <meta name="google-site-verification" content="Fgx8aX5d4kO5iC_fr1BJs_Cq45FkFCs1rFL2xYvTHQ0" />
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TS3F36C9QF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -157,6 +153,7 @@
       border-color: var(--primary); background: rgba(139, 92, 246, 0.05);
     }
     .tool-form select option { background: var(--surface); color: white; }
+    .tool-form input[type="file"] { padding: 10px; background: rgba(0,0,0,0.4); border: 1px dashed var(--border); cursor: pointer; }
 
     .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
     .market-item { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
@@ -173,16 +170,16 @@
     .qr-box { background: white; padding: 15px; border-radius: 12px; text-align: center; width: 180px; margin: 0 auto; }
     .qr-box img { width: 150px; height: 150px; }
 
-    #adminDashboardView, .tool-detail-view { display: none; padding: 40px 5%; max-width: 900px; margin: 0 auto; }
+    #adminDashboardView, .tool-detail-view { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+    
+    .admin-card-item { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
+    .admin-card-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 5px; }
+    .admin-card-detail { font-size: 14px; color: var(--text); display: flex; flex-direction: column; gap: 4px; }
+    .admin-card-detail span { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .output-box { 
-      display: none; margin-top: 24px; padding: 20px; 
-      background: rgba(0,0,0,0.3); border: 1px solid var(--border); 
-      border-radius: var(--radius-md); 
-    }
+    .output-box { display: none; margin-top: 24px; padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: var(--radius-md); }
     .output-box.show { display: block; animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    
     .output-box h4 { color: var(--secondary); font-size: 14px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
     .output-content { white-space: pre-wrap; font-size: 14px; color: #e2e8f0; }
 
@@ -190,22 +187,20 @@
     footer a { margin: 0 10px; color: var(--text); }
     footer a:hover { color: var(--primary); }
 
-    @media (max-width: 1024px) {
-      .span-4, .span-6 { grid-column: span 6; }
-    }
+    @media (max-width: 1024px) { .span-4, .span-6 { grid-column: span 6; } }
     @media (max-width: 768px) {
       .header { width: 95%; padding: 12px 20px; }
       .header nav { display: flex; gap: 8px; }
       .hero { margin-top: 40px; }
       .span-4, .span-6, .span-12 { grid-column: span 12; }
       .tool-card { padding: 24px; }
+      #adminDashboardView .bento-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header class="header">
     <a href="#" class="logo"><span class="logo-icon">✨</span> <span>SmartEarn</span> AI</a>
-
     <nav>
       <a href="#marketplace">Marketplace</a>
       <a href="#sell-section" class="nav-btn">Sell ID 🚀</a>
@@ -222,7 +217,7 @@
       <section class="hero">
         <div class="badge"><span>✦</span> Creator Toolkit & ID Escrow</div>
         <h1>Secure ID Marketplace <br><span>Buy & Sell Instantly.</span></h1>
-        <p>Verified gaming & social media accounts with secure password delivery after payment verification[span_0](start_span)[span_0](end_span).</p>
+        <p>Verified gaming & social media accounts with manual admin escrow for secure delivery.</p>
         <a href="#marketplace" class="primary-btn">Browse Marketplace</a>
       </section>
 
@@ -237,21 +232,24 @@
           <article class="tool-card span-12" id="catalog-card" style="cursor: default;">
             <div class="tool-icon">🛒</div>
             <h3>Available Verified Accounts</h3>
-            <p>Scan QR code, pay via UPI, and get credentials instantly.</p>
+            <p>Admin verified accounts ready for secure purchase.</p>
             <div class="market-grid" id="marketList"></div>
           </article>
 
           <article class="tool-card span-12" id="sell-section" style="max-width: 700px; margin: 0 auto; cursor: default;">
             <div class="tool-icon">🏷️</div>
             <h3>List Your ID for Sale</h3>
-            <p>Submit account details along with a screenshot/image link[span_1](start_span)[span_1](end_span).</p>
+            <p>Upload a screenshot and submit details for admin approval.</p>
             <form class="tool-form" id="sellForm">
               <div class="input-group"><input id="sellTitle" placeholder="Account Title (e.g., Free Fire Level 70)" autocomplete="off" required></div>
               <div style="display:flex; gap:10px;">
                 <select id="sellCategory" style="flex:1;"><option value="Gaming">Gaming</option><option value="Instagram">Instagram</option><option value="YouTube">YouTube</option></select>
                 <input id="sellPrice" type="number" placeholder="Price (INR)" style="flex:1;" autocomplete="off" required>
               </div>
-              <div class="input-group"><input id="sellImage" placeholder="Image/Screenshot URL" autocomplete="off" required></div>
+              <div class="input-group">
+                <label>Upload Screenshot / Photo</label>
+                <input type="file" id="sellImageFile" accept="image/*" required>
+              </div>
               <div class="input-group"><input id="sellUsername" placeholder="Account Username / Login ID" autocomplete="off" required></div>
               <div class="input-group"><input type="password" id="sellPassword" placeholder="Account Password" autocomplete="new-password" required></div>
               <button class="generate-btn" type="submit">Submit for Approval 🛡️</button>
@@ -267,42 +265,12 @@
           <h2>AI Creator Power Tools</h2>
           <p>Click on any tool below to open and use it.</p>
         </div>
-
         <div class="bento-grid">
-          <article class="tool-card span-4" onclick="openTool('video')">
-            <div class="tool-icon">🪄</div>
-            <h3>AI Auto Video Generator</h3>
-            <p>Instantly generate AI videos from text prompt.</p>
-            <span class="link-text">Open Tool →</span>
-          </article>
-
-          <article class="tool-card span-4" onclick="openTool('pitch')">
-            <div class="tool-icon">🤝</div>
-            <h3>Sponsorship Pitch</h3>
-            <p>Generate professional emails to pitch brands.</p>
-            <span class="link-text">Open Tool →</span>
-          </article>
-
-          <article class="tool-card span-4" onclick="openTool('reel')">
-            <div class="tool-icon">📱</div>
-            <h3>Reel Ideas</h3>
-            <p>Viral short-video concept generator.</p>
-            <span class="link-text">Open Tool →</span>
-          </article>
-
-          <article class="tool-card span-6" onclick="openTool('script')">
-            <div class="tool-icon">🎬</div>
-            <h3>Reel Scripts</h3>
-            <p>Scene-by-scene engaging script creator.</p>
-            <span class="link-text">Open Tool →</span>
-          </article>
-
-          <article class="tool-card span-6" onclick="openTool('hook')">
-            <div class="tool-icon">🎣</div>
-            <h3>Video Hooks</h3>
-            <p>Opening lines that stop viewers from scrolling.</p>
-            <span class="link-text">Open Tool →</span>
-          </article>
+          <article class="tool-card span-4" onclick="openTool('video')"><div class="tool-icon">🪄</div><h3>AI Auto Video</h3><span class="link-text">Open Tool →</span></article>
+          <article class="tool-card span-4" onclick="openTool('pitch')"><div class="tool-icon">🤝</div><h3>Sponsorship Pitch</h3><span class="link-text">Open Tool →</span></article>
+          <article class="tool-card span-4" onclick="openTool('reel')"><div class="tool-icon">📱</div><h3>Reel Ideas</h3><span class="link-text">Open Tool →</span></article>
+          <article class="tool-card span-6" onclick="openTool('script')"><div class="tool-icon">🎬</div><h3>Reel Scripts</h3><span class="link-text">Open Tool →</span></article>
+          <article class="tool-card span-6" onclick="openTool('hook')"><div class="tool-icon">🎣</div><h3>Video Hooks</h3><span class="link-text">Open Tool →</span></article>
         </div>
       </section>
     </main>
@@ -310,10 +278,7 @@
     <!-- INDIVIDUAL TOOL DETAIL VIEW -->
   <div id="toolDetailView" class="tool-detail-view">
     <button onclick="closeToolView()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border); margin-bottom: 24px;">← Back to All Tools</button>
-    
-    <div class="tool-card" style="margin: 0; cursor: default;">
-      <div id="toolContainerContent"></div>
-    </div>
+    <div class="tool-card" style="margin: 0; cursor: default;"><div id="toolContainerContent"></div></div>
   </div>
 
   <!-- DEDICATED FULL ADMIN DASHBOARD VIEW -->
@@ -321,23 +286,31 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px;">
       <div>
         <h2 style="font-size: 28px; font-weight: 800;">🔐 Admin Control Panel</h2>
-        <p style="color: var(--muted); font-size: 14px;">Manage pending ID submissions and active marketplace items.</p>
+        <p style="color: var(--muted); font-size: 14px;">Manage pending IDs, active marketplace, and verify payments securely.</p>
       </div>
       <button onclick="closeAdminDashboard()" class="primary-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border);">← Back to Website</button>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-      <div class="tool-card" style="margin: 0; cursor: default;">
-        <h3 style="margin-bottom: 15px; color: var(--secondary);">Pending Approvals</h3>
-        <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 12px;">
-          <p style="color: var(--muted); font-size: 14px;">No pending submissions right now.</p>
-        </div>
+    <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
+      
+      <!-- Column 1: Pending ID Approvals -->
+      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px;">
+        <h3 style="margin-bottom: 15px; color: var(--secondary); border-bottom: 1px solid var(--border); padding-bottom: 10px;">⏳ Pending IDs</h3>
+        <div id="adminPendingList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
       </div>
 
-      <div class="tool-card" style="margin: 0; cursor: default;">
-        <h3 style="margin-bottom: 15px; color: var(--success);">Active Listed IDs</h3>
-        <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;"></div>
+      <!-- Column 2: Active Marketplace -->
+      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px;">
+        <h3 style="margin-bottom: 15px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 10px;">🏪 Active List</h3>
+        <div id="adminActiveList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
       </div>
+
+      <!-- Column 3: Pending Payments (Escrow) -->
+      <div class="tool-card span-4" style="margin: 0; cursor: default; padding: 24px; border-color: rgba(16, 185, 129, 0.4);">
+        <h3 style="margin-bottom: 15px; color: var(--success); border-bottom: 1px solid var(--border); padding-bottom: 10px;">💸 Payment Verification</h3>
+        <div id="adminPaymentsList" style="display: flex; flex-direction: column; gap: 16px; max-height: 500px; overflow-y: auto;"></div>
+      </div>
+
     </div>
   </div>
 
@@ -346,22 +319,25 @@
     <div class="modal-content">
       <button class="modal-close" onclick="closeCheckout()">✕</button>
       <h3 id="modalTitle" style="font-size: 20px;">Complete Payment</h3>
-      <p style="color: var(--muted); font-size: 14px;" id="modalPriceText">Scan QR code below to pay securely.</p>
+      <p style="color: var(--muted); font-size: 13px;" id="modalPriceText">Scan QR code to pay.</p>
       
       <div class="qr-box">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=1499" id="upiQrImg" alt="UPI QR">
       </div>
-      
       <div style="text-align: center; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; font-size: 13px;">
         UPI ID: <strong style="color: var(--secondary);">gaminggamer3554@okicici</strong>
       </div>
 
       <div class="input-group">
-        <label style="font-size: 12px; color: var(--muted);">Enter UTR / Transaction ID after payment:</label>
-        <input type="text" id="utrInput" placeholder="e.g., 432156789012" autocomplete="off">
+        <label style="font-size: 12px; color: var(--muted);">12-Digit UTR / Ref Number:</label>
+        <input type="text" id="utrInput" placeholder="e.g., 412345678901" autocomplete="off" required>
+      </div>
+      <div class="input-group">
+        <label style="font-size: 12px; color: var(--muted);">Your WhatsApp Number (For Delivery):</label>
+        <input type="number" id="whatsappInput" placeholder="Enter valid mobile number" autocomplete="off" required>
       </div>
 
-      <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Verify & Get Password ⚡</button>
+      <button class="primary-btn" style="width: 100%; border-radius: var(--radius-md);" onclick="verifyPayment()">Submit Verification ✅</button>
     </div>
   </div>
 
@@ -381,23 +357,21 @@
     let selectedAccountId = null;
 
     let marketItems = JSON.parse(localStorage.getItem("marketItems")) || [
-      { id: 1, title: "Free Fire Max Level 72", category: "Gaming", price: 1499, image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60", username: "user_ff_72", password: "SecretPassword123" },
-      { id: 2, title: "Instagram Organic Page (15k)", category: "Instagram", price: 2499, image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&auto=format&fit=crop&q=60", username: "insta_growth_hub", password: "SecureInstaPass99" }
+      { id: 1, title: "Free Fire Max Level 72", category: "Gaming", price: 1499, image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60", username: "user_ff_72", password: "SecretPassword123" }
     ];
     let pendingItems = JSON.parse(localStorage.getItem("pendingItems")) || [];
+    let pendingPayments = JSON.parse(localStorage.getItem("pendingPayments")) || [];
 
     function saveToStorage() {
       localStorage.setItem("marketItems", JSON.stringify(marketItems));
       localStorage.setItem("pendingItems", JSON.stringify(pendingItems));
+      localStorage.setItem("pendingPayments", JSON.stringify(pendingPayments));
     }
 
     function renderMarketplace() {
       const listEl = document.getElementById("marketList");
       if (!listEl) return;
-      if (marketItems.length === 0) {
-        listEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No accounts listed right now.</p>`;
-        return;
-      }
+      if (marketItems.length === 0) { listEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No accounts listed right now.</p>`; return; }
       listEl.innerHTML = marketItems.map(item => `
         <div class="market-item">
           <img src="${item.image}" alt="Account Image" class="market-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60'">
@@ -413,7 +387,6 @@
 
     window.openTool = function(toolName) {
       document.getElementById("mainWebsiteView").style.display = "none";
-      document.getElementById("adminDashboardView").style.display = "none";
       const detailView = document.getElementById("toolDetailView");
       const container = document.getElementById("toolContainerContent");
       detailView.style.display = "block";
@@ -421,63 +394,15 @@
 
       let htmlContent = "";
       if (toolName === 'video') {
-        htmlContent = `
-          <div class="tool-icon" style="background: var(--primary); border: none;">🪄</div>
-          <h3>AI Auto Video Generator</h3>
-          <p>Instantly generate AI videos from a simple text prompt.</p>
-          <form class="tool-form" id="activeToolForm">
-            <div class="input-group"><textarea id="activePrompt" placeholder="e.g., A futuristic cyberpunk city, neon lights..." required></textarea></div>
-            <button class="generate-btn" type="submit" id="activeVideoBtn" style="background: white; color: black;">Generate Video</button>
-          </form>
-          <div class="output-box" id="activeVideoOutput" style="display:none;"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
+        htmlContent = `<div class="tool-icon" style="background: var(--primary); border: none;">🪄</div><h3>AI Auto Video Generator</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><textarea id="activePrompt" placeholder="Prompt..." required></textarea></div><button class="generate-btn" type="submit" id="activeVideoBtn" style="background: white; color: black;">Generate Video</button></form><div class="output-box" id="activeVideoOutput"><h4 id="activeVideoStatus">Your AI Video</h4><div class="output-content" style="text-align: center;"><video id="activeAiVideoPlayer" width="100%" controls style="display: none; border-radius: 8px; margin-top: 10px;"></video></div></div>`;
       } else if (toolName === 'pitch') {
-        htmlContent = `
-          <div class="tool-icon">🤝</div>
-          <h3>Sponsorship Pitch</h3>
-          <p>Generate emails to pitch brands.</p>
-          <form class="tool-form" id="activeToolForm">
-            <div class="input-group"><input id="pitchName" placeholder="Your/Channel Name" autocomplete="off" required></div>
-            <div class="input-group"><input id="pitchNiche" placeholder="Niche (e.g. Tech)" autocomplete="off" required></div>
-            <div style="display: flex; gap: 10px;">
-              <div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" autocomplete="off" required></div>
-              <div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" autocomplete="off" required></div>
-            </div>
-            <button class="generate-btn" type="submit">Draft Pitch</button>
-          </form>
-          <div class="output-box" id="activeOutputBox"><h4>Your Pitch</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        htmlContent = `<div class="tool-icon">🤝</div><h3>Sponsorship Pitch</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="pitchName" placeholder="Name" autocomplete="off" required></div><div class="input-group"><input id="pitchNiche" placeholder="Niche" autocomplete="off" required></div><div style="display: flex; gap: 10px;"><div class="input-group" style="flex: 1;"><input id="pitchFollowers" placeholder="Followers" autocomplete="off" required></div><div class="input-group" style="flex: 1;"><input id="pitchBrand" placeholder="Target Brand" autocomplete="off" required></div></div><button class="generate-btn" type="submit">Draft Pitch</button></form><div class="output-box" id="activeOutputBox"><h4>Your Pitch</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'reel') {
-        htmlContent = `
-          <div class="tool-icon">📱</div>
-          <h3>Reel Ideas</h3>
-          <p>Viral short-video concepts.</p>
-          <form class="tool-form" id="activeToolForm">
-            <div class="input-group"><input id="reelNiche" placeholder="Your Niche" autocomplete="off" required></div>
-            <div class="input-group"><select id="reelPlatform"><option value="instagram">Instagram Reels</option><option value="youtube">YouTube Shorts</option></select></div>
-            <button class="generate-btn" type="submit">Get Ideas</button>
-          </form>
-          <div class="output-box" id="activeOutputBox"><h4>Ideas</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        htmlContent = `<div class="tool-icon">📱</div><h3>Reel Ideas</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="reelNiche" placeholder="Your Niche" autocomplete="off" required></div><div class="input-group"><select id="reelPlatform"><option value="instagram">Instagram</option><option value="youtube">YouTube</option></select></div><button class="generate-btn" type="submit">Get Ideas</button></form><div class="output-box" id="activeOutputBox"><h4>Ideas</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'script') {
-        htmlContent = `
-          <div class="tool-icon">🎬</div>
-          <h3>Reel Scripts</h3>
-          <p>Scene-by-scene script generator.</p>
-          <form class="tool-form" id="activeToolForm">
-            <div class="input-group"><input id="scriptTopic" placeholder="Video Topic" autocomplete="off" required></div>
-            <div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option><option value="motivational">Motivational</option><option value="story">Storytelling</option></select></div>
-            <button class="generate-btn" type="submit">Write Script</button>
-          </form>
-          <div class="output-box" id="activeOutputBox"><h4>Script</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        htmlContent = `<div class="tool-icon">🎬</div><h3>Reel Scripts</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="scriptTopic" placeholder="Topic" autocomplete="off" required></div><div class="input-group"><select id="scriptVibe"><option value="educational">Educational</option><option value="funny">Funny</option></select></div><button class="generate-btn" type="submit">Write Script</button></form><div class="output-box" id="activeOutputBox"><h4>Script</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       } else if (toolName === 'hook') {
-        htmlContent = `
-          <div class="tool-icon">🎣</div>
-          <h3>Video Hooks</h3>
-          <p>Opening lines that stop scroll.</p>
-          <form class="tool-form" id="activeToolForm">
-            <div class="input-group"><input id="hookTopic" placeholder="Video topic" autocomplete="off" required></div>
-            <div class="input-group"><select id="hookStyle"><option value="question">Question</option><option value="curiosity">Curiosity</option><option value="story">Story</option><option value="bold">Bold statement</option></select></div>
-            <button class="generate-btn" type="submit">Get Hooks</button>
-          </form>
-          <div class="output-box" id="activeOutputBox"><h4>Hooks</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
+        htmlContent = `<div class="tool-icon">🎣</div><h3>Video Hooks</h3><form class="tool-form" id="activeToolForm"><div class="input-group"><input id="hookTopic" placeholder="Topic" autocomplete="off" required></div><button class="generate-btn" type="submit">Get Hooks</button></form><div class="output-box" id="activeOutputBox"><h4>Hooks</h4><div class="output-content" id="activeOutputResult"></div><button class="copy-btn" type="button" onclick="copyOutput('activeOutputResult')">Copy</button></div>`;
       }
 
       container.innerHTML = htmlContent;
@@ -485,164 +410,133 @@
       document.getElementById("activeToolForm").addEventListener("submit", async function(e) {
         e.preventDefault();
         if (toolName === 'video') {
-          const prompt = getValue("activePrompt");
-          const btn = document.getElementById("activeVideoBtn");
-          const statusText = document.getElementById("activeVideoStatus");
-          const videoPlayer = document.getElementById("activeAiVideoPlayer");
-          const box = document.getElementById("activeVideoOutput");
-          box.style.display = "block";
-          btn.innerText = "Generating... (Wait ⏳)"; btn.disabled = true;
-          statusText.innerText = "Connecting to server...";
-          videoPlayer.style.display = "none";
+          const btn = document.getElementById("activeVideoBtn"); const statusText = document.getElementById("activeVideoStatus"); const videoPlayer = document.getElementById("activeAiVideoPlayer"); const box = document.getElementById("activeVideoOutput");
+          box.style.display = "block"; btn.innerText = "Wait ⏳"; btn.disabled = true; statusText.innerText = "Connecting..."; videoPlayer.style.display = "none";
           try {
-            const response = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: prompt }) });
-            const data = await response.json();
-            if (data.success) { statusText.innerText = "Video Generated Successfully! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; }
-          } catch (error) { statusText.innerText = "Error connecting to server."; }
+            const res = await fetch("https://smartearn-backend.onrender.com/api/generate-video", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: getValue("activePrompt") }) });
+            const data = await res.json();
+            if (data.success) { statusText.innerText = "Success! 🎉"; videoPlayer.src = data.videoUrl; videoPlayer.style.display = "block"; } else { statusText.innerText = "Error: " + data.message; }
+          } catch (err) { statusText.innerText = "Error connecting to server."; }
           btn.innerText = "Generate Video 🪄"; btn.disabled = false;
         } else if (toolName === 'pitch') {
-          const name = getValue("pitchName"), niche = getValue("pitchNiche"), followers = getValue("pitchFollowers"), brand = getValue("pitchBrand");
-          showOutput("activeOutputBox", "activeOutputResult", `Subject: Collaboration Opportunity: ${name} x ${brand}\n\nHi ${brand} Team,\n\nI run a ${niche} channel with ${followers} followers. Let's collaborate!\n\nBest,\n${name}`);
-        } else if (toolName === 'reel') {
-          const niche = getValue("reelNiche"), platform = getValue("reelPlatform");
-          const ideas = [`5 things beginners should know about ${niche}`, `A common ${niche} mistake and how to improve`, `Myth vs fact: ${niche}`, `A beginner's guide to ${niche}`, `Things I wish I knew earlier about ${niche}`];
-          showOutput("activeOutputBox", "activeOutputResult", (platform === "youtube" ? "YouTube Shorts Ideas" : "Instagram Reel Ideas") + "\n\n" + formatList(pick(ideas, 5)));
+          showOutput("activeOutputBox", "activeOutputResult", `Hi ${getValue("pitchBrand")} Team,\nI run a ${getValue("pitchNiche")} channel with ${getValue("pitchFollowers")} followers. Let's collaborate!\nBest, ${getValue("pitchName")}`);
+        } else if (toolName === 'reel' || toolName === 'hook') {
+          showOutput("activeOutputBox", "activeOutputResult", formatList([`Idea 1 for ${getValue("reelNiche") || getValue("hookTopic")}`, `Idea 2 for beginners`, `Myth vs Fact`]));
         } else if (toolName === 'script') {
-          const topic = getValue("scriptTopic"), vibe = getValue("scriptVibe");
-          const scripts = { educational: `Hook (0-3s): Stop doing ${topic} like this!\nScene 1: 90% of people get it wrong...\nCTA: Follow for more!`, funny: `Hook (0-3s): Me trying to understand ${topic}...\nScene 1: Total confusion!\nCTA: Tag a friend!` };
-          showOutput("activeOutputBox", "activeOutputResult", scripts[vibe] || scripts.educational);
-        } else if (toolName === 'hook') {
-          const topic = getValue("hookTopic");
-          const hooks = [`Want to improve your ${topic} skills?`, `Most beginners overlook this about ${topic}.`, `Let me tell you what happened during my ${topic} journey.`];
-          showOutput("activeOutputBox", "activeOutputResult", formatList(hooks));
+          showOutput("activeOutputBox", "activeOutputResult", `Hook: Stop doing ${getValue("scriptTopic")} like this!\nScene 1: People get it wrong...\nCTA: Follow for more!`);
         }
       });
     };
 
-    window.closeToolView = function() {
-      document.getElementById("toolDetailView").style.display = "none";
-      document.getElementById("mainWebsiteView").style.display = "block";
-    };
+    window.closeToolView = function() { document.getElementById("toolDetailView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
 
     window.openAdminDashboard = function() {
       const enteredPass = prompt("Enter Admin Password:");
       if (enteredPass === null) return;
-      if (enteredPass !== ADMIN_PASSWORD) {
-        alert("Incorrect Password! Access Denied ❌");
-        return;
-      }
+      if (enteredPass !== ADMIN_PASSWORD) { alert("Incorrect Password! Access Denied ❌"); return; }
       document.getElementById("mainWebsiteView").style.display = "none";
       document.getElementById("toolDetailView").style.display = "none";
       document.getElementById("adminDashboardView").style.display = "block";
-      renderAdminDashboard();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      renderAdminDashboard(); window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    window.closeAdminDashboard = function() {
-      document.getElementById("adminDashboardView").style.display = "none";
-      document.getElementById("mainWebsiteView").style.display = "block";
-    };
+    window.closeAdminDashboard = function() { document.getElementById("adminDashboardView").style.display = "none"; document.getElementById("mainWebsiteView").style.display = "block"; };
 
     function renderAdminDashboard() {
       const pendingEl = document.getElementById("adminPendingList");
       const activeEl = document.getElementById("adminActiveList");
-      if (!pendingEl || !activeEl) return;
+      const paymentsEl = document.getElementById("adminPaymentsList");
 
-      if (pendingItems.length === 0) {
-        pendingEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No pending submissions right now.</p>`;
-      } else {
-        pendingEl.innerHTML = pendingItems.map((item, index) => `
-          <div style="background:rgba(0,0,0,0.3); padding:14px; border-radius:10px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <strong>${item.title}</strong><br>
-              <small style="color:var(--muted);">₹${item.price} | User: ${item.username}</small>
-            </div>
-            <button onclick="approveItem(${index})" style="background:var(--success); color:white; border:none; padding:8px 14px; border-radius:6px; font-weight:600; cursor:pointer;">Approve & List ✔️</button>
+      if (pendingItems.length === 0) pendingEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No pending IDs.</p>`;
+      else pendingEl.innerHTML = pendingItems.map((item, index) => `
+        <div class="admin-card-item">
+          <div class="admin-card-header">
+            <strong style="color:var(--secondary); font-size:15px;">${item.title}</strong>
+            <button onclick="approveItem(${index})" style="background:var(--success); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Approve</button>
           </div>
-        `).join("");
-      }
+          <div class="admin-card-detail">
+            <div><span>Price:</span> ₹${item.price}</div>
+            <div><span>User:</span> ${item.username}</div>
+            <div><span>Pass:</span> ${item.password}</div>
+          </div>
+        </div>`).join("");
 
-      if (marketItems.length === 0) {
-        activeEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No active accounts.</p>`;
-      } else {
-        activeEl.innerHTML = marketItems.map((item, index) => `
-          <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; border:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <strong>${item.title}</strong><br>
-              <small style="color:var(--muted);">₹${item.price} | Pswd: ${item.password}</small>
-            </div>
-            <button onclick="deleteActiveItem(${index})" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:600; cursor:pointer;">Remove 🗑️</button>
+      if (marketItems.length === 0) activeEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No active IDs.</p>`;
+      else activeEl.innerHTML = marketItems.map((item, index) => `
+        <div class="admin-card-item">
+          <div class="admin-card-header">
+            <strong style="color:var(--primary); font-size:15px;">${item.title}</strong>
+            <button onclick="deleteActiveItem(${index})" style="background:#ef4444; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Delete</button>
           </div>
-        `).join("");
-      }
+          <div class="admin-card-detail">
+            <div><span>Price:</span> ₹${item.price}</div>
+            <div><span>Pass:</span> ${item.password}</div>
+          </div>
+        </div>`).join("");
+
+      if (pendingPayments.length === 0) paymentsEl.innerHTML = `<p style="color:var(--muted); font-size:14px;">No payments to verify.</p>`;
+      else paymentsEl.innerHTML = pendingPayments.map((item, index) => `
+        <div class="admin-card-item" style="border-color: rgba(16, 185, 129, 0.4);">
+          <div class="admin-card-header">
+            <strong style="color:var(--success); font-size:15px;">₹${item.price}</strong>
+            <button onclick="clearPayment(${index})" style="background:var(--success); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Clear</button>
+          </div>
+          <div class="admin-card-detail">
+            <div><span>Item:</span> ${item.accountTitle}</div>
+            <div><span>UTR:</span> <strong style="color:white; letter-spacing:1px;">${item.utr}</strong></div>
+            <div><span>WhatsApp:</span> ${item.whatsapp}</div>
+            <hr style="border: 0; border-top: 1px dashed var(--border); margin: 6px 0;">
+            <div><span>ID:</span> ${item.username}</div>
+            <div><span>Pass:</span> ${item.password}</div>
+          </div>
+        </div>`).join("");
     }
 
-    window.approveItem = function(index) {
-      const approved = pendingItems.splice(index, 1)[0];
-      marketItems.push(approved);
-      saveToStorage();
-      renderMarketplace();
-      renderAdminDashboard();
-      alert("Account approved and published successfully! 🎉");
-    };
-
-    window.deleteActiveItem = function(index) {
-      if (confirm("Are you sure you want to remove this listed account?")) {
-        marketItems.splice(index, 1);
-        saveToStorage();
-        renderMarketplace();
-        renderAdminDashboard();
-      }
-    };
+    window.approveItem = function(index) { marketItems.push(pendingItems.splice(index, 1)[0]); saveToStorage(); renderMarketplace(); renderAdminDashboard(); };
+    window.deleteActiveItem = function(index) { if (confirm("Remove this ID?")) { marketItems.splice(index, 1); saveToStorage(); renderMarketplace(); renderAdminDashboard(); } };
+    window.clearPayment = function(index) { if (confirm("Mark payment as verified and clear?")) { pendingPayments.splice(index, 1); saveToStorage(); renderAdminDashboard(); } };
 
     window.openCheckout = function(id) {
-      const account = marketItems.find(item => item.id === id);
-      if (!account) return;
-      selectedAccountId = id;
-      document.getElementById("modalTitle").innerText = `Buy: ${account.title}`;
-      document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${account.price}`;
+      const account = marketItems.find(item => item.id === id); if (!account) return;
+      selectedAccountId = id; document.getElementById("modalTitle").innerText = `Buy: ${account.title}`; document.getElementById("modalPriceText").innerText = `Amount to Pay: ₹${account.price}`;
       document.getElementById("upiQrImg").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=gaminggamer3554@okicici&pn=GamingONME&am=${account.price}`;
-      document.getElementById("utrInput").value = "";
-      document.getElementById("checkoutModal").style.display = "flex";
+      document.getElementById("utrInput").value = ""; document.getElementById("whatsappInput").value = ""; document.getElementById("checkoutModal").style.display = "flex";
     };
 
-    window.closeCheckout = function() {
-      document.getElementById("checkoutModal").style.display = "none";
-      selectedAccountId = null;
-    };
+    window.closeCheckout = function() { document.getElementById("checkoutModal").style.display = "none"; selectedAccountId = null; };
 
     window.verifyPayment = function() {
       const utr = document.getElementById("utrInput").value.trim();
-      if (!utr) {
-        alert("Please enter UPI Transaction ID (UTR) after payment!");
-        return;
-      }
-      const account = marketItems.find(item => item.id === selectedAccountId);
-      if (!account) return;
-
-      closeCheckout();
-      alert(`Payment Verified Successfully! 🎉\n\nAccount: ${account.title}\nUsername: ${account.username}\nPassword: ${account.password}\n\nPlease copy and save these details securely!`);
+      const whatsapp = document.getElementById("whatsappInput").value.trim();
+      if (!/^\d{12}$/.test(utr)) { alert("Strict Alert ❌: Please enter a valid 12-digit UTR / Transaction ID."); return; }
+      if (whatsapp.length < 10) { alert("Please enter a valid WhatsApp number."); return; }
+      
+      const account = marketItems.find(item => item.id === selectedAccountId); if (!account) return;
+      
+      pendingPayments.push({ id: Date.now(), accountTitle: account.title, price: account.price, utr: utr, whatsapp: whatsapp, username: account.username, password: account.password });
+      saveToStorage(); closeCheckout();
+      alert(`Payment details sent securely! ✅\n\nAdmin will verify your UTR (${utr}).\nYour ID & Password will be sent to your WhatsApp (${whatsapp}) shortly.`);
     };
 
     document.getElementById("sellForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const newItem = {
-        id: Date.now(),
-        title: getValue("sellTitle"),
-        category: getValue("sellCategory"),
-        price: getValue("sellPrice"),
-        image: getValue("sellImage"),
-        username: getValue("sellUsername"),
-        password: getValue("sellPassword")
+      const fileInput = document.getElementById("sellImageFile");
+      if (fileInput.files.length === 0) return alert("Please select an image/screenshot!");
+      
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        pendingItems.push({
+          id: Date.now(), title: getValue("sellTitle"), category: getValue("sellCategory"), price: getValue("sellPrice"),
+          image: event.target.result, username: getValue("sellUsername"), password: getValue("sellPassword")
+        });
+        saveToStorage(); showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
+        document.getElementById("sellForm").reset();
       };
-      pendingItems.push(newItem);
-      saveToStorage();
-      showOutput("sellOutput", "sellResult", "Account submitted successfully! Waiting for Admin approval 🛡️");
-      this.reset();
+      reader.readAsDataURL(file);
     });
 
     renderMarketplace();
-
     const yearElement = document.getElementById("currentYear"); if (yearElement) yearElement.textContent = new Date().getFullYear();
   </script>
 </body>
