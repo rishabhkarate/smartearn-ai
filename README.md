@@ -21,3 +21,4 @@ Welcome to the **SmartEarn AI Marketplace**! This is a professional, highly secu
 
 ---
 *Developed for SmartEarn AI. All rights reserved.*
+
